@@ -49,7 +49,12 @@
                     <span>Fasilitas</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                <a class="nav-link" href="/kelembagaan">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Kelembagaan Pengabdian</span></a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link collapsed" href="/kelembagaan" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Kelembagaan Pengabdian</span>
@@ -66,7 +71,7 @@
                         <a class="collapse-item" href="blank.html">Blank Page</a>
                     </div>
                 </div>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">

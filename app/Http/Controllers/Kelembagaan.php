@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Unitbisnis extends Controller
+class Kelembagaan extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,23 +15,10 @@ class Unitbisnis extends Controller
     public function index()
     {
         //
-            $data = DB::table('unitbisnis as ub')
+            $data = DB::table('kelembagaan_pengabdian')
                     ->get();
 
-            $i = 0;
-            if($data){
-                foreach($data as $dat) {
-                    $mitra[] = DB::table('mitra')
-                    ->join('mitraub','mitraub.id_mitra','=','mitra.id')
-                    ->where('id_ub','=',$dat->id)
-                    ->select('mitra.*')
-                    ->get();
-                };
-                $ub['mitra'] =$mitra; 
-                return view('unit_bisnis/unit_bisnis',['data'=>$data,'ub'=>$ub]);
-            } else{
-                return view('unit_bisnis/unit_bisnis',['data'=>$data]);
-            }
+        return view('kelembagaan/kelembagaan',['data'=>$data]);
     }
 
     /**
@@ -44,7 +31,7 @@ class Unitbisnis extends Controller
         //
         // $data = Prodi::get();
         // $data = DB::table('prodi')->get();
-        return view('unit_bisnis/add_ub');
+        return view('kelembagaan/add_kelembagaan');
     }
 
     /**
@@ -55,33 +42,29 @@ class Unitbisnis extends Controller
      */
     public function store(Request $request)
     {
-            // $data = new fasil;
-            // $data->NamaLab = $request->NamaLab;
-            // $data->Lingkup = $request->Lingkup;
-            // $data->SK = $request->filessk;
-            // $data->save();
             $data = array(
-                'nama'=> $request->Namaub,
-                'deskripsi'=> $request->Deskripsi,
-                'nosk'=> $request->Nosk,
-                // 'SKPUB'=> $request->file('Sk')->store('public/Unit Bisnis/SK'),
-                // 'LKUB'=> $request->file('Lap')->store('public/Unit Bisnis/Laporan Keuangan'),
+                'nama'=> $request->nama,
+                'tahun'=> $request->tahun,
+                'no_sk'=> $request->nosk,
+                'sk_pendirian'=> $request->file('filesk')->store('public/Kelembagaan/SK'),
+                'alamat'=> $request->alamat,
+                'no_telp'=> $request->nopon,
+                'no_fax'=> $request->nofax,
+                'email'=> $request->email,
+                'url'=> $request->url,
+                'no_sk_resentra'=> $request->nores,
+                'resentra'=> $request->file('fileres')->store('public/Kelembagaan/SK Resentra'),
+                'nama_ketua'=> $request->namaket,
+                'nidn'=> $request->nidn,
+                'ruang_pimpinan'=> $request->pimpinan,
+                'ruang_administrasi'=> $request->adm,
+                'ruang_penyimpanan_arsip'=> $request->arsp,
+                'ruang_pertemuan'=> $request->pertemuan,
+                'ruang_seminar'=> $request->sem,
                 // 'invoice'=> $request->file('inv')->store('public/Unit Bisnis/Invoice'),
             );
-            $id = DB::table('unitbisnis')->insertGetId($data);
-            $mou = $request->file('mou');
-            foreach($mou as $mou){
-                $mou->store('public/Unit Bisnis/MOU');
-            };
-            foreach($request->namamitra as $key=>$value){
-                $mitra = array(
-                    'id_ub' => $id,
-                    'nama'=>$request->namamitra[$key],
-                    'mou' =>$mou->store('public/Unit Bisnis/MOU'),
-                );
-                DB::table('mitraub')->insert($mitra);
-            }
-            return redirect()->action([Unitbisnis::class,'index']);
+            $id = DB::table('kelembagaan_pengabdian')->insertGetId($data);
+            return redirect()->action([Kelembagaan::class,'index']);
     }
 
     /**
@@ -144,7 +127,7 @@ class Unitbisnis extends Controller
     public function destroy($id)
     {
         //
-        DB::table('unitbisnis')->where('id','=',$id)->delete();
-        return redirect()->action([Unitbisnis::class,'index']);
+        DB::table('kelembagaan_pengabdian')->where('id','=',$id)->delete();
+        return redirect()->action([Kelembagaan::class,'index']);
     }
 }

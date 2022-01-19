@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Fasilitas as fasil;
 use App\Models\Prodi;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Auth\Access\Response;
 
 class Fasilitas extends Controller
 {
@@ -45,7 +46,7 @@ class Fasilitas extends Controller
             $data = new fasil;
             $data->NamaLab = $request->NamaLab;
             $data->Lingkup = $request->Lingkup;
-            $data->SK = $request->filessk;
+            $data->SK = $request->file('filesk')->store('public/fasilitas');
             $data->save();
             return redirect()->action([Fasilitas::class,'index']);
     }
@@ -58,7 +59,14 @@ class Fasilitas extends Controller
      */
     public function show($id)
     {
-        //
+        $path = fasil::where('id','=',$id)->get();
+        $response = \Response::make($path[0]->SK,200);
+        $content_types = 'application/pdf';
+        header('Content-type : application/pdf');
+        $file = \Storage::url($path[0]->SK);
+
+        readfile($path[0]->SK);
+        // return $path[0]->SK;
     }
 
     /**
@@ -83,10 +91,11 @@ class Fasilitas extends Controller
      */
     public function update(Request $request, $id)
     {
+        $SK = $request->file('filesk')->store('public/fasilitas');
             $data = array (
                 'NamaLab' => $request->NamaLab,
                 'Lingkup' => $request->Lingkup,
-                'SK' => $request->filesk,
+                'SK' => $SK,
             );
             fasil::where('id',$id)->update($data);
             // return $data;
@@ -104,5 +113,12 @@ class Fasilitas extends Controller
         //
         fasil::where('id','=',$id)->delete();
         return redirect()->action([Fasilitas::class,'index']);
+    }
+
+    public function download($id){
+        $path = fasil::where('id','=',$id)->get();
+        $name =$path[0]->NamaLab;
+        // $name +='.pdf';
+        return \Storage::download($path[0]->SK,`$name`);
     }
 }

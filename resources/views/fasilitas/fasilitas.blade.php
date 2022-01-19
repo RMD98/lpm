@@ -37,9 +37,13 @@
                             <td><?php echo $data->Lingkup ?></td>
                             @if ($data->SK !=NULL )
                                 <td>
-                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <a href="/fas_down/<?php echo $data->id ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                         <i class="fas fa-download fa-sm text-white-50"></i>
                                         Download</a>
+                                    <br>
+                                    <a href="/fas_file/<?php echo $data->id ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <i class="fas fa-eye fa-sm text-white-50"></i>
+                                        Show</a>
                                 </td>
                             @else
                             <td>

@@ -6,7 +6,7 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/add_fasil" method="post">
+        <form action="/add_fasil" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
@@ -28,7 +28,7 @@
                     <p><b>Surat Keterangan</b>
                     <label for="Ada">
                         <input type="checkbox" id="Ada"> Ada
-                        <input type="file" id="filesk" disabled=true name="filesk">
+                        <input type="file" id="filesk" accept=".pdf" disabled=true name="filesk">
                     </label>
                 </p>
                 </div>
