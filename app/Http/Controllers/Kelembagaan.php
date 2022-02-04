@@ -92,9 +92,9 @@ class Kelembagaan extends Controller
      */
     public function edit($id)
     {
-            $data = DB::table('unitbisnis')->where('id','=',$id)->get();
+            $data = DB::table('kelembagaan_pengabdian')->where('id','=',$id)->get();
             // $prodi = DB::table('prodi')->get();
-            return view('unit_bisnis/edit_ub',['data'=>$data[0]]);
+            return view('kelembagaan/edit_kelembagaan',['data'=>$data[0]]);
     }
 
     /**

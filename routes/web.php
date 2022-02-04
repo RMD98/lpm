@@ -7,6 +7,7 @@ use App\Http\Controllers\Pkm;
 use App\Http\Controllers\Standar;
 use App\Http\Controllers\Unitbisnis;
 use App\Http\Controllers\Kelembagaan;
+use App\Http\Controllers\Manajemen;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +21,7 @@ use App\Http\Controllers\Kelembagaan;
 
 Route::get('/',[Controller::class,'index']);
 Route::get('/pkm',[Pkm::class,'index']);
+Route::get('/manajemen',[Manajemen::class,'index']);
 Route::get('/kelembagaan',[Kelembagaan::class,'index']);
 Route::get('/unit_bisnis',[Unitbisnis::class,'index']);
 Route::get('/standar',[Standar::class,'index']);
@@ -29,6 +31,7 @@ Route::get('/add_kelembagaan',[Kelembagaan::class,'create']);
 Route::get('/add_pkm',[Pkm::class,'create']);
 Route::get('/add_ub',[Unitbisnis::class,'create']);
 Route::get('/add_standar',[Standar::class,'create']);
+Route::get('/add_manajemen',[Manajemen::class,'create']);
 Route::post('/addpkm',[Pkm::class,'store']);
 Route::post('/addub',[Unitbisnis::class,'store']);
 Route::post('/addstandar',[Standar::class,'store']);
@@ -39,16 +42,26 @@ Route::get('/edit_pkm/{id}',[Pkm::class,'edit']);
 Route::get('/edit_standar/{id}',[Standar::class,'edit']);
 Route::get('/edit_standar/{id}',[Standar::class,'edit']);
 Route::get('/edit_ub/{id}',[Unitbisnis::class,'edit']);
+Route::get('/edit_kelembagaan/{id}',[Kelembagaan::class,'edit']);
 Route::get('/del_fasilitas/{id}',[Fasilitas::class,'destroy']);
 Route::get('/del_pkm/{id}',[Pkm::class,'destroy']);
+Route::get('/del_pkm/{ids}/{id}',[Pkm::class,'del']);
 Route::get('/del_kelembagaan/{id}',[Kelembagaan::class,'destroy']);
 Route::get('/del_standar/{id}',[Standar::class,'destroy']);
 Route::get('/del_ub/{id}',[Unitbisnis::class,'destroy']);
 Route::post('/editpkm/{id}',[Pkm::class,'update']);
 Route::post('/edt_fasil/{id}',[Fasilitas::class,'update']);
 Route::post('/edt_standar/{id}',[Standar::class,'update']);
+Route::post('/edt_kelembagaan/{id}',[Kelembagaan::class,'update']);
 Route::get('/fas_down/{id}',[Fasilitas::class,'download']);
-Route::get('/ub_file/{id}',[Unitbisnis::class,'show']);
+Route::get('/unit_bisnis/{id}',[Unitbisnis::class,'show']);
+Route::get('/pkm/{id}',[Pkm::class,'show']);
+Route::get('/pkm/mhs/{id}',[Pkm::class,'mhs']);
+Route::get('/pkm/alm/{id}',[Pkm::class,'alm']);
+Route::get('/pkm/staff/{id}',[Pkm::class,'staff']);
+Route::post('/editpkm/mhs/{id}',[Pkm::class,'upsirtmhs']);
+Route::post('/editpkm/alm/{id}',[Pkm::class,'upsirtalm']);
+Route::post('/editpkm/staff/{id}',[Pkm::class,'upsirtstaff']);
 Route::get('/fas_file/{id}',[Fasilitas::class,'show']);
 Route::get('/login', function () {
     return view('auth/login');

@@ -49,6 +49,7 @@
                             <td><?php echo $data->lab ?></td>
                             <td><?php echo $data->kelengkapan ?></td>
                             <td>
+                                <a href="/pkm/<?php echo $data->id ?>" class="btn btn-success">DETAIL <i class="fas fa-eye"></i></a>
                                 <a href="/edit_pkm/<?php echo $data->id ?>" class="btn btn-primary">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                                 <a data-toggle="modal" data-target="#deletemodal<?php echo $data->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a>
                             </td>

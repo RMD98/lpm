@@ -48,6 +48,7 @@
                             @endforeach
                                         <td></td>
                             <td>
+                                <a href="/unit_bisnis/<?php echo $data->id ?>" class="btn btn-success">DETAIL <i class="fas fa-eye"></i></a>
                                 <a href="/edit_ub/<?php echo $data->id ?>" class="btn btn-primary">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                                 <a data-toggle="modal" data-target="#deletemodal<?php echo $data->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a>
                             </td>

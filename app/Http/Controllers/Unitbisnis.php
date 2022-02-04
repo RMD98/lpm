@@ -55,29 +55,43 @@ class Unitbisnis extends Controller
      */
     public function store(Request $request)
     {
-            // $data = new fasil;
-            // $data->NamaLab = $request->NamaLab;
-            // $data->Lingkup = $request->Lingkup;
-            // $data->SK = $request->filessk;
-            // $data->save();
+            if($request->file('Sk') != NULL){
+                $Sk = $request->file('Sk')->store('public/Unit Bisnis/SK');
+            } else {
+                $Sk = NULL;
+            }
+            if($request->file('Lap') != NULL){
+                $Lap = $request->file('Lap')->store('public/Unit Bisnis/Laporan');
+            } else {
+                $Lap = NULL;
+            }
+            if($request->file('inv') != NULL){
+                $inv = $request->file('inv')->store('public/Unit Bisnis/Invoice');
+            } else {
+                $inv = NULL;
+            }
             $data = array(
                 'nama'=> $request->Namaub,
                 'deskripsi'=> $request->Deskripsi,
                 'nosk'=> $request->Nosk,
-                // 'SKPUB'=> $request->file('Sk')->store('public/Unit Bisnis/SK'),
-                // 'LKUB'=> $request->file('Lap')->store('public/Unit Bisnis/Laporan Keuangan'),
-                // 'invoice'=> $request->file('inv')->store('public/Unit Bisnis/Invoice'),
+                'SKPUB'=> $Sk,
+                'LKUB'=> $Lap,
+                'invoice'=> $inv,
             );
             $id = DB::table('unitbisnis')->insertGetId($data);
             $mou = $request->file('mou');
             foreach($mou as $mou){
-                $mou->store('public/Unit Bisnis/MOU');
+                if($mou != NULL){
+                    $file = $mou->store('public/Unit Bisnis/MOU');
+                } else {
+                    $file = NULL;
+                }
             };
             foreach($request->namamitra as $key=>$value){
                 $mitra = array(
                     'id_ub' => $id,
                     'nama'=>$request->namamitra[$key],
-                    'mou' =>$mou->store('public/Unit Bisnis/MOU'),
+                    'mou' => $file,
                 );
                 DB::table('mitraub')->insert($mitra);
             }
@@ -90,7 +104,13 @@ class Unitbisnis extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id){
+        $data = DB::table('unitbisnis')->where('id','=',$id)->get();
+        $mitra = DB::table('mitraub')->where('id_ub','=',$id)->get();
+        return view('unit_bisnis/unit_bisnis_show',['data'=>$data[0],'mitra'=>$mitra]);
+    }
+
+    public function file($id)
     {
         //
         $data = DB::table('unitbisnis')->where('id','=',$id)->get();
