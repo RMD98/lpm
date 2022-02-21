@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Kelembagaan as Kelembagaans;
 
 class Kelembagaan extends Controller
 {
@@ -15,8 +16,7 @@ class Kelembagaan extends Controller
     public function index()
     {
         //
-            $data = DB::table('kelembagaan_pengabdian')
-                    ->get();
+            $data = Kelembagaans::get();
 
         return view('kelembagaan/kelembagaan',['data'=>$data]);
     }
@@ -63,7 +63,7 @@ class Kelembagaan extends Controller
                 'ruang_seminar'=> $request->sem,
                 // 'invoice'=> $request->file('inv')->store('public/Unit Bisnis/Invoice'),
             );
-            $id = DB::table('kelembagaan_pengabdian')->insertGetId($data);
+            $id = Kelembagaans::insertGetId($data);
             return redirect()->action([Kelembagaan::class,'index']);
     }
 
@@ -92,7 +92,7 @@ class Kelembagaan extends Controller
      */
     public function edit($id)
     {
-            $data = DB::table('kelembagaan_pengabdian')->where('id','=',$id)->get();
+            $data = Kelembagaans::where('id','=',$id)->get();
             // $prodi = DB::table('prodi')->get();
             return view('kelembagaan/edit_kelembagaan',['data'=>$data[0]]);
     }
@@ -127,7 +127,7 @@ class Kelembagaan extends Controller
     public function destroy($id)
     {
         //
-        DB::table('kelembagaan_pengabdian')->where('id','=',$id)->delete();
+        Kelembagaans::where('id','=',$id)->delete();
         return redirect()->action([Kelembagaan::class,'index']);
     }
 }

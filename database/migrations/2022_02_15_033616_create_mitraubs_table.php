@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStandarsTable extends Migration
+class CreateMitraubsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateStandarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('standars', function (Blueprint $table) {
+        Schema::create('mitraubs', function (Blueprint $table) {
             $table->id();
-            $table->string('Nama');
-            $table->integer('Nomor');
-            $table->year('Tahun');
-            $table->string('Keterangan');
-            $table->string('Dokumen');
+            $table->string('nama');
+            $table->string('mou');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateStandarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('standars');
+        Schema::dropIfExists('mitraubs');
     }
 }

@@ -17,9 +17,8 @@ class Unitbisnis extends Controller
         //
             $data = DB::table('unitbisnis as ub')
                     ->get();
-
-            $i = 0;
-            if($data){
+            $i = count($data);
+            if($i = 0){
                 foreach($data as $dat) {
                     $mitra[] = DB::table('mitra')
                     ->join('mitraub','mitraub.id_mitra','=','mitra.id')
@@ -30,7 +29,8 @@ class Unitbisnis extends Controller
                 $ub['mitra'] =$mitra; 
                 return view('unit_bisnis/unit_bisnis',['data'=>$data,'ub'=>$ub]);
             } else{
-                return view('unit_bisnis/unit_bisnis',['data'=>$data]);
+                $ub = [];
+                return view('unit_bisnis/unit_bisnis',['data'=>$data,'ub'=>$ub]);
             }
     }
 

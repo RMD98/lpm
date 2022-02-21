@@ -33,8 +33,11 @@
                         placeholder="Nomor HP">
                     </p>
                     <p><b>Program Studi</b>
-                        <input type="text" class="form-control" id="prodi[{{$key}}]" name="prodi[{{$key}}]" value="{{$data[$key]->prodi}}"
-                        placeholder="Program Studi">
+                        <select class="form-control" name="prodi[{{$key}}]" id="prodi[{{$key}}]">
+                            @foreach($prodi as $prod)
+                                <option value="{{$prod->nama}}"{{$prod->nama == $data[$key]->prodi ? 'selected' : ''}}>{{$prod->nama}}</option>
+                            @endforeach
+                        </select>
                     </p>
                     <p><b>Tahun Lulus</b>
                         <input type="number" class="form-control" id="thn_lulus[{{$key}}]" name="thn_lulus[{{$key}}]" value="{{$data[$key]->thn_lulus}}"
@@ -77,13 +80,17 @@
                         placeholder="Nomor HP">
                     </p>
                     <p><b>Program Studi</b>
-                        <input type="text" class="form-control" id="prodibru[`+i+`]" name="prodibru[`+i+`]"
-                        placeholder="Program Studi">
+                        <select class="form-control" name="prodibru[`+i+`]" id="prodibru[`+i+`]">
+                            @foreach($prodi as $prodi)
+                                <option value="{{$prodi->nama}}">{{$prodi->nama}}</option>
+                            @endforeach
+                        </select>
                     </p>
                     <p><b>Tahun Lulus</b>
                         <input type="number" class="form-control" id="thn_lulusbru[`+i+`]" name="thn_lulusbru[`+i+`]"
+                        placeholder="Tahun Lulus">
                     </p>
-                </div>
+                </div>`)
             }
     </script>
 @stop

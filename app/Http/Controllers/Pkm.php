@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Fasilitas as fasil;
-use App\Models\Prodi;
+use App\Models\Pkm as Pkms;
+use App\Models\Sumberiptek;
 use Illuminate\Support\Facades\DB;
+use App\Models\Anggota;
+use App\Models\Luaran;
+use App\Models\Mitrapkm;
 
 class Pkm extends Controller
 {
@@ -17,7 +20,7 @@ class Pkm extends Controller
     public function index()
     {
         //
-            $data = DB::table('kegiatanpkm')->get();
+            $data = Pkms::get();
             return view('pkm/pkm',['data'=>$data]);
     }
 
@@ -31,7 +34,7 @@ class Pkm extends Controller
         //
         // $data = Prodi::get();
         // $data = DB::table('prodi')->get();
-        $iptek = DB::table('sumberiptek')->get();
+        $iptek = Sumberiptek::get();
         return view('pkm/add_pkm',['iptek'=>$iptek]);
     }
 
@@ -63,7 +66,7 @@ class Pkm extends Controller
                 'lab' => $request->lab,
                 'kelengkapan' => $request->kelengkapan,
             );
-            DB::table('kegiatanpkm')->insert($data);
+            Pkms::insert($data);
             return redirect()->action([Pkm::class,'index']);
     }
 
@@ -75,31 +78,88 @@ class Pkm extends Controller
      */
     public function show($id)
     {
-        $data = DB::table('kegiatanpkm')->where('id','=',$id)->get();
-        $dosen = DB::table('anggotapkm as ag')
-                ->join('dosen','ag.nidn_nrp','=','dosen.nidn')
+        $data = Pkms::where('id','=',$id)->get();
+        $dosen = DB::table('anggotas as ag')
+                ->join('dosens','ag.nidn_nrp','=','dosens.nidn')
                 ->where('id_pkm','=',$id)
                 ->where('ag.status','=','DOSEN')
                 ->get();
+        $ketua=[];
+        $staff=[];
         foreach($dosen as $key=>$value){
             if($dosen[$key]->jabatan == 'KETUA'){
-                $ketua = $dosen[$key];
+                $ketua[] = $dosen[$key];
             }else{
-                $staff[] = $dosen[$key]; 
+                $staff[] = $dosen[$key];
             }
         };
-        $mhs = DB::table('anggotapkm')
-                ->where('id_pkm','=',$id)
+        $mhs = Anggota::where('id_pkm','=',$id)
                 ->where('status','=','MAHASISWA')
                 ->get();
-        $alm = DB::table('anggotapkm')
-                ->where('id_pkm','=',$id)
+        $alm = Anggota::where('id_pkm','=',$id)
                 ->where('status','=','ALUMNI')
                 ->get();
-
-        return view('pkm/pkm_show',['data'=>$data[0],'ketua'=>$ketua,'staff'=>$staff,'mhs'=>$mhs,'alm'=>$alm]);
+        $mitra = Mitrapkm::join('mitras','mitrapkms.id_mitra','=','mitras.id')
+                ->where('mitrapkms.id_pkm','=',$id)
+                ->get();
+        $luaran = array('haki'=>[],'prod_standar'=>[],'buku'=>[],'prod_sertif'=>[],'mbh'=>[],
+                        'wbm'=>[],'forum_ilmiah'=>[],'media_massa'=>[],
+                        'jurnal_internasional'=>[],'ipteklain'=>[]);
+        // echo $luaran['haki'];
+        if(count($this->luaran($id))!=0){
+            $luaran = $this->luaran($id);
+        }
+        
+        return view('pkm/pkm_show',['data'=>$data[0],'ketua'=>$ketua,
+        'staff'=>$staff,'mhs'=>$mhs,'alm'=>$alm,'mitra'=>$mitra,'luaran'=>$luaran]);
     }
-
+    public function luaran($id){
+        
+        $luaran= Luaran::get();
+        if(count($luaran) != 0){
+            foreach($luaran as $key=>$value){
+                $luaran['haki'] = DB::table('hakis')
+                ->where('hakis.id','=',$luaran->haki)
+                ->join('penulis_hakis as ph','hakis.id','=','ph.id_haki')
+                ->join('dosen','penulis_haki.nidn','=','dosen.nidn')
+                ->get();
+                $luaran['prod_standar'] = DB::table('prod_terstandarisasi as pt')
+                ->where('id','=',$luaran[0]->prod_terstandarisasi)
+                ->join('dosen','dosen.nidn','=','pt.nidn')
+                ->get();
+                $luaran['prod_sertif'] = DB::table('prod_tersertifikasi as pt')
+                ->where('id','=',$luaran[0]->prod_tersertifikasi)
+                ->join('dosen','dosen.nidn','=','pt.nidn')
+                ->get();
+                $luaran['mbh'] = DB::table('mitra_berbadan_hukum')->where('id','=',$luaran[0]->mitra_berbadan_hukum)->get();
+                $luaran['buku'] = DB::table('buku')
+                ->where('id','=',$luaran[0]->buku)
+                ->join('dosen','dosen.nidn','=','buku.nidn')
+                ->get();
+                $luaran['wbm'] = DB::table('wirausaha_baru_mandiri')->where('id','=',$luaran[0]->wirausaha_baru_mandiri)->get();
+                $luaran['forum_ilmiah'] = DB::table('forum_ilmiah as fi')
+                ->where('fi.id','=',$luaran[0]->forum_ilmiah)
+                ->join('penulis_makalah as pm','pm.id_makalah','=','fi.id')
+                ->join('dosen','pm.nidn','=','dosen.nidn')
+                ->get();
+                $luaran['media_massa'] = DB::table('media_massa')
+                ->where('id','=',$luaran[0]->media_massa)
+                ->join('dosen','dosen.nidn','=','media_massa.nidn')
+                ->get();
+                $luaran['jurnal_internasional'] = DB::table('jurnal_internasional as ji')
+                ->where('ji.id','=',$luaran[0]->jurnal_internasional)
+                ->join('penulis_jurnal as pj','pj.id_jurnal','=','ji.id')
+                ->join('dosen','dosen.nidn','=','pj.nidn')
+                ->get();
+                $luaran['ipteklain'] = DB::table('ipteklain')
+                ->where('id','=',$luaran[0]->iptek_lain)
+                ->join('dosen','ipteklain.nidn','=','dosen.nidn')
+                ->get();
+            }   
+        }
+        //  echo $luaran['prod_terstandarisasi'];
+        return $luaran;
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -108,124 +168,13 @@ class Pkm extends Controller
      */
     public function edit($id)
     {
-            $data = DB::table('kegiatanpkm')->where('id','=',$id)->get();
+            $data = Pkms::where('id','=',$id)->get();
             // $prodi = DB::table('prodi')->get();
             return view('pkm/edit_pkm',['data'=>$data[0]]);
     }
-    
-    public function mhs($id)
-    {
-        $data = DB::table('anggotapkm')
-                ->where('id_pkm','=',$id)
-                ->where('status','=','MAHASISWA')
-                ->get();
-        // echo $data;
-        return view('pkm/mahasiswa',['data'=>$data,'id'=>$id],);
-    }
-    
-    public function alm($id)
-    {
-        $data = DB::table('anggotapkm')
-                ->where('id_pkm','=',$id)
-                ->where('status','=','ALUMNI')
-                ->get();
-        // echo $data;
-        return view('pkm/alumni',['data'=>$data,'id'=>$id],);
-    }
-    
-    public function staff($id){
-        $data = DB::table('anggotapkm as ag')
-                ->join('dosen','ag.nidn_nrp','=','dosen.nidn')
-                ->where('id_pkm','=',$id)
-                ->where('ag.status','=','DOSEN')
-                ->where('ag.jabatan','=','ANGGOTA')
-                ->get();
-        return view('pkm/staff',['data'=>$data,'id'=>$id],);
-    }
-    
-    public function upsirtstaff($id,Request $request){
-        if($request->nidnbru){
-            foreach ($request->nidnbru as $key => $value) {
-                $ins = array(
-                    'id_pkm' => $id,
-                    'status'=>'DOSEN',
-                    'jabatan' => 'ANGGOTA',
-                    'nama' => $request->namabru[$key],
-                    'nidn_nrp' => $request->nidnbru[$key]
-                );
-                DB::table('anggotapkm')->insert($ins);
-                $insd = array(
-                    'nama' => $request->namabru[$key],
-                    'nidn' => $request->nidnbru[$key],
-                    'golongan'=>$request->golbru[$key],
-                    'jab_fungsional'=>$request->jabbru[$key],
-                    'pendidikan'=>$request->pendbru[$key],
-                    'prodi'=>$request->prodibru[$key],
-                );
-                DB::table('dosen')->upsert($insd,'nidn',['golongan','jab_fungsional','pendidikan','prodi']);
-            }
-        }
-        return redirect()->action([Pkm::class,'show'],['id'=>$id]);
-    }
-    public function upsirtmhs($id,Request $request){
-        if($request->nrpbru){
 
-            foreach($request->nrpbru as $key=>$value){
-                $ins = array(
-                    'id_pkm' => $id,
-                    'status'=>'MAHASISWA',
-                    'jabatan' => 'ANGGOTA',
-                    'nama' => $request->namabru[$key],
-                    'nidn_nrp' => $request->nrpbru[$key]
-                );
-                DB::table('anggotapkm')->insert($ins);
-            }
-        }
-        if($request->nrp){
-            foreach($request->nrp as $key=>$value){
-                $up = array(
-                    'nama' => $request->nama[$key],
-                    'nidn_nrp' => $request->nrp[$key],
-                );
-                DB::table('anggotapkm')->where('id','=',$request->ids [$key])->update($up);
-            }
-        }
-        return redirect()->action([Pkm::class,'show'],['id'=>$id]);
-    }
-
-    public function upsirtalm($id,Request $request){
-        if($request->namabru){
-            foreach($request->namabru as $key=>$value){
-                $ins = array(
-                    'status' => 'ALUMNI',
-                    'jabatan' => 'ANGGOTA',
-                    'nama' => $request->namabru[$key],
-                    'pekerjaan' => $request->pekerjaanbru[$key],
-                    'instansi' => $request->instansibru[$key],
-                    'alamat' => $request->alamatbru[$key],
-                    'nohp' => $request->nohpbru[$key],
-                    'prodi' => $request->prodibru[$key],
-                    'thn_lulus' => $request->thn_lulusbru[$key],
-                );
-                DB::table('anggotapkm')->insert($ins);
-            }
-        }
-        if($request->nama){
-            foreach($request->nama as $key=>$value){
-                $ins = array(
-                    'nama' => $request->nama[$key],
-                    'pekerjaan' => $request->pekerjaan[$key],
-                    'instansi' => $request->instansi[$key],
-                    'alamat' => $request->alamat[$key],
-                    'nohp' => $request->nohp[$key],
-                    'prodi' => $request->prodi[$key],
-                    'thn_lulus' => $request->thn_lulus[$key],
-                );
-                DB::table('anggotapkm')->where('id','=',$request->ids[$key])->update($ins);
-            }   
-        }
-        return redirect()->action([Pkm::class,'show'],['id'=>$id]);
-    }
+    
+    
     /**
      * Update the specified resource in storage.
      *
@@ -250,7 +199,7 @@ class Pkm extends Controller
                 'lab' => $request->lab,
                 'kelengkapan' => $request->kelengkapan,
             );
-            DB::table('kegiatanpkm')->where('id',$id)->update($data);
+            Pkms::where('id',$id)->update($data);
             // return $data;
             return redirect()->action([Pkm::class,'index']);
     }
@@ -264,13 +213,8 @@ class Pkm extends Controller
     public function destroy($id)
     {
         //
-        Db::table('kegiatanpkm')->where('id','=',$id)->delete();
+        Pkms::where('id','=',$id)->delete();
         return redirect()->action([Pkm::class,'index']);
     }
 
-    public function del($ids,$id){
-       
-        DB::table('anggotapkm')->where('id','=',$id)->delete();
-        return redirect()->action([Pkm::class,'show'],['id'=>$ids]);
-    }
 }

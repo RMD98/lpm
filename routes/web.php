@@ -8,6 +8,9 @@ use App\Http\Controllers\Standar;
 use App\Http\Controllers\Unitbisnis;
 use App\Http\Controllers\Kelembagaan;
 use App\Http\Controllers\Manajemen;
+use App\Http\Controllers\Luaran;
+use App\Http\Controllers\Anggota;
+use App\Http\Controllers\Mitra;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +48,8 @@ Route::get('/edit_ub/{id}',[Unitbisnis::class,'edit']);
 Route::get('/edit_kelembagaan/{id}',[Kelembagaan::class,'edit']);
 Route::get('/del_fasilitas/{id}',[Fasilitas::class,'destroy']);
 Route::get('/del_pkm/{id}',[Pkm::class,'destroy']);
-Route::get('/del_pkm/{ids}/{id}',[Pkm::class,'del']);
+Route::get('/del_pkm/{ids}/{id}',[Anggota::class,'destroy']);
+Route::get('/del_pkm/mitra/{ids}/{id}',[Mitra::class,'destroy']);
 Route::get('/del_kelembagaan/{id}',[Kelembagaan::class,'destroy']);
 Route::get('/del_standar/{id}',[Standar::class,'destroy']);
 Route::get('/del_ub/{id}',[Unitbisnis::class,'destroy']);
@@ -56,12 +60,17 @@ Route::post('/edt_kelembagaan/{id}',[Kelembagaan::class,'update']);
 Route::get('/fas_down/{id}',[Fasilitas::class,'download']);
 Route::get('/unit_bisnis/{id}',[Unitbisnis::class,'show']);
 Route::get('/pkm/{id}',[Pkm::class,'show']);
-Route::get('/pkm/mhs/{id}',[Pkm::class,'mhs']);
-Route::get('/pkm/alm/{id}',[Pkm::class,'alm']);
-Route::get('/pkm/staff/{id}',[Pkm::class,'staff']);
-Route::post('/editpkm/mhs/{id}',[Pkm::class,'upsirtmhs']);
-Route::post('/editpkm/alm/{id}',[Pkm::class,'upsirtalm']);
-Route::post('/editpkm/staff/{id}',[Pkm::class,'upsirtstaff']);
+Route::get('/pkm/mhs/{id}',[Anggota::class,'mhs']);
+Route::get('/pkm/alm/{id}',[Anggota::class,'alm']);
+Route::get('/pkm/staff/{id}',[Anggota::class,'staff']);
+Route::get('/pkm/ketua/{id}',[Anggota::class,'ketua']);
+Route::get('/pkm/mitra/{id}',[Mitra::class,'mitrapkm']);
+Route::get('/pkm/luaran/ipteklain/{id}',[Luaran::class,'iptek']);
+Route::post('/editpkm/mhs/{id}',[Anggota::class,'upsirtmhs']);
+Route::post('/editpkm/alm/{id}',[Anggota::class,'upsirtalm']);
+Route::post('/editpkm/staff/{id}',[Anggota::class,'upsirtstaff']);
+Route::post('/editpkm/ketua/{id}',[Anggota::class,'upsirtketua']);
+Route::post('/editpkm/mitra/{id}',[Mitra::class,'upsirtmitrapkm']);
 Route::get('/fas_file/{id}',[Fasilitas::class,'show']);
 Route::get('/login', function () {
     return view('auth/login');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJurnalIntsTable extends Migration
+class CreateWirausahabarumandirisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,15 @@ class CreateJurnalIntsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jurnalints', function (Blueprint $table) {
+        Schema::create('wirausahabarumandiris', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
             $table->string('nama');
             $table->string('jenis');
-            $table->string('url');
-            $table->string('p_issn');
-            $table->string('e_issn');
-            $table->string('volume');
-            $table->string('nomor');
-            $table->string('halaman');
-            $table->integer('bukti');
+            $table->string('bukti');
             $table->timestamps();
+        });
+        Schema::table('luarans', function (Blueprint $table) {
+            $table->foreignId('wirausaha_baru_mandiri')->constrained('wirausahabarumandiris');
         });
     }
 
@@ -36,6 +32,6 @@ class CreateJurnalIntsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jurnal_ints');
+        Schema::dropIfExists('wirausahabarumandiris');
     }
 }

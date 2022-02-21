@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Manajemen as Manajemens;
+use App\Models\Unitbisnis;
 class Manajemen extends Controller
 {
     /**
@@ -15,13 +16,9 @@ class Manajemen extends Controller
     public function index()
     {
         //  
-            $tahun = DB::table('manajemenpengabdian')
-                    ->groupBy('tahun')
-                    ->get();
+            $tahun = Manajemens::groupBy('tahun')->get();
             foreach($tahun as $thn){
-                $data[] = DB::table('manajemenpengabdian')
-                         ->where('tahun','=',$thn->tahun)
-                         ->get(); 
+                $data[] = Manajemens::where('tahun','=',$thn->tahun)->get(); 
             };
             $data['data'] = $data;
         return view('manajemen/manajemen',['data'=>$data,'tahun'=>$tahun]);
@@ -79,12 +76,12 @@ class Manajemen extends Controller
     {
             $file = $request->file('file');
             foreach($request->konsistensi as $key=>$value){
+                $tahun = $request->$tahun;
                 if ($file != NULL){
                     $path[$key] = $file->store(`public/Manajemen Pengabdian/$tahun`);
                 } else {
                     $path[$key] = NULL;
                 }
-                $tahun = $request->$tahun;
                 $namasop = $this->sop($key);
                 $data = array(
                     'nama_sop'=> $namasop,
@@ -92,7 +89,7 @@ class Manajemen extends Controller
                     'file' => $path,
                     'tahun' => $tahun,
                 );
-                DB::table('manajemenpengabdian')->insert($data);
+                Manajemens::insert($data);
             }
             return redirect()->action([Manajemen::class,'index']);
     }
@@ -106,7 +103,7 @@ class Manajemen extends Controller
     public function show($id)
     {
         //
-        $data = DB::table('unitbisnis')->where('id','=',$id)->get();
+        $data = unitbisnis::where('id','=',$id)->get();
         $file = $data[0]->SKPUB;
         $response = \Response::make($file,200);
         $content_types = 'application/pdf';
@@ -122,7 +119,7 @@ class Manajemen extends Controller
      */
     public function edit($id)
     {
-            $data = DB::table('Manajemen_pengabdian')->where('id','=',$id)->get();
+            $data = Manajemens::where('id','=',$id)->get();
             // $prodi = DB::table('prodi')->get();
             return view('Manajemen/edit_Manajemen',['data'=>$data[0]]);
     }
@@ -151,7 +148,7 @@ class Manajemen extends Controller
                 'file' => $path,
                 'tahun' => $tahun,
             );
-            DB::table('manajemenpengabdian')->insert($data);
+            Manajemens::insert($data);
         }
         return redirect()->action([Manajemen::class,'index']);
     }
@@ -165,7 +162,7 @@ class Manajemen extends Controller
     public function destroy($id)
     {
         //
-        DB::table('Manajemen_pengabdian')->where('id','=',$id)->delete();
+        Manajemens::where('id','=',$id)->delete();
         return redirect()->action([Manajemen::class,'index']);
     }
 }

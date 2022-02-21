@@ -6,7 +6,7 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/editpkm/staff/{{$id}}" method="post">
+        <form action="/editpkm/ketua/{{$id}}" method="post">
             @csrf
             <div class="form-group row" id="isian">
                 @foreach($data as $key=>$value)
@@ -21,9 +21,9 @@
                         placeholder="NIDN">
                     </p>
                     <p><b>Program Studi</b>
-                    <select class="form-control" name="prodi[{{$key}}]" id="prodi[{{$key}}]">
-                            @foreach($prodi as $prodi)
-                                <option value="{{$prodi->nama}}" {{$data[$key]->prodi == $prodi->nama ? 'selected' : ' ' }}>{{$prodi->nama}}</option>
+                        <select class="form-control" name="prodi[{{$key}}]" id="prodi[{{$key}}]">
+                            @foreach($prodi as $prodis)
+                                <option value="{{$prodis->nama}}" {{$data[$key]->prodi == $prodis->nama ? 'selected' : ' ' }}>{{$prodis->nama}}</option>
                             @endforeach
                         </select>
                     </p>
@@ -42,7 +42,9 @@
                 </div>
                 @endforeach
             </div>
-            <button class="ml-2" type="button" id="tmbh">Tambah</button>
+            @if(count($data)==0)
+                <button class="ml-2" type="button" id="tmbh">Tambah</button>
+            @endif
             <button class="ml-2" type="submit">Submit</button>
         </form>
     </div>
@@ -83,6 +85,7 @@
                         placeholder="Golongan">
                     </p>
                 </div>`)
+                document.getElementById("tmbh").remove();
             }
     </script>
 @stop

@@ -38,7 +38,7 @@
                             <td><?php echo $data->judul ?></td>
                             <td><?php echo $data->roadmap ?></td>
                             <td><?php echo $data->bidang ?></td>
-                            <td><?php echo $data->jeniskegiatan ?></td>
+                            <td><?php echo $data->jenis ?></td>
                             <td><?php echo $data->skala ?></td>
                             <td><?php echo $data->dana ?></td>
                             <td><?php echo $data->sumberdana ?></td>
