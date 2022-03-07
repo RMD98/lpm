@@ -22,7 +22,7 @@ class CreateMitrahukumsTable extends Migration
             $table->timestamps();
         });
         Schema::table('luarans', function (Blueprint $table) {
-            $table->foreignId('mitra_berbadan_hukum')->constrained('mitrahukums');
+            $table->foreignId('mitra_berbadan_hukum')->nullable()->constrained('mitrahukums')->nullOnDelete();
         });
         
     }

@@ -18,12 +18,11 @@ class CreateLuaransTable extends Migration
             $table->timestamps();
         });
         Schema::table('luarans', function (Blueprint $table) {
-            $table->foreignId('jurnal_internasional')->constrained('jurnalints');
-            $table->foreignId('forum_ilmiah')->constrained('forums');
-            $table->foreignId('haki')->constrained('hakis');
-            $table->foreignId('iptek_lain')->constrained('ipteklains');
-            $table->foreignId('buku')->constrained('bukus');
-            $table->foreignId('id_pkm')->constrained('pkms');
+            $table->foreignId('forum_ilmiah')->nullable()->constrained('forums')->nullOnDelete();
+            $table->foreignId('haki')->nullable()->constrained('hakis')->nullOnDelete();
+            $table->foreignId('iptek_lain')->nullable()->constrained('ipteklains')->nullOnDelete();
+            $table->foreignId('buku')->nullable()->constrained('bukus')->nullOnDelete();
+            $table->foreignId('id_pkm')->constrained('pkms')->cascadeOnDelete();
         
         });
     }

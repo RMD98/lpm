@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Ipteklain extends Model
 {
     use HasFactory;
+    protected $fillable =['judul','nidn','nama','jenis','deskripsi','bukti'];
 }

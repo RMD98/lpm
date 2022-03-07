@@ -21,7 +21,7 @@ class CreateWirausahabarumandirisTable extends Migration
             $table->timestamps();
         });
         Schema::table('luarans', function (Blueprint $table) {
-            $table->foreignId('wirausaha_baru_mandiri')->constrained('wirausahabarumandiris');
+            $table->foreignId('wirausaha_baru_mandiri')->nullable()->constrained('wirausahabarumandiris')->nullOnDelete();
         });
     }
 

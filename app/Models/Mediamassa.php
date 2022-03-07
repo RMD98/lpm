@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Mediamassa extends Model
 {
     use HasFactory;
+    protected $fillable =['judul','nidn','url','jenis','hal','bukti','nama_media'];
 }

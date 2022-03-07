@@ -151,7 +151,7 @@
                         </div>
                     <p>Alumni :
                         &nbsp
-                        <a href="/pkm/alm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/luaran['jurnal_internasional'][$key]/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                         <div class="table-responsive">
                             <table class="table table-border">
@@ -286,8 +286,8 @@
                                            Tidak Ada File
                                         @endif
                                     </td>
-                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                    <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td><a data-toggle="modal" data-target="#modaliptek<?php echo $luaran['ipteklain'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                    <div class="modal fade" id="modaliptek<?php echo $luaran['ipteklain'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -296,10 +296,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                <div class="modal-body">Are you sure want to delete data <?php echo $luaran['ipteklain'][$key]->judul?>.</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                    <a class="btn btn-primary" href="/del_pkm/iptek/{{$data->id}}/<?php echo $luaran['ipteklain'][$key]->id ?>">YES</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -313,7 +313,7 @@
                 <div class="ml-4 mt-3">
                     <p>Haki :
                         &nbsp
-                        <a href="/edit_pkm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/luaran/haki/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                     <div class="table-responsive">
                         <table class="table table-border">
@@ -328,21 +328,21 @@
                             <tbody>
                                 @foreach($luaran['haki'] as $key=>$value)
                                 <tr>
-                                    <td>{{$luaran['haki']->judul}}</td>
+                                    <td>{{$luaran['haki'][$key]->judul}}</td>
                                     <td>
                                         
-                                        @foreach($luaran['haki'] as $key=>$value)
+                                        @foreach($luaran['penulishaki'] as $key=>$value)
                                             <p>
-                                                {{$luaran['haki'][$key]->nidn}} - {{$luaran['haki'][$key]->nama}}
+                                                {{$luaran['penulishaki'][$key]->nidn}} - {{$luaran['penulishaki'][$key]->nama}}
                                             </p>
                                         @endforeach
                                     </td>
-                                    <td>{{$luaran['haki']->jenis}}</td>
-                                    <td>{{$luaran['haki']->no_daftar}}</td>
-                                    <td>{{$luaran['haki']->status}}</td>
-                                    <td>{{$luaran['haki']->bukti}}</td>
-                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                    <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td>{{$luaran['haki'][$key]->jenis}}</td>
+                                    <td>{{$luaran['haki'][$key]->no_daftar}}</td>
+                                    <td>{{$luaran['haki'][$key]->status}}</td>
+                                    <td>{{$luaran['haki'][$key]->bukti}}</td>
+                                    <td><a data-toggle="modal" data-target="#modalhaki<?php echo $luaran['haki'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                    <div class="modal fade" id="modalhaki<?php echo $luaran['haki'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -351,10 +351,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                <div class="modal-body">Are you sure want to delete data <?php echo $luaran['haki'][$key]->nama?>.</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                    <a class="btn btn-primary" href="/del_pkm/haki/{{$data->id}}/<?php echo $luaran['haki'][$key]->id ?>">YES</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -368,7 +368,7 @@
                 <div class="ml-4 mt-3">
                     <p>Produk Tersertifikasi :
                         &nbsp
-                        <a href="/edit_pkm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/luaran/prodser/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                     <div class="table-responsive">
                         <table class="table table-border">
@@ -394,8 +394,8 @@
                                     <td>{{$luaran['prod_sertif'][$key]->instansi}}</td>
                                     <td>{{$luaran['prod_sertif'][$key]->no_keputusan}}</td>
                                     <td>{{$luaran['prod_sertif'][$key]->bukti}}</td>
-                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                    <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td><a data-toggle="modal" data-target="#modalprodser<?php echo $luaran['prod_sertif'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                    <div class="modal fade" id="modalprodser<?php echo $luaran['prod_sertif'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -404,10 +404,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                <div class="modal-body">Are you sure want to delete data <?php echo $luaran['prod_sertif'][$key]->nama?>.</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                    <a class="btn btn-primary" href="/del_pkm/prodser/{{$data->id}}/<?php echo $luaran['prod_sertif'][$key]->id ?>">YES</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -421,7 +421,7 @@
                 <div class="ml-4 mt-3">
                     <p>Produk Terstandarisasi :
                         &nbsp
-                        <a href="/edit_pkm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/luaran/prodstan/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                     <div class="table-responsive">
                         <table class="table table-border">
@@ -447,8 +447,8 @@
                                     <td>{{$luaran['prod_standar'][$key]->instansi}}</td>
                                     <td>{{$luaran['prod_standar'][$key]->no_keputusan}}</td>
                                     <td>{{$luaran['prod_standar'][$key]->bukti}}</td>
-                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                    <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td><a data-toggle="modal" data-target="#modalprodstan<?php echo $luaran['prod_standar'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                    <div class="modal fade" id="modalprodstan<?php echo $luaran['prod_standar'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -457,10 +457,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                <div class="modal-body">Are you sure want to delete data <?php echo $luaran['prod_standar'][$key]->nama?>.</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                    <a class="btn btn-primary" href="/del_pkm/prodstan/{{$data->id}}/<?php echo $luaran['prod_standar'][$key]->id ?>">YES</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -474,7 +474,7 @@
                 <div class="ml-4 mt-3">
                     <p>Buku :
                         &nbsp
-                        <a href="/edit_pkm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/luaran/buku/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                     <div class="table-responsive">
                         <table class="table table-border">
@@ -504,8 +504,8 @@
                                     <td>{{$luaran['buku'][$key]->isbn}}</td>
                                     <td>{{$luaran['buku'][$key]->jum_halaman}}</td>
                                     <td>{{$luaran['buku'][$key]->bukti}}</td>
-                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                    <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td><a data-toggle="modal" data-target="#modalbuku<?php echo $luaran['buku'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                    <div class="modal fade" id="modalbuku<?php echo $luaran['buku'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -514,10 +514,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                <div class="modal-body">Are you sure want to delete data <?php echo $luaran['buku'][$key]->nama?>.</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                    <a class="btn btn-primary" href="/del_pkm/buku/{{$data->id}}/<?php echo $luaran['buku'][$key]->id ?>">YES</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -531,7 +531,7 @@
                 <div class="ml-4 mt-3">
                     <p>Mitra Berbadan Hukum :
                         &nbsp
-                        <a href="/edit_pkm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/luaran/mitrahukum/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                     <div class="table-responsive">
                         <table class="table table-border">
@@ -548,8 +548,8 @@
                                     <td>{{$luaran['mbh'][$key]->no_badan_hukum}}</td>
                                     <td>{{$luaran['mbh'][$key]->bidang_usaha}}</td>
                                     <td>{{$luaran['mbh'][$key]->bukti}}</td>
-                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                    <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td><a data-toggle="modal" data-target="#modalmbh<?php echo $luaran['mbh'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                    <div class="modal fade" id="modalmbh<?php echo $luaran['mbh'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -558,10 +558,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                <div class="modal-body">Are you sure want to delete data <?php echo $luaran['mbh'][$key]->nama?>.</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                    <a class="btn btn-primary" href="/del_pkm/mitrahukum/{{$data->id}}/<?php echo $luaran['mbh'][$key]->id ?>">YES</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -575,12 +575,13 @@
                 <div class="ml-4 mt-3">
                     <p>Pemakalah di Forum Ilmiah :
                         &nbsp
-                        <a href="/edit_pkm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/luaran/forum/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                     <div class="table-responsive">
                         <table class="table table-border">
                             <thead>
                                 <th>Judul Makalah </th>
+                                <th>Penulis</th>
                                 <th>Judul Forum Ilmiah</th>
                                 <th>Tingkat</th>
                                 <th>ISBN</th>
@@ -595,21 +596,21 @@
                                     <td>{{$luaran['forum_ilmiah'][$key]->judul}}</td>
                                     <td>
                                         
-                                        @foreach($luaran['forum_ilmiah'] as $key=>$value)
+                                        @foreach($luaran['penulismakalah'] as $key=>$value)
                                         <p>
-                                            {{$luaran['forum_ilmiah'][$key]->nidn}} - {{$luaran['forum_ilmiah'][$key]->nama}}
+                                            {{$luaran['penulismakalah'][$key]->nidn}} - {{$luaran['penulismakalah'][$key]->nama}}
                                         </p>
                                         @endforeach
                                     </td>
-                                    <td>{{$luaran['forum_ilmiah'][$key]->judul_forum_imliah}}</td>
+                                    <td>{{$luaran['forum_ilmiah'][$key]->judul_forum}}</td>
                                     <td>{{$luaran['forum_ilmiah'][$key]->tingkat}}</td>
                                     <td>{{$luaran['forum_ilmiah'][$key]->isbn}}</td>
                                     <td>{{$luaran['forum_ilmiah'][$key]->penyelenggara}}</td>
-                                    <td>{{$luaran['forum_ilmiah'][$key]->tgl_dari}} - {{$luaran['forum_ilmiah'][$key]->tgl_sampai}}</td>
+                                    <td>{{$luaran['forum_ilmiah'][$key]->dari}} - {{$luaran['forum_ilmiah'][$key]->sampai}}</td>
                                     <td>{{$luaran['forum_ilmiah'][$key]->tempat}}</td>
                                     <td>{{$luaran['forum_ilmiah'][$key]->bukti}}</td>
-                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                    <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td><a data-toggle="modal" data-target="#modalforum<?php echo $luaran['forum_ilmiah'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                    <div class="modal fade" id="modalforum<?php echo $luaran['forum_ilmiah'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -618,10 +619,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                <div class="modal-body">Are you sure want to delete data <?php echo $luaran['forum_ilmiah'][$key]->nama?>.</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                    <a class="btn btn-primary" href="/del_pkm/forum/{{$data->id}}/<?php echo $luaran['forum_ilmiah'][$key]->id ?>">YES</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -635,13 +636,14 @@
                 <div class="ml-4 mt-3">
                     <p>Media Massa :
                         &nbsp
-                        <a href="/edit_pkm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/luaran/media/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                     <div class="table-responsive">
                         <table class="table table-border">
                             <thead>
                                 <th>Judul</th>
                                 <th>URL</th>
+                                <th>Penulis</th>
                                 <th>Nama Media</th>
                                 <th>Jenis</th>
                                 <th>Volume</th>
@@ -649,26 +651,30 @@
                                 <th>Halaman</th>
                                 <th>Tanggal Terbit</th>
                                 <th>Skala</th>
-                                <th>Penulis</th>
                                 <th>Bukti</th>
                             </thead>
                             <tbody>
                                 @foreach($luaran['media_massa'] as $key=>$value)
                                 <tr>
                                     <td>{{$luaran['media_massa'][$key]->judul}}</td>
+                                    <td>{{$luaran['media_massa'][$key]->url}}</td>
                                     <td>
-                                        
                                         @foreach($luaran['media_massa'] as $key=>$value)
                                             <p>
                                                 {{$luaran['media_massa'][$key]->nidn}} - {{$luaran['media_massa'][$key]->nama}}
                                             </p>
                                         @endforeach
                                     </td>
-                                    <td>{{$luaran['media_massa'][$key]->instansi}}</td>
-                                    <td>{{$luaran['media_massa'][$key]->no_keputusan}}</td>
+                                    <td>{{$luaran['media_massa'][$key]->nama_media}}</td>
+                                    <td>{{$luaran['media_massa'][$key]->jenis}}</td>
+                                    <td>{{$luaran['media_massa'][$key]->volume}}</td>
+                                    <td>{{$luaran['media_massa'][$key]->nomor}}</td>
+                                    <td>{{$luaran['media_massa'][$key]->hal}}</td>
+                                    <td>{{$luaran['media_massa'][$key]->tgl_terbit}}</td>
+                                    <td>{{$luaran['media_massa'][$key]->skala}}</td>
                                     <td>{{$luaran['media_massa'][$key]->bukti}}</td>
-                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                    <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $luaran['media_massa'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                    <div class="modal fade" id="modalalm<?php echo $luaran['media_massa'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -677,10 +683,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                <div class="modal-body">Are you sure want to delete data <?php echo $luaran['media_massa'][$key]->nama?>.</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                    <a class="btn btn-primary" href="/del_pkm/media/{{$data->id}}/<?php echo $luaran['media_massa'][$key]->id ?>">YES</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -694,7 +700,7 @@
                 <div class="ml-4 mt-3">
                     <p>Wirausaha Baru Mandiri :
                         &nbsp
-                        <a href="/edit_pkm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/luaran/wbm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                     <div class="table-responsive">
                         <table class="table table-border">
@@ -709,8 +715,8 @@
                                     <td>{{$luaran['wbm'][$key]->nama}}</td>
                                     <td>{{$luaran['wbm'][$key]->jenis}}</td>
                                     <td>{{$luaran['wbm'][$key]->bukti}}</td>
-                                    <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                    <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td><a data-toggle="modal" data-target="#modalwbm<?php echo $luaran['wbm'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                    <div class="modal fade" id="modalwbm<?php echo $luaran['wbm'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -719,10 +725,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                <div class="modal-body">Are you sure want to delete data <?php echo $luaran['wbm'][$key]->nama?>.</div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                    <a class="btn btn-primary" href="/del_pkm/wbm/{{$data->id}}/<?php echo $luaran['wbm'][$key]->id ?>">YES</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -736,7 +742,7 @@
                 <div class="ml-4 mt-3">
                         <p><b>Jurnal Intrernasional :</b> 
                             &nbsp
-                            <a href="/edit_pkm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                            <a href="/pkm/luaran/jurnal/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                         </p>
                         <div class="table-responsive">
                             <table class="table table-border">
@@ -759,17 +765,23 @@
                                         <td>{{$luaran['jurnal_internasional'][$key]->judul}}</td>
                                         <td>
                                             
-                                            @foreach($luaran['jurnal_internasional'] as $key=>$value)
+                                            @foreach($luaran['penulisjurna;'] as $key=>$value)
                                                 <p>
-                                                    {{$luaran['jurnal_internasional'][$key]->nidn}} - {{$luaran['jurnal_internasional'][$key]->nama}}
+                                                    {{$luaran['penulisjurna;'][$key]->nidn}} - {{$luaran['penulisjurna;'][$key]->nama}}
                                                 </p>
                                             @endforeach
                                         </td>
-                                        <td>{{$luaran['jurnal_internasional'][$key]->instansi}}</td>
-                                        <td>{{$luaran['jurnal_internasional'][$key]->no_keputusan}}</td>
+                                        <td>{{$luaran['jurnal_internasional'][$key]->nama_jurnal}}</td>
+                                        <td>{{$luaran['jurnal_internasional'][$key]->jenis}}</td>
+                                        <td>{{$luaran['jurnal_internasional'][$key]->url}}</td>
+                                        <td>{{$luaran['jurnal_internasional'][$key]->p_issn}}</td>
+                                        <td>{{$luaran['jurnal_internasional'][$key]->e_issn}}</td>
+                                        <td>{{$luaran['jurnal_internasional'][$key]->volume}}</td>
+                                        <td>{{$luaran['jurnal_internasional'][$key]->nomor}}</td>
+                                        <td>{{$luaran['jurnal_internasional'][$key]->halaman}}</td>
                                         <td>{{$luaran['jurnal_internasional'][$key]->bukti}}</td>
-                                        <td><a data-toggle="modal" data-target="#modalalm<?php echo $alm->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
-                                        <div class="modal fade" id="modalalm<?php echo $alm->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <td><a data-toggle="modal" data-target="#modaljurnal<?php echo $luaran['jurnal_internasional'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
+                                        <div class="modal fade" id="modaljurnal<?php echo $luaran['jurnal_internasional'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -778,10 +790,10 @@
                                                             <span aria-hidden="true">×</span>
                                                         </button>
                                                     </div>
-                                                    <div class="modal-body">Are you sure want to delete data <?php echo $alm->nama?>.</div>
+                                                    <div class="modal-body">Are you sure want to delete data <?php echo $luaran['jurnal_internasional'][$key]->nama?>.</div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                        <a class="btn btn-primary" href="/del_pkm/{{$data->id}}/<?php echo $alm->id ?>">YES</a>
+                                                        <a class="btn btn-primary" href="/del_pkm/jurnal/{{$data->id}}/<?php echo $luaran['jurnal_internasional'][$key]->id ?>">YES</a>
                                                     </div>
                                                 </div>
                                             </div>

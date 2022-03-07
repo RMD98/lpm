@@ -2,18 +2,18 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Luaran Iptek Lain</h1>
+    <h1 class="h3 mb-2 text-gray-800">Luaran Buku</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/editpkm/luaran/iptek/{{$id}}" method="post">
+        <form action="/editpkm/luaran/buku/{{$id}}" method="post">
             @csrf
             <div class="form-group row" id="isian">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2 mt-2 card shadows">
                     <input type="text" hidden class="form-control" id="ids" name="ids" value="{{count($data) == 0 ? '' : $data[0]->id}}">
-                    <p><b>Judul</b>
+                    <p><b>Judul Buku</b>
                         <input type="text" class="form-control" id="judul" name="judul" value="{{count($data) == 0 ? '' : $data[0]->judul}}"
-                        placeholder="Judul">
+                        placeholder="Judul Buku">
                     </p>
                     <p><b>Nama Penulis</b>
                         <input type="text" class="form-control" id="nama" name="nama" value="{{count($data) == 0 ? '' : $data[0]->nama}}"
@@ -30,32 +30,21 @@
                            {{ $jenis = $data[0]->jenis }}
                         @endif
                         <select name="jenis" id="jenis">
-                            <option value="Teknologi tepat guna" {{$jenis == 'Teknologi tepat guna' ? 'selected' :''}}>
-                                Teknologi tepat guna
-                            </option>
-                            <option value="Model" {{$jenis == 'Model' ? 'selected' :''}}>
-                                Model
-                            </option>
-                            <option value="Purwarupa/prototype" {{$jenis == 'Purwarupa/prototype' ? 'selected' :''}}>
-                                Purwarupa/prototype
-                            </option>
-                            <option value="Karya desain" {{$jenis == 'Karya desain' ? 'selected' :''}}>
-                                Karya desain
-                            </option>
-                            <option value="Seni Kriya" {{$jenis == 'Seni Kriya' ? 'selected' :''}}>
-                                Seni Kriya
-                            </option>
-                            <option value="Bangunan" {{$jenis == 'Bangunan' ? 'selected' :''}}>
-                                Bangunan
-                            </option>
-                            <option value="Arsitektur" {{$jenis == 'Arsitektur' ? 'selected' :''}}>
-                                Arsitektur
+                            <option value="Bahan Ajar" {{$jenis == 'Bahan Ajar' ? 'selected' :''}}>
+                                Bahan Ajar
                             </option>
                         </select>
                     </p>
-                    <p><b>Deskripsi</b>
-                        <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{count($data) == 0 ? '': $data[0]->deskripsi}}"
-                        placeholder="Deskripsi">
+                    <p><b>Penerbit</b>
+                        <input type="text" class="form-control" id="penerbit" name="penerbit" value="{{count($data) == 0 ? '': $data[0]->penerbit}}"
+                        placeholder="Penerbit">
+                    <p><b>ISBN</b>
+                        <input type="text" class="form-control" id="isbn" name="isbn" value="{{count($data) == 0 ? '': $data[0]->isbn}}"
+                        placeholder="ISBN">
+                    </p>
+                    <p><b>Jumlah Halaman</b>
+                        <input type="number" class="form-control" id="jum_halaman" name="jum_halaman" value="{{count($data) == 0 ? '': $data[0]->jum_halaman}}"
+                        placeholder="Jumlah Halaman">
                     </p>
                     <p><b>Bukti</b>
                         @if(count($data) != 0)
@@ -72,7 +61,7 @@
                                 placeholder="Deskripsi">
                             @endif
                         @else
-                            <input type="file" class="form-control" id="bukti" name="bukti" 
+                            <input type="file" class="form-control" id="bukti" name="bukti">
                         @endif
                     </p>
                 </div>

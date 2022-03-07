@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Prodtersertifikasi extends Model
 {
     use HasFactory;
+    protected $fillable = ['judul','nidn','instansi','no_keputusan','bukti'];
 }

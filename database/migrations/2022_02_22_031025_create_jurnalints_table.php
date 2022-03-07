@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJurnalIntsTable extends Migration
+class CreateJurnalintsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,7 +25,10 @@ class CreateJurnalIntsTable extends Migration
             $table->string('nomor');
             $table->string('halaman');
             $table->integer('bukti');
-            $table->timestamps();
+            $table->timestamps();;
+        });
+        Schema::table('luarans', function (Blueprint $table) {
+            $table->foreignId('jurnal_internasional')->nullable()->constrained('jurnalints')->nullOnDelete();
         });
     }
 
@@ -36,6 +39,6 @@ class CreateJurnalIntsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jurnal_ints');
+        Schema::dropIfExists('jurnalints');
     }
 }

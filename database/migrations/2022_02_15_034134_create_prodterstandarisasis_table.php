@@ -30,7 +30,7 @@ class CreateProdterstandarisasisTable extends Migration
                   ->cascadeOnUpdate();
         });
         Schema::table('luarans', function (Blueprint $table) {
-            $table->foreignId('prod_terstandarisasi')->constrained('prodterstandarisasis');
+            $table->foreignId('prod_terstandarisasi')->nullable()->constrained('prodterstandarisasis')->nullOnDelete();
         });
     }
 

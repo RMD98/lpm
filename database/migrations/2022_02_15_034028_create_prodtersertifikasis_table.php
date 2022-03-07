@@ -31,7 +31,7 @@ class CreateProdtersertifikasisTable extends Migration
         
         });
         Schema::table('luarans', function (Blueprint $table) {
-            $table->foreignId('prod_tersertifikasi')->constrained('prodtersertifikasis');
+            $table->foreignId('prod_tersertifikasi')->nullable()->constrained('prodtersertifikasis')->nullOnDelete();
         });
     }
 

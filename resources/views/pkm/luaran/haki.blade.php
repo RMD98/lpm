@@ -2,11 +2,11 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Luaran Iptek Lain</h1>
+    <h1 class="h3 mb-2 text-gray-800">Luaran Haki</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/editpkm/luaran/iptek/{{$id}}" method="post">
+        <form action="/editpkm/luaran/haki/{{$id}}" method="post">
             @csrf
             <div class="form-group row" id="isian">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2 mt-2 card shadows">
@@ -30,32 +30,23 @@
                            {{ $jenis = $data[0]->jenis }}
                         @endif
                         <select name="jenis" id="jenis">
-                            <option value="Teknologi tepat guna" {{$jenis == 'Teknologi tepat guna' ? 'selected' :''}}>
-                                Teknologi tepat guna
+                            <option value="Desain Industri" {{$jenis == 'Desain Industri' ? 'selected' :''}}>
+                                Desain Industri
                             </option>
-                            <option value="Model" {{$jenis == 'Model' ? 'selected' :''}}>
-                                Model
+                            <option value="Paten" {{$jenis == 'Paten' ? 'selected' :''}}>
+                                Paten
                             </option>
-                            <option value="Purwarupa/prototype" {{$jenis == 'Purwarupa/prototype' ? 'selected' :''}}>
-                                Purwarupa/prototype
+                            <option value="Hak Cipta" {{$jenis == 'Hak Cipta' ? 'selected' :''}}>
+                                Hak Cipta
                             </option>
-                            <option value="Karya desain" {{$jenis == 'Karya desain' ? 'selected' :''}}>
-                                Karya desain
-                            </option>
-                            <option value="Seni Kriya" {{$jenis == 'Seni Kriya' ? 'selected' :''}}>
-                                Seni Kriya
-                            </option>
-                            <option value="Bangunan" {{$jenis == 'Bangunan' ? 'selected' :''}}>
-                                Bangunan
-                            </option>
-                            <option value="Arsitektur" {{$jenis == 'Arsitektur' ? 'selected' :''}}>
-                                Arsitektur
+                            <option value="Merek" {{$jenis == 'Merek' ? 'selected' :''}}>
+                                Merek
                             </option>
                         </select>
                     </p>
-                    <p><b>Deskripsi</b>
-                        <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{count($data) == 0 ? '': $data[0]->deskripsi}}"
-                        placeholder="Deskripsi">
+                    <p><b>Nomor Pendaftaran</b>
+                        <input type="text" class="form-control" id="nodaftar" name="nodaftar" value="{{count($data) == 0 ? '': $data[0]->deskripsi}}"
+                        placeholder="Nomor Pendaftaran">
                     </p>
                     <p><b>Bukti</b>
                         @if(count($data) != 0)
@@ -72,8 +63,12 @@
                                 placeholder="Deskripsi">
                             @endif
                         @else
-                            <input type="file" class="form-control" id="bukti" name="bukti" 
+                            <input type="file" class="form-control" id="bukti" name="bukti">
                         @endif
+                    </p>
+                    <p>
+                       <input type="checkbox" id="status" name="status" value="Terdaftar">
+                       <label for="status">Terdaftar</label>
                     </p>
                 </div>
             </div>

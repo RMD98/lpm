@@ -34,7 +34,7 @@ class CreateMediamassasTable extends Migration
         
         });
         Schema::table('luarans', function (Blueprint $table) {
-            $table->foreignId('media_massa')->constrained('mediamassas');
+            $table->foreignId('media_massa')->nullable()->constrained('mediamassas')->nullOnDelete();
         });
     }
 

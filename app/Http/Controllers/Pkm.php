@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Anggota;
 use App\Models\Luaran;
 use App\Models\Mitrapkm;
+use App\Models\Haki;
+use App\Models\Buku;
+use App\Models\Forum;
+use App\Models\Jurnalint;
+use App\Models\Ipteklain;
+use App\Models\Mitrahukum;
+use App\Models\Prodtersertifikasi;
+use App\Models\Prodterstandarisasi;
+use App\Models\Wirausahabarumandiri;
+use App\Models\Mediamassa;
+use App\Models\Penulishaki;
+use App\Models\Penulisjurnal;
+use App\Models\Penulismakalah;
 
 class Pkm extends Controller
 {
@@ -55,7 +68,7 @@ class Pkm extends Controller
                 'judul' => $request->judul,
                 'roadmap' => $request->roadmap,
                 'bidang' => $request->bidang,
-                'jeniskegiatan' => $request->jenis,
+                'jenis' => $request->jenis,
                 'skala' => $request->skala,
                 'dana' => $request->dana,
                 'sumberdana' => $request->sumber,
@@ -66,7 +79,8 @@ class Pkm extends Controller
                 'lab' => $request->lab,
                 'kelengkapan' => $request->kelengkapan,
             );
-            Pkms::insert($data);
+            $id = Pkms::insertgetId($data);
+            Luaran::insert(['id_pkm'=>$id]);
             return redirect()->action([Pkm::class,'index']);
     }
 
@@ -109,51 +123,50 @@ class Pkm extends Controller
         if(count($this->luaran($id))!=0){
             $luaran = $this->luaran($id);
         }
-        
+        // echo $luaran['forum_ilmiah'];
         return view('pkm/pkm_show',['data'=>$data[0],'ketua'=>$ketua,
         'staff'=>$staff,'mhs'=>$mhs,'alm'=>$alm,'mitra'=>$mitra,'luaran'=>$luaran]);
     }
     public function luaran($id){
         
-        $luaran= Luaran::get();
+        $luaran= Luaran::where('id_pkm','=',$id)->get();
         if(count($luaran) != 0){
             foreach($luaran as $key=>$value){
-                $luaran['haki'] = DB::table('hakis')
-                ->where('hakis.id','=',$luaran->haki)
-                ->join('penulis_hakis as ph','hakis.id','=','ph.id_haki')
-                ->join('dosen','penulis_haki.nidn','=','dosen.nidn')
+                $luaran['haki'] = Haki::where('hakis.id','=',$luaran[0]->haki)
                 ->get();
-                $luaran['prod_standar'] = DB::table('prod_terstandarisasi as pt')
-                ->where('id','=',$luaran[0]->prod_terstandarisasi)
-                ->join('dosen','dosen.nidn','=','pt.nidn')
+                if(count($luaran['haki'])){
+                    $luaran['penulishaki'] = Penulishaki::where('id_haki',$luaran['haki'][0]->id)
+                                        ->join('dosens','dosens.nidn','penulishakis.nidn')
+                                        ->get();
+                }
+                $luaran['prod_standar'] = Prodterstandarisasi::where('id','=',$luaran[0]->prod_terstandarisasi)
+                ->join('dosens','dosens.nidn','=','prodterstandarisasis.nidn')
                 ->get();
-                $luaran['prod_sertif'] = DB::table('prod_tersertifikasi as pt')
-                ->where('id','=',$luaran[0]->prod_tersertifikasi)
-                ->join('dosen','dosen.nidn','=','pt.nidn')
+                $luaran['prod_sertif'] = Prodtersertifikasi::where('id','=',$luaran[0]->prod_tersertifikasi)
+                ->join('dosens','dosens.nidn','=','prodtersertifikasis.nidn')
                 ->get();
-                $luaran['mbh'] = DB::table('mitra_berbadan_hukum')->where('id','=',$luaran[0]->mitra_berbadan_hukum)->get();
-                $luaran['buku'] = DB::table('buku')
-                ->where('id','=',$luaran[0]->buku)
-                ->join('dosen','dosen.nidn','=','buku.nidn')
+                $luaran['mbh'] = Mitrahukum::where('id','=',$luaran[0]->mitra_berbadan_hukum)->get();
+                $luaran['buku'] = Buku::where('id','=',$luaran[0]->buku)
+                ->join('dosens','dosens.nidn','=','bukus.nidn')
                 ->get();
-                $luaran['wbm'] = DB::table('wirausaha_baru_mandiri')->where('id','=',$luaran[0]->wirausaha_baru_mandiri)->get();
-                $luaran['forum_ilmiah'] = DB::table('forum_ilmiah as fi')
-                ->where('fi.id','=',$luaran[0]->forum_ilmiah)
-                ->join('penulis_makalah as pm','pm.id_makalah','=','fi.id')
-                ->join('dosen','pm.nidn','=','dosen.nidn')
+                $luaran['wbm'] = Wirausahabarumandiri::where('id','=',$luaran[0]->wirausaha_baru_mandiri)->get();
+                $luaran['forum_ilmiah'] = Forum::where('forums.id','=',$luaran[0]->forum_ilmiah)->get();
+                if(count($luaran['forum_ilmiah'])){
+                    $luaran['penulismakalah'] = Penulismakalah::where('id_makalah',$luaran['forum_ilmiah'][0]->id)
+                        ->join('dosens','penulismakalahs.nidn','=','dosens.nidn')
+                        ->get();
+                }
+                $luaran['media_massa'] = Mediamassa::where('id','=',$luaran[0]->media_massa)
+                ->join('dosens','dosens.nidn','=','mediamassas.nidn')
                 ->get();
-                $luaran['media_massa'] = DB::table('media_massa')
-                ->where('id','=',$luaran[0]->media_massa)
-                ->join('dosen','dosen.nidn','=','media_massa.nidn')
-                ->get();
-                $luaran['jurnal_internasional'] = DB::table('jurnal_internasional as ji')
-                ->where('ji.id','=',$luaran[0]->jurnal_internasional)
-                ->join('penulis_jurnal as pj','pj.id_jurnal','=','ji.id')
-                ->join('dosen','dosen.nidn','=','pj.nidn')
-                ->get();
-                $luaran['ipteklain'] = DB::table('ipteklain')
-                ->where('id','=',$luaran[0]->iptek_lain)
-                ->join('dosen','ipteklain.nidn','=','dosen.nidn')
+                $luaran['jurnal_internasional'] = Jurnalint::where('jurnalints.id','=',$luaran[0]->jurnal_internasional)->get();
+                if(count($luaran['jurnal_internasional'])!=0){
+                    $luaran['penulisjurnal'] = Penulisjurnal::where('id_jurnal',$luaran['jurnal_internasional'][0]->id)
+                        ->join('dosens','dosens.nidn','=','pj.nidn')
+                        ->get();
+                }
+                $luaran['ipteklain'] = Ipteklain::where('id','=',$luaran[0]->iptek_lain)
+                ->join('dosens','ipteklains.nidn','=','dosens.nidn')
                 ->get();
             }   
         }

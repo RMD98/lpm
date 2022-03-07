@@ -104,7 +104,7 @@ class Mitra extends Controller
      */
     public function destroy($id,$ids)
     {
-        Mitrapkm::where('id_mitra','=',$id)->where('id_pkm','=',$ids)->delete();
-        return redirect()->action([Pkm::class,'show'],['id'=>$ids]);
+        Mitrapkm::where('id_mitra','=',$ids)->where('id_pkm','=',$id)->delete();
+        return redirect()->action([Pkm::class,'show'],['id'=>$id]);
     }
 }
