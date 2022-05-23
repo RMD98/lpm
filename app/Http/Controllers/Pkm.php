@@ -15,7 +15,7 @@ use App\Models\Forum;
 use App\Models\Jurnalint;
 use App\Models\Ipteklain;
 use App\Models\Mitrahukum;
-use App\Models\Prodtersertifikasi;
+use App\Models\Prodtersertifikasi;  
 use App\Models\Prodterstandarisasi;
 use App\Models\Wirausahabarumandiri;
 use App\Models\Mediamassa;
@@ -59,11 +59,6 @@ class Pkm extends Controller
      */
     public function store(Request $request)
     {
-            // $data = new fasil;
-            // $data->NamaLab = $request->NamaLab;
-            // $data->Lingkup = $request->Lingkup;
-            // $data->SK = $request->filessk;
-            // $data->save();
             $data = array(
                 'judul' => $request->judul,
                 'roadmap' => $request->roadmap,
@@ -78,8 +73,10 @@ class Pkm extends Controller
                 'danapendamping' => $request->dpend,
                 'lab' => $request->lab,
                 'kelengkapan' => $request->kelengkapan,
+                'created_at' =>time(),
+                'updated_at' =>time()
             );
-            $id = Pkms::insertgetId($data);
+            $id = Pkms::insertGetId($data);
             Luaran::insert(['id_pkm'=>$id]);
             return redirect()->action([Pkm::class,'index']);
     }
@@ -120,14 +117,14 @@ class Pkm extends Controller
                         'wbm'=>[],'forum_ilmiah'=>[],'media_massa'=>[],
                         'jurnal_internasional'=>[],'ipteklain'=>[]);
         // echo $luaran['haki'];
-        if(count($this->luaran($id))!=0){
-            $luaran = $this->luaran($id);
+        if(count($this->luarans($id))!=0){
+            $luaran = $this->luarans($id);
         }
         // echo $luaran['forum_ilmiah'];
         return view('pkm/pkm_show',['data'=>$data[0],'ketua'=>$ketua,
         'staff'=>$staff,'mhs'=>$mhs,'alm'=>$alm,'mitra'=>$mitra,'luaran'=>$luaran]);
     }
-    public function luaran($id){
+    public function luarans($id){
         
         $luaran= Luaran::where('id_pkm','=',$id)->get();
         if(count($luaran) != 0){
@@ -201,7 +198,7 @@ class Pkm extends Controller
                 'judul' => $request->judul,
                 'roadmap' => $request->roadmap,
                 'bidang' => $request->bidang,
-                'jeniskegiatan' => $request->jenis,
+                'jenis' => $request->jenis,
                 'skala' => $request->skala,
                 'dana' => $request->dana,
                 'sumberdana' => $request->sumber,
@@ -211,6 +208,7 @@ class Pkm extends Controller
                 'danapendamping' => $request->dpend,
                 'lab' => $request->lab,
                 'kelengkapan' => $request->kelengkapan,
+                'updated_at' =>time()
             );
             Pkms::where('id',$id)->update($data);
             // return $data;

@@ -17,10 +17,11 @@ class Manajemen extends Controller
     {
         //  
             $tahun = Manajemens::groupBy('tahun')->get();
+            $data['data'] = [];
             foreach($tahun as $thn){
-                $data[] = Manajemens::where('tahun','=',$thn->tahun)->get(); 
+                $data['data'] = Manajemens::where('tahun','=',$thn->tahun)->get(); 
             };
-            $data['data'] = $data;
+            // echo $data['data'];
         return view('manajemen/manajemen',['data'=>$data,'tahun'=>$tahun]);
     }
 
@@ -60,7 +61,7 @@ class Manajemen extends Controller
             case(6):
                 $namasop = 'Monitoring Dan Evaluasi Internal';
             case(7):
-                $namasop = 'Sistem Penghargaan (Reward Dan Punishment) ';
+                $namasop = 'Sistem Penghargaan (Reward Dan Punishment)';
             case(8):
                 $namasop = 'Pelaporan Hasil PKM';
             case(9):

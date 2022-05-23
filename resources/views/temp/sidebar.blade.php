@@ -67,6 +67,12 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Revenue Generating</span></a>
             </li>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="/dosen">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Staff Dosen</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

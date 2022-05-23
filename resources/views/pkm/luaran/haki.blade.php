@@ -10,7 +10,7 @@
             @csrf
             <div class="form-group row" id="isian">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2 mt-2 card shadows">
-                    <input type="text" hidden class="form-control" id="ids" name="ids" value="{{count($data) == 0 ? '' : $data[0]->id}}">
+                    <input type="text"  class="form-control" id="ids" name="ids" value="{{count($data) == 0 ? '' : $data[0]->id_haki}}">
                     <p><b>Judul</b>
                         <input type="text" class="form-control" id="judul" name="judul" value="{{count($data) == 0 ? '' : $data[0]->judul}}"
                         placeholder="Judul">
@@ -45,7 +45,8 @@
                         </select>
                     </p>
                     <p><b>Nomor Pendaftaran</b>
-                        <input type="text" class="form-control" id="nodaftar" name="nodaftar" value="{{count($data) == 0 ? '': $data[0]->deskripsi}}"
+                        <input type="text" class="form-control" 
+                        id="nodaftar" name="nodaftar" value="{{count($data) == 0 ? '': $data[0]->no_daftar}}"
                         placeholder="Nomor Pendaftaran">
                     </p>
                     <p><b>Bukti</b>
@@ -67,7 +68,7 @@
                         @endif
                     </p>
                     <p>
-                       <input type="checkbox" id="status" name="status" value="Terdaftar">
+                       <input type="checkbox" id="status" name="status" value="Terdaftar" {{$data[0]->status =='Terdaftar' ? 'checked' : ''}}>
                        <label for="status">Terdaftar</label>
                     </p>
                 </div>

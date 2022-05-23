@@ -6,7 +6,7 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/edt_kelembagaan" method="post" enctype="multipart/form-data">
+        <form action="/edt_kelembagaan/{{$data->id}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
@@ -124,23 +124,23 @@
                     <p><b class="text-lg">Ruang Administrasi</b>
                     <div class="row">
                         <div class="ml-3">
-                            <input class="ml-6" type="radio" id="adm" name="adm" {{$data->ruang_adm == 'Sangat Tidak Memuaskan' ? 'checked' : ''}} value="Sangat Tidak Memuaskan">
+                            <input class="ml-6" type="radio" id="adm" name="adm" {{$data->ruang_administrasi == 'Sangat Tidak Memuaskan' ? 'checked' : ''}} value="Sangat Tidak Memuaskan">
                             <p>Sangat Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="adm" name="adm" {{$data->ruang_adm == 'Tidak Memuaskan' ? 'checked' : ''}} value="Tidak Memuaskan">
+                            <input class="ml-5" type="radio" id="adm" name="adm" {{$data->ruang_administrasi == 'Tidak Memuaskan' ? 'checked' : ''}} value="Tidak Memuaskan">
                             <p>Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-2" type="radio" id="adm" name="adm" {{$data->ruang_adm == 'Baik' ? 'checked' : ''}} value="Baik">
+                            <input class="ml-2" type="radio" id="adm" name="adm" {{$data->ruang_administrasi == 'Baik' ? 'checked' : ''}} value="Baik">
                             <p>Baik</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-4" type="radio" id="adm" name="adm" {{$data->ruang_adm == 'Memuaskan' ? 'checked' : ''}} value="Memuaskan">
+                            <input class="ml-4" type="radio" id="adm" name="adm" {{$data->ruang_administrasi == 'Memuaskan' ? 'checked' : ''}} value="Memuaskan">
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="adm" name="adm" {{$data->ruang_adm == 'Sangat Memuaskan ' ? 'checked' : ''}} value="Sangat Memuaskan">
+                            <input class="ml-5" type="radio" id="adm" name="adm" {{$data->ruang_administrasi == 'Sangat Memuaskan ' ? 'checked' : ''}} value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -199,23 +199,23 @@
                     <p><b class="text-lg">Ruang Seminar</b>
                     <div class="row">
                         <div class="ml-3">
-                            <input class="ml-6" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Sangat Tidak Memuaskan" ? 'checked' : '' }}value="Sangat Tidak Memuaskan">
+                            <input class="ml-6" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Sangat Tidak Memuaskan" ? 'checked' : '' }} value="Sangat Tidak Memuaskan">
                             <p>Sangat Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Tidak Memuaskan" ? 'checked' : '' }}value="Tidak Memuaskan">
+                            <input class="ml-5" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Tidak Memuaskan" ? 'checked' : '' }} value="Tidak Memuaskan">
                             <p>Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-2" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Baik" ? 'checked' : '' }}value="Baik">
+                            <input class="ml-2" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Baik" ? 'checked' : '' }} value="Baik">
                             <p>Baik</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-4" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Memuaskan" ? 'checked' : '' }}value="Memuaskan">
+                            <input class="ml-4" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Memuaskan" ? 'checked' : '' }} value="Memuaskan">
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Sangat Memuaskan " ? 'checked' : '' }}value="Sangat Memuaskan">
+                            <input class="ml-5" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Sangat Memuaskan " ? 'checked' : '' }} value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -224,18 +224,4 @@
         </form>
     </div>
 </div>
-<script language="javascript" type="text/javascript">
-            document.getElementById("Ada").onchange = function() {file()};
-            // var x = document.querySelector('input[name="Ada"]:checked');
-            function file(){
-                var x = document.getElementById("Ada");
-                var y = document.getElementById("filesk");
-                if(x.checked){
-                    y.disabled = false
-                }
-                else{
-                    y.disabled = true
-                }
-            }
-    </script>
 @stop

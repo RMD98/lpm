@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Standar as Standars;
 
 class Standar extends Controller
 {
@@ -15,7 +16,7 @@ class Standar extends Controller
     public function index()
     {
         //
-        $data = DB::table('standarpkm')->get();
+        $data =Standars::get();
         return view('standar/standar',['data'=>$data]);
     }
 
@@ -51,6 +52,8 @@ class Standar extends Controller
                 'Tahun'=> $request->tahun,
                 'Keterangan'=> $request->keterangan,
                 'Dokumen'=> $request->dokumen,
+                'created_at' =>time(),
+                'updated_at' =>time()
             );
             DB::table('standarpkm')->insert($data);
             return redirect()->action([Standar::class,'index']);
@@ -95,6 +98,7 @@ class Standar extends Controller
                 'Tahun'=> $request->tahun,
                 'Keterangan'=> $request->keterangan,
                 'Dokumen'=> $request->dokumen,
+                'updated_at' =>time()
             );
             DB::table('standarpkm')->where('id',$id)->update($data);
             // return $data;

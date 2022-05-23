@@ -42,18 +42,31 @@ class Kelembagaan extends Controller
      */
     public function store(Request $request)
     {
+        
+        $file['sk'] = $request->file('filesk');
+        $file['res'] = $request->file('filesk');
+            if($file['sk'] != NULL){
+                $path['sk'] = $request->file('filesk')->store('public/Kelembagaan/SK');
+            } else{
+                $path['sk'] = Null;
+            }
+            if($file['res'] != NULL){
+                $path['res'] =  $request->file('fileres')->store('public/Kelembagaan/SK Resentra');
+            } else{
+                $path['res'] = Null;
+            }
             $data = array(
                 'nama'=> $request->nama,
                 'tahun'=> $request->tahun,
                 'no_sk'=> $request->nosk,
-                'sk_pendirian'=> $request->file('filesk')->store('public/Kelembagaan/SK'),
+                'sk_pendirian'=> $path['sk'],
                 'alamat'=> $request->alamat,
                 'no_telp'=> $request->nopon,
                 'no_fax'=> $request->nofax,
                 'email'=> $request->email,
                 'url'=> $request->url,
                 'no_sk_resentra'=> $request->nores,
-                'resentra'=> $request->file('fileres')->store('public/Kelembagaan/SK Resentra'),
+                'resentra'=> $path['res'],
                 'nama_ketua'=> $request->namaket,
                 'nidn'=> $request->nidn,
                 'ruang_pimpinan'=> $request->pimpinan,
@@ -61,10 +74,9 @@ class Kelembagaan extends Controller
                 'ruang_penyimpanan_arsip'=> $request->arsp,
                 'ruang_pertemuan'=> $request->pertemuan,
                 'ruang_seminar'=> $request->sem,
-                // 'invoice'=> $request->file('inv')->store('public/Unit Bisnis/Invoice'),
             );
             $id = Kelembagaans::insertGetId($data);
-            return redirect()->action([Kelembagaan::class,'index']);
+            return redirect()->action([Kelembagaan::class,'show'],['id'=>$id]);
     }
 
     /**
@@ -73,7 +85,11 @@ class Kelembagaan extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id){
+        $data = Kelembagaans::where('id',$id)->get();
+        return view('kelembagaan/kelembagaan_show',['data'=>$data[0]]);
+    }
+    public function file($id)
     {
         //
         $data = DB::table('unitbisnis')->where('id','=',$id)->get();
@@ -106,16 +122,29 @@ class Kelembagaan extends Controller
      */
     public function update(Request $request, $id)
     {
-            $data = array (
-                'Nama'=> $request->nama,
-                'Nomor'=> $request->nomor,
-                'Tahun'=> $request->tahun,
-                'Keterangan'=> $request->keterangan,
-                'Dokumen'=> $request->dokumen,
-            );
-            DB::table('unitbisnis')->where('id',$id)->update($data);
+        $data = array(
+            'nama'=> $request->nama,
+            'tahun'=> $request->tahun,
+            'no_sk'=> $request->nosk,
+            'sk_pendirian'=> $path['sk'],
+            'alamat'=> $request->alamat,
+            'no_telp'=> $request->nopon,
+            'no_fax'=> $request->nofax,
+            'email'=> $request->email,
+            'url'=> $request->url,
+            'no_sk_resentra'=> $request->nores,
+            'resentra'=> $path['res'],
+            'nama_ketua'=> $request->namaket,
+            'nidn'=> $request->nidn,
+            'ruang_pimpinan'=> $request->pimpinan,
+            'ruang_administrasi'=> $request->adm,
+            'ruang_penyimpanan_arsip'=> $request->arsp,
+            'ruang_pertemuan'=> $request->pertemuan,
+            'ruang_seminar'=> $request->sem,
+        );
+            Kelembagaans::where('id',$id)->update($data);
             // return $data;
-            return redirect()->action([Unitbisnis::class,'index']);
+            return redirect()->action([Kelembagaan::class,'index']);
     }
 
     /**

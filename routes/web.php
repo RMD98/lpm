@@ -11,6 +11,7 @@ use App\Http\Controllers\Manajemen;
 use App\Http\Controllers\Luaran;
 use App\Http\Controllers\Anggota;
 use App\Http\Controllers\Mitra;
+use App\Http\Controllers\Dosen;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +29,7 @@ Route::get('/manajemen',[Manajemen::class,'index']);
 Route::get('/kelembagaan',[Kelembagaan::class,'index']);
 Route::get('/unit_bisnis',[Unitbisnis::class,'index']);
 Route::get('/standar',[Standar::class,'index']);
+Route::get('/dosen',[Dosen::class,'index']);
 Route::get('/fasilitas',[Fasilitas::class,'index']);
 Route::get('/add_fasilitas',[Fasilitas::class,'create']);
 Route::get('/add_kelembagaan',[Kelembagaan::class,'create']);
@@ -35,6 +37,7 @@ Route::get('/add_pkm',[Pkm::class,'create']);
 Route::get('/add_ub',[Unitbisnis::class,'create']);
 Route::get('/add_standar',[Standar::class,'create']);
 Route::get('/add_manajemen',[Manajemen::class,'create']);
+Route::get('/add_dosen',[Dosen::class,'create']);
 Route::post('/addpkm',[Pkm::class,'store']);
 Route::post('/addub',[Unitbisnis::class,'store']);
 Route::post('/addstandar',[Standar::class,'store']);
@@ -93,12 +96,9 @@ Route::post('/editpkm/luaran/media/{id}',[Luaran::class,'upsirtmedia']);
 Route::post('/editpkm/luaran/wbm/{id}',[Luaran::class,'upsirtwbm']);
 Route::post('/editpkm/luaran/jurnal/{id}',[Luaran::class,'upsirtjurnal']);
 Route::get('/fas_file/{id}',[Fasilitas::class,'show']);
-Route::get('/login', function () {
-    return view('auth/login');
-});
-Route::get('/register', function () {
-    return view('auth/register');
-});
-Route::get('/forgot-password', function () {
-    return view('auth/forgot-password');
-});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

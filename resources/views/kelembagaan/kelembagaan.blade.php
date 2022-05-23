@@ -32,7 +32,8 @@
                             <td><?php echo $data->alamat ?></td>
                             <td><?php echo $data->tahun ?></td>
                             <td>
-                                <a href="/edit_fasilitas/<?php echo $data->id ?>" class="btn btn-primary">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                                <a href="/kelembagaan/<?php echo $data->id ?>" class="btn btn-success">SHOW &nbsp<i class="fas fa-eye fa-sm text-white-10"></i></a>
+                                <a href="/edit_kelembagaan/<?php echo $data->id ?>" class="btn btn-primary">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                                 <a data-toggle="modal" data-target="#deletemodal<?php echo $data->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a>
                             </td>
                         </tr>

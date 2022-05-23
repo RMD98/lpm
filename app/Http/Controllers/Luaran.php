@@ -11,13 +11,13 @@ use App\Models\Buku;
 use App\Models\Mitrahukum;
 use App\Models\Prodtersertifikasi;
 use App\Models\Prodterstandarisasi;
-use App\Models\Penulishaki;
-use App\Models\Penulismakalah;
-use App\Models\Penulisjurnal;
 use App\Models\Forum;
 use App\Models\Mediamassa;
 use App\Models\Jurnalint;
 use App\Models\Wirausahabarumandiri as wbm;
+use App\Models\Penulishaki;
+use App\Models\Penulismakalah;
+use App\Models\Penulisjurnal;
 
 
 class Luaran extends Controller

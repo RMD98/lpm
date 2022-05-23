@@ -18,9 +18,18 @@
                     <thead>
                         <tr>
                         <th>SOP</th>
-                        <th>Kegiatan Pelatihan</th>
+                        <th>Kegiatan Pelatihan Dan Atau Klinik Proposal</th>
+                        <th>Rekrutmen Reviewer Internal</th>
                         <th>Evaluasi Proposal</th>
+                        <th>Seminar Pembahasan Proposal</th>
                         <th>Penetapan Pemenang</th>
+                        <th>Kontrak Pelaksanaan PKM</th>
+                        <th>Monitoring Dan Evaluasi Internal</th>
+                        <th>Sistem Penghargaan (Reward Dan Punishment)</th>
+                        <th>Pelaporan Hasil PKM</th>
+                        <th>Kegiatan Seminar/Pameran Hasil PKM</th>
+                        <th>Proses Penjaminan Mutu</th>
+                        <th>Tindak Lanjut Hasil PKM</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,9 +53,9 @@
                                 @endforeach
                             </tr>
                         @endforeach
-                                <?php foreach ($data[0] as $data): ?>
+                                <?php foreach ($data['data'] as $key=>$value): ?>
                                     <td>
-                        <div class="modal fade" id="deletemodal<?php echo $data->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="deletemodal<?php echo $data[$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
