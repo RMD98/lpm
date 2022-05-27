@@ -18,6 +18,7 @@ class Dosen extends Controller
         //
         $data = Dosens::get();
         return view('dosen/dosen',['data'=>$data]);
+        
     }
 
     /**

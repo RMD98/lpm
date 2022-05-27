@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Home;
 use App\Http\Controllers\Fasilitas;
 use App\Http\Controllers\Pkm;
 use App\Http\Controllers\Standar;
@@ -23,7 +23,7 @@ use App\Http\Controllers\Dosen;
 |
 */
 
-Route::get('/',[Controller::class,'index']);
+Route::get('/',[Home::class,'index']);
 Route::get('/pkm',[Pkm::class,'index']);
 Route::get('/manajemen',[Manajemen::class,'index']);
 Route::get('/kelembagaan',[Kelembagaan::class,'index']);
