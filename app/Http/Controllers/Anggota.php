@@ -20,7 +20,7 @@ class Anggota extends Controller
                 ->where('jabatan','=','KETUA')
                 ->get();
         $prodi = DB::table('prodis')->get();
-        // echo $prodi;
+
         return view('pkm/ketua',['data'=>$data,'id'=>$id,'prodi'=>$prodi]);
     }
     public function mhs($id)
@@ -28,7 +28,7 @@ class Anggota extends Controller
         $data = Anggotas::where('id_pkm','=',$id)
                 ->where('status','=','MAHASISWA')
                 ->get();
-        // echo $data;
+       
         return view('pkm/mahasiswa',['data'=>$data,'id'=>$id],);
     }
     public function alm($id)
@@ -37,7 +37,7 @@ class Anggota extends Controller
                 ->where('status','=','ALUMNI')
                 ->get();
         $prodi = Prodi::get();
-        // echo $data;
+       
         return view('pkm/alumni',['data'=>$data,'id'=>$id,'prodi'=>$prodi]);
     }
     

@@ -30,7 +30,7 @@ class Dosen extends Controller
     {
         //
         $data = Prodi::get();
-        // $data = DB::table('prodi')->get();
+       
         return view('dosen/add_dosen',['data'=>$data]);
     }
 
@@ -42,11 +42,7 @@ class Dosen extends Controller
      */
     public function store(Request $request)
     {
-            // $data = new fasil;
-            // $data->NamaLab = $request->NamaLab;
-            // $data->Lingkup = $request->Lingkup;
-            // $data->SK = $request->filessk;
-            // $data->save();
+            
             $data = array(
                 'nama'=> $request->nama,
                 'nidn'=> $request->nidn,
@@ -79,9 +75,9 @@ class Dosen extends Controller
      */
     public function edit($id)
     {
-            $data = DB::table('standarpkm')->where('id','=',$id)->get();
-            // $prodi = DB::table('prodi')->get();
-            return view('standar/edit_standar',['data'=>$data[0]]);
+            $data = Dosens::where('nidn','=',$id)->first();
+            $prodi = Prodi::get();
+            return view('dosen/edit_dosen',compact('data','prodi'));
     }
 
     /**
@@ -93,16 +89,16 @@ class Dosen extends Controller
      */
     public function update(Request $request, $id)
     {
-            $data = array (
-                'Nama'=> $request->nama,
-                'Nomor'=> $request->nomor,
-                'Tahun'=> $request->tahun,
-                'Keterangan'=> $request->keterangan,
-                'Dokumen'=> $request->dokumen,
-            );
-            DB::table('standarpkm')->where('id',$id)->update($data);
-            // return $data;
-            return redirect()->action([Standar::class,'index']);
+        $data = array(
+            'nama'=> $request->nama,
+            'nidn'=> $request->nidn,
+            'pendidikan'=> $request->pendidikan,
+            'golongan'=> $request->golongan,
+            'prodi'=> $request->prodi,
+            'jab_fungsional'=> $request->jab,
+        );
+        Dosens::where('nind',$id)->update($data);
+        return redirect()->action([Dosen::class,'index']);
     }
 
     /**
@@ -114,7 +110,7 @@ class Dosen extends Controller
     public function destroy($id)
     {
         //
-        DB::table('standarpkm')->where('id','=',$id)->delete();
-        return redirect()->action([Standar::class,'index']);
+       Dosens::where('nidn',$id)->delete();
+        return redirect()->action([Dosen::class,'index']);
     }
 }

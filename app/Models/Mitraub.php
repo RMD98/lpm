@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Mitraub extends Model
 {
     use HasFactory;
+    protected $fillable=[];
 }

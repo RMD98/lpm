@@ -127,8 +127,6 @@ class Home extends Controller
         $luaran['forum'] = Forum::count();
 
         $luaran['ttl'] = $luaran['iptek'] + $luaran['mitra'] + $luaran['prodser'] + $luaran['prodstan'] + $luaran['media'] + $luaran['jurnal'] + $luaran['wbm'] + $luaran['haki'] + $luaran['buku'] + $luaran['forum'];
-        // echo '<br>iptek'.$iptek.'<br>mitra'.$mitra.'<br>prodser'.$prodser.'<br>prodstan'.$prodstan.'<br>media'.$media.'<br>jurnal'.$jurnal.'<br>wbm'.$wbm.'<br>haki'.$haki.'<br>buku'.$buku.'<br>forum'.$forum;
-        // echo '<br>total'.$luaran['ttl'];
 
         return $luaran;
     }

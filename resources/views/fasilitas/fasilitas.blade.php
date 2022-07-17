@@ -41,7 +41,7 @@
                                         <i class="fas fa-download fa-sm text-white-50"></i>
                                         Download</a>
                                     <br>
-                                    <a href="/fas_file/<?php echo $data->id ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <a href="/fas_file/<?php echo $data->id ?>" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                         <i class="fas fa-eye fa-sm text-white-50"></i>
                                         Show</a>
                                 </td>

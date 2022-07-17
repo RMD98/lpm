@@ -6,12 +6,12 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/addmanajemen" method="post" enctype="multipart/form-data">
+        <form action="/edtmanajemen/{{$tahun}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Tahun</b>
-                    <input type="number" unique class="form-control" id="tahun" name="tahun"
+                    <input type="number" unique class="form-control" id="tahun" name="tahun" value="{{$tahun}}"
                     placeholder="Tahun">
                     </p>
                     @if($errors->any())
@@ -23,10 +23,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[0]" value={{$data[0]->id}}>
                         <select name="konsistensi[0]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[0]->konsistensi=="Konsisten" ? 'selected' : ''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[0]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[0]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -38,10 +39,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[1]" value={{$data[1]->id}}>
                         <select name="konsistensi[1]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[1]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[1]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[1]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -53,10 +55,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[2]" value={{$data[2]->id}}>
                         <select name="konsistensi[2]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                        <option value="Konsisten" {{$data[2]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[2]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[2]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -68,10 +71,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[3]" value={{$data[3]->id}}>
                         <select name="konsistensi[3]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                        <option value="Konsisten" {{$data[3]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[3]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[3]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -83,10 +87,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[4]" value={{$data[4]->id}}>
                         <select name="konsistensi[4]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[4]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[4]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[4]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -98,10 +103,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[5]" value={{$data[5]->id}}>
                         <select name="konsistensi[5]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[5]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[5]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[5]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -113,10 +119,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[6]" value={{$data[6]->id}}>
                         <select name="konsistensi[6]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[6]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[6]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[6]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -128,10 +135,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[7]" value={{$data[7]->id}}>
                         <select name="konsistensi[7]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[7]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[7]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[7]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -143,10 +151,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[8]" value={{$data[8]->id}}>
                         <select name="konsistensi[8]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[8]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[8]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[8]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -158,10 +167,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[9]" value={{$data[9]->id}}>
                         <select name="konsistensi[9]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[9]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[9]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[9]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -173,10 +183,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[10]" value={{$data[10]->id}}>
                         <select name="konsistensi[10]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[10]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[10]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[10]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>
@@ -188,10 +199,11 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Konsistensi</b>
+                        <input type="text" hidden name="id[11]" value={{$data[11]->id}}>
                         <select name="konsistensi[11]" id="konsistensi">
-                            <option value="Konsisten">Konsisten</option>
-                            <option value="Tidak Konsisten">Tidak Konsisten</option>
-                            <option value="Tidak Ada">Tidak Ada</option>
+                            <option value="Konsisten" {{$data[11]->konsistensi=="Konsisten" ? 'selected' :''}}>Konsisten</option>
+                            <option value="Tidak Konsisten" {{$data[11]->konsistensi=="Tidak Konsisten" ? 'selected' :''}}>Tidak Konsisten</option>
+                            <option value="Tidak Ada" {{$data[11]->konsistensi=="Tidak Ada" ? 'selected' :''}}>Tidak Ada</option>
                         </select>
                         &nbsp
                         <b>Dokumen</b>

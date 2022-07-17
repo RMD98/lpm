@@ -30,51 +30,37 @@
                         <th>Kegiatan Seminar/Pameran Hasil PKM</th>
                         <th>Proses Penjaminan Mutu</th>
                         <th>Tindak Lanjut Hasil PKM</th>
+                        <th></th>
                         </tr>
                     </thead>
                     <tbody>
                        
-                        @foreach ($data['data'] as $ubi)
+                        @foreach ($tahun as $key=>$value)
                             <tr>
-                                <td><?php echo $tahun[$loop->index]->tahun ?></td>
-                                @foreach($data[$loop->index] as $dat)
-                                   <td>
-                                       <?php echo $data[$loop->parent->index][$loop->index]->konsistensi?> ||
-                                       &nbsp
-                                       @if ($data[$loop->parent->index][$loop->index]->file !=NULL )
-                                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                                <i class="fas fa-download fa-sm text-white-50"></i>
-                                                Download</a>
+                                <td>{{$value->tahun}}</td>
+                                @foreach($data[$value->tahun] as $key=>$value)
+                                    <td>
+                                        {{$value->konsistensi}}
+                                        <br>
+                                        <br>
+                                        @if($value->file == NULL)
+                                            <b>
+                                                <i>
+                                                    Tidak Ada file
+                                                </i>
+                                            </b>
                                         @else
-                                                Tidak Ada FIle Dokumen
-                                       @endif
-                                       <?php echo $data[$loop->parent->index][$loop->index]->file?>
+                                            {{$value->file}}
+                                        @endif
                                     </td>
                                 @endforeach
+                                <td>
+                                    <a href="/unit_bisnis/" class="btn btn-success">DETAIL <i class="fas fa-eye"></i></a>
+                                    <a href="/edit_manajemen/{{$value->tahun}}" class="btn btn-primary">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                                    <a data-toggle="modal" data-target="#deletemodal" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a>
+                                </td>
                             </tr>
                         @endforeach
-                                <?php foreach ($data['data'] as $key=>$value): ?>
-                                    <td>
-                        <div class="modal fade" id="deletemodal<?php echo $data[$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Are you Sure?</h5>
-                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">Are you sure want to delete data <?php echo $data->nama_sop?>.</div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                        <a class="btn btn-primary" href="/del_kelembagaan/<?php echo $data->id ?>">YES</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <?php endforeach ?>
                     </tbody>
                 </table>
             </div>

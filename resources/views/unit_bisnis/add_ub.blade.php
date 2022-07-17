@@ -66,7 +66,7 @@
                 document.getElementById("isian").insertAdjacentHTML('beforeend',`<div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Mitra</b>
                         <input type="text" class="form-control" name="namamitra[`+i+`]">
-                        <input type="file" class="form-control" accept=".pdf" name="mou`+i+`">
+                        <input type="file" class="form-control" accept=".pdf" name="mou[`+i+`]">
                     </p>
                 </div>`)
             }

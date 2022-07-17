@@ -10,9 +10,9 @@ use Illuminate\Auth\Access\Response;
 
 class Fasilitas extends Controller
 {
-    public function __construct(){
-        $this->middleware(['auth']);
-    }
+    // public function __construct(){
+    //     $this->middleware(['auth']);
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +20,7 @@ class Fasilitas extends Controller
      */
     public function index()
     {
-        //
+        
         $data = fasil::get();
         return view('fasilitas/fasilitas',['data'=>$data]);
     }
@@ -34,7 +34,7 @@ class Fasilitas extends Controller
     {
         //
         // $data = Prodi::get();
-        $data = DB::table('prodi')->get();
+        $data = Prodi::get();
         return view('fasilitas/add_fasilitas',['data'=>$data]);
     }
 
@@ -60,16 +60,12 @@ class Fasilitas extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function file($id)
     {
         $path = fasil::where('id','=',$id)->get();
-        $response = \Response::make($path[0]->SK,200);
-        $content_types = 'application/pdf';
-        header('Content-type : application/pdf');
-        $file = \Storage::url($path[0]->SK);
-
-        readfile($path[0]->SK);
-        // return $path[0]->SK;
+        $file = \Storage::path($path[0]->SK);
+        
+        return response()->file($file);
     }
 
     /**
@@ -122,6 +118,6 @@ class Fasilitas extends Controller
         $path = fasil::where('id','=',$id)->get();
         $name =$path[0]->NamaLab;
         // $name +='.pdf';
-        return \Storage::download($path[0]->SK,`$name`);
+        return \Storage::download($path[0]->SK,$name.'.pdf');
     }
 }

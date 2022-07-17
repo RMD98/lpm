@@ -6,7 +6,7 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/addub" method="post" enctype="multipart/form-data">
+        <form action="/edtub/{{$data->id}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group row" id="isian">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
@@ -53,10 +53,14 @@
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2" id=mitra>
-                    <p><b>Mitra</b>
-                        <input type="text" class="form-control" name="namamitra[0]">
-                        <input type="file" class="form-control" accept=".pdf" name="mou[0]">
-                    </p>
+                    @foreach($mitra as $key=>$value)
+                        <p><b>Mitra</b>
+                            <input type="text" hidden name="id[{{$key}}]" value="{{$value->id}}">
+                            <input type="text" class="form-control" name="namamitra[{{$key}}]" value="{{$value->nama}}">
+                            <input type="file" class="form-control" accept=".pdf" name="mou[{{$key}}]">
+                            <label for="lap"><?php echo $value->mou ?></label>
+                        </p>
+                    @endforeach
                 </div>
             </div>
             <button id="tmbh" type="button">Tambah Mitra</button>
@@ -65,15 +69,15 @@
     </div>
 </div>
 <script language="javascript" type="text/javascript">
-            var i = 0;
+            var i = {{count($mitra)-1}};
             document.getElementById("tmbh").onclick = function() {Tambah()};
             // var x = document.querySelector('input[name="Ada"]:checked');
             function Tambah(){
                 ++i;
                 document.getElementById("isian").insertAdjacentHTML('beforeend',`<div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Mitra</b>
-                        <input type="text" class="form-control" name="namamitra[`+i+`]">
-                        <input type="file" class="form-control" accept=".pdf" name="mou`+i+`">
+                        <input type="text" class="form-control" name="mitrabaru[`+i+`]">
+                        <input type="file" class="form-control" accept=".pdf" name="moubaru[`+i+`]">
                     </p>
                 </div>`)
             }

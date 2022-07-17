@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Mitraub;
 
 class Unitbisnis extends Controller
 {
@@ -17,21 +18,8 @@ class Unitbisnis extends Controller
         //
             $data = DB::table('unitbisnis as ub')
                     ->get();
-            $i = count($data);
-            if($i = 0){
-                foreach($data as $dat) {
-                    $mitra[] = DB::table('mitra')
-                    ->join('mitraub','mitraub.id_mitra','=','mitra.id')
-                    ->where('id_ub','=',$dat->id)
-                    ->select('mitra.*')
-                    ->get();
-                };
-                $ub['mitra'] =$mitra; 
-                return view('unit_bisnis/unit_bisnis',['data'=>$data,'ub'=>$ub]);
-            } else{
-                $ub = [];
-                return view('unit_bisnis/unit_bisnis',['data'=>$data,'ub'=>$ub]);
-            }
+            $ub = DB::table('mitraubs')->get();
+            return view('unit_bisnis/unit_bisnis',compact('data','ub'));
     }
 
     /**
@@ -80,9 +68,9 @@ class Unitbisnis extends Controller
             );
             $id = DB::table('unitbisnis')->insertGetId($data);
             $mou = $request->file('mou');
-            foreach($mou as $mou){
+            foreach($mou as $key=>$value){
                 if($mou != NULL){
-                    $file = $mou->store('public/Unit Bisnis/MOU');
+                    $file[$key] = $value->store('public/Unit Bisnis/MOU');
                 } else {
                     $file = NULL;
                 }
@@ -91,9 +79,9 @@ class Unitbisnis extends Controller
                 $mitra = array(
                     'id_ub' => $id,
                     'nama'=>$request->namamitra[$key],
-                    'mou' => $file,
+                    'mou' => $file[$key],
                 );
-                DB::table('mitraub')->insert($mitra);
+                Mitraub::insert($mitra);
             }
             return redirect()->action([Unitbisnis::class,'index']);
     }
@@ -106,7 +94,7 @@ class Unitbisnis extends Controller
      */
     public function show($id){
         $data = DB::table('unitbisnis')->where('id','=',$id)->get();
-        $mitra = DB::table('mitraub')->where('id_ub','=',$id)->get();
+        $mitra = DB::table('mitraubs')->where('id_ub','=',$id)->get();
         return view('unit_bisnis/unit_bisnis_show',['data'=>$data[0],'mitra'=>$mitra]);
     }
 
@@ -129,9 +117,9 @@ class Unitbisnis extends Controller
      */
     public function edit($id)
     {
-            $data = DB::table('unitbisnis')->where('id','=',$id)->get();
-            // $prodi = DB::table('prodi')->get();
-            return view('unit_bisnis/edit_ub',['data'=>$data[0]]);
+            $data = DB::table('unitbisnis')->where('id','=',$id)->first();
+            $mitra = DB::table('mitraubs')->where('id_ub',$id)->get();
+            return view('unit_bisnis/edit_ub',compact('data','mitra'));
     }
 
     /**
@@ -143,16 +131,62 @@ class Unitbisnis extends Controller
      */
     public function update(Request $request, $id)
     {
-            $data = array (
-                'Nama'=> $request->nama,
-                'Nomor'=> $request->nomor,
-                'Tahun'=> $request->tahun,
-                'Keterangan'=> $request->keterangan,
-                'Dokumen'=> $request->dokumen,
+        $data = array(
+            'nama'=> $request->Namaub,
+            'deskripsi'=> $request->Deskripsi,
+            'nosk'=> $request->Nosk,
+        );
+        if($request->file('Sk') != NULL){
+            $Sk = $request->file('Sk')->store('public/Unit Bisnis/SK');
+            $data = array_merge_recursive($data,['SKPUB'=> $Sk]);
+            
+        } else {
+            $Sk = NULL;
+        }
+        if($request->file('Lap') != NULL){
+            $Lap = $request->file('Lap')->store('public/Unit Bisnis/Laporan');
+            $data = array_merge_recursive($data,['LKUB'=> $Lap]);
+        } else {
+            $Lap = NULL;
+        }
+        if($request->file('inv') != NULL){
+            $inv = $request->file('inv')->store('public/Unit Bisnis/Invoice');
+            $data = array_merge_recursive($data,['invoice'=> $inv]);
+        } else {
+            $inv = NULL;
+        }
+        
+        DB::table('unitbisnis')->where('id',$id)->update($data);
+        $mou = $request->file('mou');
+        foreach($request->id as $key=>$value){
+            $mitra = array(
+                'nama'=>$request->namamitra[$key],
             );
-            DB::table('unitbisnis')->where('id',$id)->update($data);
-            // return $data;
-            return redirect()->action([Unitbisnis::class,'index']);
+            if($mou){
+                if(current($mou)){
+                    $mitra = array_merge_recursive($mitra,['mou'=> current($mou)->store('public/Unit Bisnis/MOU')]);
+                    next($mou);
+                }
+            }
+            Mitraub::where('id',$value)->update($mitra);
+        }
+        if($request->mitrabaru){
+
+            foreach($request->mitrabaru as $key=>$value){
+                if($request->file('moubaru')[$key] != NULL){
+                $file = $request->file('moubaru')[$key]->store('public/Unit Bisnis/MOU');
+                } else {
+                    $file = NULL;
+                }
+                $baru = array(
+                    'id_ub' => $id,
+                    'nama'=>$request->mitrabaru[$key],
+                    'mou' =>$file
+                );
+                Mitraub::insert($baru);
+            }
+        }
+        return redirect()->action([Unitbisnis::class,'index']);
     }
 
     /**

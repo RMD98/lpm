@@ -18,8 +18,8 @@ class Manajemen extends Controller
         //  
             $tahun = Manajemens::groupBy('tahun')->get();
             $data['data'] = [];
-            foreach($tahun as $thn){
-                $data['data'] = Manajemens::where('tahun','=',$thn->tahun)->get(); 
+            foreach($tahun as $key=>$value){
+                $data[$value->tahun] = Manajemens::where('tahun','=',$value->tahun)->get(); 
             };
             // echo $data['data'];
         return view('manajemen/manajemen',['data'=>$data,'tahun'=>$tahun]);
@@ -47,49 +47,54 @@ class Manajemen extends Controller
     public function sop($no){
         switch($no) :
             case(0) :
-                $namasop = "Kegiatan Pelatihan Dan Atau Klinik Proposal";
+                $namasop = "Kegiatan Pelatihan Dan Atau Klinik Proposal"; break;
             case(1):
-                $namasop = 'Rekrutmen Reviewer Internal';
+                $namasop = 'Rekrutmen Reviewer Internal'; break;
             case(2):
-                $namasop = 'Evaluasi Proposal';
+                $namasop = 'Evaluasi Proposal'; break;
             case(3):
-                $namasop = 'Seminar Pembahasan Proposal';
+                $namasop = 'Seminar Pembahasan Proposal'; break;
             case(4):
-                $namasop = 'Penetapan Pemenang';
+                $namasop = 'Penetapan Pemenang'; break;
             case(5):
-                $namasop = 'Kontrak Pelaksanaan PKM';
+                $namasop = 'Kontrak Pelaksanaan PKM'; break;
             case(6):
-                $namasop = 'Monitoring Dan Evaluasi Internal';
+                $namasop = 'Monitoring Dan Evaluasi Internal'; break;
             case(7):
-                $namasop = 'Sistem Penghargaan (Reward Dan Punishment)';
+                $namasop = 'Sistem Penghargaan (Reward Dan Punishment)'; break;
             case(8):
-                $namasop = 'Pelaporan Hasil PKM';
+                $namasop = 'Pelaporan Hasil PKM'; break;
             case(9):
-                $namasop = 'Kegiatan Seminar/Pameran Hasil PKM';
+                $namasop = 'Kegiatan Seminar/Pameran Hasil PKM'; break;
             case(10):
-                $namasop = 'Proses Penjaminan Mutu';
+                $namasop = 'Proses Penjaminan Mutu'; break;
             case(11):
-                $namasop = 'Tindak Lanjut Hasil PKM';
+                $namasop = 'Tindak Lanjut Hasil PKM'; break;
         endswitch;
         return $namasop;
     }
     public function store(Request $request)
     {
             $file = $request->file('file');
+            $tahun = $request->tahun;
+            if(Manajemens::where('tahun',$tahun)->exists()){
+                return redirect()->back()->withErrors(['msg'=>'tahun '.$tahun.' sudah ada dalam database']);
+            }
             foreach($request->konsistensi as $key=>$value){
-                $tahun = $request->$tahun;
                 if ($file != NULL){
                     $path[$key] = $file->store(`public/Manajemen Pengabdian/$tahun`);
                 } else {
                     $path[$key] = NULL;
                 }
                 $namasop = $this->sop($key);
+
                 $data = array(
                     'nama_sop'=> $namasop,
                     'konsistensi' => $request->konsistensi[$key],
-                    'file' => $path,
+                    'file' => $path[$key],
                     'tahun' => $tahun,
                 );
+                // echo($key);
                 Manajemens::insert($data);
             }
             return redirect()->action([Manajemen::class,'index']);
@@ -120,9 +125,10 @@ class Manajemen extends Controller
      */
     public function edit($id)
     {
-            $data = Manajemens::where('id','=',$id)->get();
+            $data = Manajemens::where('tahun','=',$id)->get();
             // $prodi = DB::table('prodi')->get();
-            return view('Manajemen/edit_Manajemen',['data'=>$data[0]]);
+            // echo($data);
+            return view('Manajemen/edit_manajemen',['data'=>$data,'tahun'=>$id]);
     }
 
     /**
@@ -135,21 +141,28 @@ class Manajemen extends Controller
     public function update(Request $request, $id)
     {
         $file = $request->file('file');
-        foreach($request->konsistensi as $key=>$value){
-            if ($file != NULL){
-                $path[$key] = $file->store(`public/Manajemen Pengabdian/$tahun`);
-            } else {
-                $path[$key] = NULL;
+        $tahun = $request->tahun;
+        if($tahun != $id){
+            if(Manajemens::where('tahun',$tahun)->exists()){
+                return redirect()->back()->withErrors(['msg'=>'tahun '.$tahun.' sudah ada dalam database']);
             }
-            $tahun = $request->$tahun;
+        }
+        foreach($request->konsistensi as $key=>$value){
             $namasop = $this->sop($key);
             $data = array(
                 'nama_sop'=> $namasop,
-                'konsistensi' => $request->konsistensi[$key],
-                'file' => $path,
+                'konsistensi' => $value,
                 'tahun' => $tahun,
             );
-            Manajemens::insert($data);
+            if ($file){
+                if(current($file)){
+                    $data = array_merge_recursive($data,['file'=>current($file)->store(`public/Manajemen Pengabdian/$tahun`)]);
+                    next($file);
+                }
+            } else {
+               
+            }
+            Manajemens::where('id',$request->id[$key])->update($data);
         }
         return redirect()->action([Manajemen::class,'index']);
     }

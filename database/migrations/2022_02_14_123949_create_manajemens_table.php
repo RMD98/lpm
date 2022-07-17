@@ -17,7 +17,7 @@ class CreateManajemensTable extends Migration
             $table->id();
             $table->string('nama_sop');
             $table->enum('konsistensi',['Konsisten','Tidak Konsisten','Tidak Ada']);
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->year('tahun');
             $table->timestamps();
         });

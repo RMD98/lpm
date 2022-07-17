@@ -43,10 +43,13 @@
                                     Tidak Ada FIle SK
                                 </td>
                             @endif
-                            @foreach ($ub['mitra'][$loop->index] as $ubi)
-                                    <td><?php echo $ubi->nama?></td>
+                            <td>
+                            @foreach ($ub as $key=>$value)
+                                @if($data->id == $value->id_ub)
+                                    - <?php echo $value->nama?>
+                                @endif
                             @endforeach
-                                        <td></td>
+                            </td>
                             <td>
                                 <a href="/unit_bisnis/<?php echo $data->id ?>" class="btn btn-success">DETAIL <i class="fas fa-eye"></i></a>
                                 <a href="/edit_ub/<?php echo $data->id ?>" class="btn btn-primary">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>

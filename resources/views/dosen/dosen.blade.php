@@ -26,20 +26,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($data as $data): ?>
+                        @foreach ($data as $key=>$value)
                         <tr>
-                            <td>{{ $data->nidn }}</td>
-                            <td>{{ $data->nama }}</td>
-                            <td>{{ $data->prodi }}</td>
-                            <td>{{ $data->pendidikan }}</td>
-                            <td>{{ $data->jab_fungsional }}</td>
-                            <td>{{ $data->golongan }}</td>
+                            <td>{{ $value->nidn }}</td>
+                            <td>{{ $value->nama }}</td>
+                            <td>{{ $value->prodi }}</td>
+                            <td>{{ $value->pendidikan }}</td>
+                            <td>{{ $value->jab_fungsional }}</td>
+                            <td>{{ $value->golongan }}</td>
                             <td>
-                                <a href="/edit_dosen/<?php echo $data->id ?>" class="btn btn-primary">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
-                                <a data-toggle="modal" data-target="#deletemodal<?php echo $data->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a>
+                                <a href="/edit_dosen/{{$value->nidn}}" class="btn btn-primary">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                                <a data-toggle="modal" data-target="#deletemodal{{$value->nidn}}" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
-                        <div class="modal fade" id="deletemodal<?php echo $data->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="deletemodal{{$value->nidn}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -49,16 +49,16 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">Are you sure want to delete data <?php echo $data->Nama?>.</div>
+                                    <div class="modal-body">Are you sure want to delete data {{$value->nama}}.</div>
                                     <div class="modal-footer">
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                        <a class="btn btn-primary" href="/del_standar/<?php echo $data->id ?>">YES</a>
+                                        <a class="btn btn-primary" href="/del_dosen/{{$value->nidn}}">YES</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     
-                        <?php endforeach ?>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -29,8 +29,6 @@ class Kelembagaan extends Controller
     public function create()
     {
         //
-        // $data = Prodi::get();
-        // $data = DB::table('prodi')->get();
         return view('kelembagaan/add_kelembagaan');
     }
 
@@ -42,41 +40,38 @@ class Kelembagaan extends Controller
      */
     public function store(Request $request)
     {
-        
-        $file['sk'] = $request->file('filesk');
-        $file['res'] = $request->file('filesk');
-            if($file['sk'] != NULL){
-                $path['sk'] = $request->file('filesk')->store('public/Kelembagaan/SK');
-            } else{
-                $path['sk'] = Null;
-            }
-            if($file['res'] != NULL){
-                $path['res'] =  $request->file('fileres')->store('public/Kelembagaan/SK Resentra');
-            } else{
-                $path['res'] = Null;
-            }
-            $data = array(
-                'nama'=> $request->nama,
-                'tahun'=> $request->tahun,
-                'no_sk'=> $request->nosk,
-                'sk_pendirian'=> $path['sk'],
-                'alamat'=> $request->alamat,
-                'no_telp'=> $request->nopon,
-                'no_fax'=> $request->nofax,
-                'email'=> $request->email,
-                'url'=> $request->url,
-                'no_sk_resentra'=> $request->nores,
-                'resentra'=> $path['res'],
-                'nama_ketua'=> $request->namaket,
-                'nidn'=> $request->nidn,
-                'ruang_pimpinan'=> $request->pimpinan,
-                'ruang_administrasi'=> $request->adm,
-                'ruang_penyimpanan_arsip'=> $request->arsp,
-                'ruang_pertemuan'=> $request->pertemuan,
-                'ruang_seminar'=> $request->sem,
-            );
-            $id = Kelembagaans::insertGetId($data);
-            return redirect()->action([Kelembagaan::class,'show'],['id'=>$id]);
+        if($request->file('filesk') != NULL){
+            $sk = $request->file('filesk')->store('public/Kelembagaan/SK');
+        } else{
+            $sk = Null;
+        }
+        if($request->file('fileres') != NULL){
+            $res =  $request->file('fileres')->store('public/Kelembagaan/SK Resentra');
+        } else{
+            $res = Null;
+        }
+        $data = array(
+            'nama'=> $request->nama,
+            'tahun'=> $request->tahun,
+            'no_sk'=> $request->nosk,
+            'sk_pendirian'=> $sk,
+            'alamat'=> $request->alamat,
+            'no_telp'=> $request->nopon,
+            'no_fax'=> $request->nofax,
+            'email'=> $request->email,
+            'url'=> $request->url,
+            'no_sk_resentra'=> $request->nores,
+            'resentra'=> $res,
+            'nama_ketua'=> $request->namaket,
+            'nidn'=> $request->nidn,
+            'ruang_pimpinan'=> $request->pimpinan,
+            'ruang_administrasi'=> $request->adm,
+            'ruang_penyimpanan_arsip'=> $request->arsp,
+            'ruang_pertemuan'=> $request->pertemuan,
+            'ruang_seminar'=> $request->sem,
+        );
+        $id = Kelembagaans::insertGetId($data);
+        return redirect()->action([Kelembagaan::class,'show'],['id'=>$id]);
     }
 
     /**
@@ -89,15 +84,20 @@ class Kelembagaan extends Controller
         $data = Kelembagaans::where('id',$id)->get();
         return view('kelembagaan/kelembagaan_show',['data'=>$data[0]]);
     }
-    public function file($id)
+    public function file($file,$id)
     {
         //
-        $data = DB::table('unitbisnis')->where('id','=',$id)->get();
-        $file = $data[0]->SKPUB;
-        $response = \Response::make($file,200);
+        $data = Kelembagaan::where('id','=',$id)->get();
+        if($file == 'sk'){
+            $path = \Storage::path($data[0]->sk_pendirian);
+        } elseif($file =='res'){
+            $path = \Storage::path($data[0]->resentra);
+        }
+        $response = \Response::make($path[0]->SK,200);
         $content_types = 'application/pdf';
-        $response->header('Content-Type',$content_types);
-        return $response;
+        header('Content-type : application/pdf');
+        
+        return response()->file($file);
     }
 
     /**
