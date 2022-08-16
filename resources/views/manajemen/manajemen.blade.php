@@ -50,16 +50,40 @@
                                                 </i>
                                             </b>
                                         @else
-                                            {{$value->file}}
+                                        <a href="/man_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                            <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download
+                                        </a>
+                                        <a href="/man_show/{{$value->id}}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                            <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show
+                                        </a>
                                         @endif
                                     </td>
                                 @endforeach
                                 <td>
-                                    <a href="/unit_bisnis/" class="btn btn-success">DETAIL <i class="fas fa-eye"></i></a>
                                     <a href="/edit_manajemen/{{$value->tahun}}" class="btn btn-primary">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
-                                    <a data-toggle="modal" data-target="#deletemodal" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a>
-                                </td>
-                            </tr>
+                                    <a data-toggle="modal" data-target="#deletemodal{{$value->tahun}}" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <div class="modal fade" id="deletemodal{{$value->tahun}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Are you Sure?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Are you sure want to delete data {{$value->tahun}}.</div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                        <a class="btn btn-primary" href="/del_manajemen/{{$value->tahun}}">YES</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @endforeach
                     </tbody>
                 </table>

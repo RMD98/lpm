@@ -22,6 +22,7 @@
                             <th>Nomor S.K. Pendirian</th>
                             <th>Alamat</th>
                             <th>Tahun</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

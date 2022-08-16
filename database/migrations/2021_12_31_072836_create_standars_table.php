@@ -19,8 +19,8 @@ class CreateStandarsTable extends Migration
             $table->integer('Nomor');
             $table->year('Tahun');
             $table->string('Keterangan');
-            $table->string('Dokumen');
-            $table->timestamps();
+            $table->string('Dokumen')->nullable();
+            $table->timestamps()->nullable();
         });
     }
 

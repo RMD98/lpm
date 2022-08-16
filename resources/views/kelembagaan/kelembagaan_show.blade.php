@@ -21,23 +21,57 @@
                     <p>E-mail : <?php echo $data->email?></p>
                     <p>Url : <?php echo $data->url?></p>
                     <p>No. SK. : <?php echo $data->no_sk?></p>
-                    <p>SK : <?php echo $data->sk_pendirian?></p>
+                    <p>SK :
+                        @if ($data->sk_pendirian !=NULL )
+                            <td>
+                                <a href="/kelembagaan/download/sk/{{$data->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <i class="fas fa-download fa-sm text-white-50"></i>
+                                    Download
+                                </a>
+                                <a href="/kelembagaan/sk/{{$data->id}}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <i class="fas fa-eye fa-sm text-white-50"></i>
+                                    Show
+                                </a>
+                            </td>
+                        @else 
+                            <td>
+                                Tidak Ada FIle SK
+                            </td>
+                        @endif
                     <p>No. SK. Resentra : <?php echo $data->no_sk_resentra?></p>
-                    <p>SK. Resentra : <?php echo $data->resentra?></p>
+                    <p>SK. Resentra : 
+                        @if ($data->resentra !=NULL )
+                            <td>
+                                <a href="/kelembagaan/download/res/{{$data->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <i class="fas fa-download fa-sm text-white-50"></i>
+                                    Download
+                                </a>
+                                <a href="/kelembagaan/res/{{$data->id}}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <i class="fas fa-eye fa-sm text-white-50"></i>
+                                    Show
+                                </a>
+                            </td>
+                        @else 
+                            <td>
+                                Tidak Ada FIle SK
+                            </td>
+                        @endif
                 </div>
             </div>
             <div>
                 <div class="ml-2 mt-4">
-                    <p>Tahun :<?php echo $data->tahun?></p>
+                    <p><b>Tahun :<?php echo $data->tahun?></b></p>
                 </div>
                 <div>
                     <h2>Nilai Kelayakan Kantor</h2>
                     <div class="ml-4">
-                        <p>Ruang Pimpinan : {{$data->ruang_pimpinan}}</p>
-                        <p>Ruang Administrasi : {{$data->ruang_administrasi}}</p>
-                        <p>Ruang Penyimpanan Arsip : {{$data->ruang_penyimpanan_arsip}}</p>
-                        <p>Ruang Pertemuan : {{$data->ruang_pertemuan}}</p>
-                        <p>Ruang Seminar : {{$data->ruang_seminar}}</p>
+                        <h5>
+                            <p>Ruang Pimpinan : {{$data->ruang_pimpinan}}</p>
+                            <p>Ruang Administrasi : {{$data->ruang_administrasi}}</p>
+                            <p>Ruang Penyimpanan Arsip : {{$data->ruang_penyimpanan_arsip}}</p>
+                            <p>Ruang Pertemuan : {{$data->ruang_pertemuan}}</p>
+                            <p>Ruang Seminar : {{$data->ruang_seminar}}</p>
+                        </h5>
                    </div>
                 </div>
             </div>

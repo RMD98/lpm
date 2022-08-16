@@ -19,7 +19,7 @@ class Manajemen extends Controller
             $tahun = Manajemens::groupBy('tahun')->get();
             $data['data'] = [];
             foreach($tahun as $key=>$value){
-                $data[$value->tahun] = Manajemens::where('tahun','=',$value->tahun)->get(); 
+                $data[$value->tahun] = Manajemens::where('tahun','=',$value->tahun)->orderBy('key','asc')->get(); 
             };
             // echo $data['data'];
         return view('manajemen/manajemen',['data'=>$data,'tahun'=>$tahun]);
@@ -80,23 +80,33 @@ class Manajemen extends Controller
             if(Manajemens::where('tahun',$tahun)->exists()){
                 return redirect()->back()->withErrors(['msg'=>'tahun '.$tahun.' sudah ada dalam database']);
             }
-            foreach($request->konsistensi as $key=>$value){
-                if ($file != NULL){
-                    $path[$key] = $file->store(`public/Manajemen Pengabdian/$tahun`);
-                } else {
-                    $path[$key] = NULL;
+            if($file){
+                $kon = array_diff_key($request->konsistensi,$file);
+                foreach($file as $key=>$value){
+                    $namasop = $this->sop($key);
+                    $data = array(
+                                    'nama_sop'=> $namasop,
+                                    'konsistensi' => $request->konsistensi[$key],
+                                    'file' => $value->store('public/Manajemen Pengabdian/'.$tahun),
+                                    'tahun' => $tahun,
+                                    'key' => $key,
+                                );
+                    Manajemens::insert($data);
                 }
+            } else {
+                $kon = $request->konsistensi;
+            }
+            foreach($kon as $key=>$value){
                 $namasop = $this->sop($key);
-
                 $data = array(
-                    'nama_sop'=> $namasop,
-                    'konsistensi' => $request->konsistensi[$key],
-                    'file' => $path[$key],
-                    'tahun' => $tahun,
-                );
-                // echo($key);
+                            'nama_sop'=> $namasop,
+                            'konsistensi' => $value,
+                            'tahun' => $tahun,
+                            'key' =>$key,
+                        );
                 Manajemens::insert($data);
             }
+           
             return redirect()->action([Manajemen::class,'index']);
     }
 
@@ -106,15 +116,13 @@ class Manajemen extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function file($id)
     {
         //
-        $data = unitbisnis::where('id','=',$id)->get();
-        $file = $data[0]->SKPUB;
-        $response = \Response::make($file,200);
-        $content_types = 'application/pdf';
-        $response->header('Content-Type',$content_types);
-        return $response;
+        $path = Manajemens::where('id','=',$id)->first();
+        $file = \Storage::path($path->file);
+        
+        return response()->file($file);
     }
 
     /**
@@ -147,23 +155,38 @@ class Manajemen extends Controller
                 return redirect()->back()->withErrors(['msg'=>'tahun '.$tahun.' sudah ada dalam database']);
             }
         }
-        foreach($request->konsistensi as $key=>$value){
+        if($file){
+            $kon = array_diff_key($request->konsistensi,$file);
+            foreach($file as $key => $value){
+                $namasop = $this->sop($key);
+                $old = Manajemens::where('id',$request->id[$key])->first();
+                if($old->file){
+                    \Storage::move($old->file,'old/'.$old->file);
+                }
+                $data = array(
+                    'nama_sop'=> $namasop,
+                    'konsistensi' => $request->konsistensi[$key],
+                    'file' => $value->store('Manajemen Pengabdian/'.$tahun),
+                    'tahun' => $tahun,
+                    'key' => $key,
+                );
+                Manajemens::where('id',$request->id[$key])->update($data);
+    
+            }
+        }else{
+            $kon = $request->konsistensi;
+        }
+        foreach($kon as $key=>$value){
             $namasop = $this->sop($key);
             $data = array(
                 'nama_sop'=> $namasop,
                 'konsistensi' => $value,
                 'tahun' => $tahun,
+                'key' => $key,
             );
-            if ($file){
-                if(current($file)){
-                    $data = array_merge_recursive($data,['file'=>current($file)->store(`public/Manajemen Pengabdian/$tahun`)]);
-                    next($file);
-                }
-            } else {
-               
-            }
             Manajemens::where('id',$request->id[$key])->update($data);
         }
+        
         return redirect()->action([Manajemen::class,'index']);
     }
 
@@ -173,10 +196,19 @@ class Manajemen extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($tahun)
     {
-        //
-        Manajemens::where('id','=',$id)->delete();
+        //Delete Data dan File
+        \Storage::deleteDirectory('public/Manajemen Pengabdian/'.$tahun);
+        Manajemens::where('tahun',$tahun)->delete();
         return redirect()->action([Manajemen::class,'index']);
+    }
+
+    public function download($id){
+        $path = Manajemens::where('id','=',$id)->first();
+        $name =$path->nama_sop;
+        $tahun = $path->tahun;
+        // $name +='.pdf';
+        return \Storage::download($path->file,$tahun.'_'.$name.'.pdf');
     }
 }

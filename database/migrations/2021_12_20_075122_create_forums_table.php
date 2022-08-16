@@ -23,8 +23,8 @@ class CreateForumsTable extends Migration
             $table->date('dari');
             $table->date('sampai');
             $table->string('tempat');
-            $table->string('bukti');
-            $table->timestamps();
+            $table->string('bukti')->nullable();
+            $table->timestamps()->nullable();
         });
     }
 

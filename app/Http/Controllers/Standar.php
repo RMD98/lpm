@@ -41,21 +41,19 @@ class Standar extends Controller
      */
     public function store(Request $request)
     {
-            // $data = new fasil;
-            // $data->NamaLab = $request->NamaLab;
-            // $data->Lingkup = $request->Lingkup;
-            // $data->SK = $request->filessk;
-            // $data->save();
+            if($request->file('dokumen')){
+                $file = $request->file('dokumen')->store('Standar PKM');
+            } else{
+                $file = Null;
+            }
             $data = array(
                 'Nama'=> $request->nama,
                 'Nomor'=> $request->nomor,
                 'Tahun'=> $request->tahun,
                 'Keterangan'=> $request->keterangan,
-                'Dokumen'=> $request->dokumen,
-                'created_at' =>time(),
-                'updated_at' =>time()
+                'Dokumen'=> $file,
             );
-            DB::table('standarpkm')->insert($data);
+            Standars::insert($data);
             return redirect()->action([Standar::class,'index']);
     }
 
@@ -78,7 +76,7 @@ class Standar extends Controller
      */
     public function edit($id)
     {
-            $data = DB::table('standarpkm')->where('id','=',$id)->get();
+            $data = Standars::where('id','=',$id)->get();
             // $prodi = DB::table('prodi')->get();
             return view('standar/edit_standar',['data'=>$data[0]]);
     }
@@ -92,16 +90,23 @@ class Standar extends Controller
      */
     public function update(Request $request, $id)
     {
+
             $data = array (
                 'Nama'=> $request->nama,
                 'Nomor'=> $request->nomor,
                 'Tahun'=> $request->tahun,
                 'Keterangan'=> $request->keterangan,
-                'Dokumen'=> $request->dokumen,
-                'updated_at' =>time()
             );
-            DB::table('standarpkm')->where('id',$id)->update($data);
-            // return $data;
+            if($request->file('dokumen')){
+                // Memindahkan File lama ke Folder Old
+                $old = Standars::where('id',$id)->first();
+                \Storage::move($old->Dokumen,'old/'.$old->Dokumen);
+                
+                //Memasukan path file baru kedalam array data
+                $data = array_merge_recursive($data,['Dokumen'=>$request->file('dokumen')->store('Standar PKM')]);
+            }
+            Standars::where('id',$id)->update($data);
+            
             return redirect()->action([Standar::class,'index']);
     }
 
@@ -114,7 +119,23 @@ class Standar extends Controller
     public function destroy($id)
     {
         //
-        DB::table('standarpkm')->where('id','=',$id)->delete();
+        $data = Standars::where('id',$id)->first();
+        \Storage::delete($data->Dokumen);
+        Standars::where('id','=',$id)->delete();
         return redirect()->action([Standar::class,'index']);
+    }
+
+    public function download($id){
+        $path = Standars::where('id','=',$id)->first();
+        $name =$path->Nama;
+        // $name +='.pdf';
+        return \Storage::download($path->Dokumen,$name.'.pdf');
+    }
+    public function file($id)
+    {
+        $path = Standars::where('id','=',$id)->first();
+        $file = \Storage::path($path->Dokumen);
+        
+        return response()->file($file);
     }
 }

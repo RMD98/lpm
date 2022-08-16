@@ -21,15 +21,9 @@
                             <th>Nama</th>
                             <th>lingkup</th>
                             <th>SK</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Linkup</th>
-                            <th>SK</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         <?php foreach ($data as $data): ?>
                         <tr>

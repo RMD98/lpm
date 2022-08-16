@@ -18,15 +18,16 @@ class CreateUnitbisnisTable extends Migration
             $table->string('nama');
             $table->string('deskripsi');
             $table->string('nosk');
-            $table->string('SKPUB');
-            $table->string('LKUB');
-            $table->string('Invoice');
-            $table->timestamps();
+            $table->string('SKPUB')->nullable();
+            $table->string('LKUB')->nullable();
+            $table->string('Invoice')->nullable();
+            $table->timestamps()->nullable();
 
         });
         Schema::table('mitraubs', function (Blueprint $table) {
             $table->foreignId('id_ub')->constrained('unitbisnis')
-                  ->cascadeOnUpdate();
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
         
         });
     }

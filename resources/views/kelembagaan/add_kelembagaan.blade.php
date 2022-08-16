@@ -14,19 +14,19 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Tahun</b>
-                        <input type="number" class="form-control" id="tahun" name="tahun"
+                        <input type="number" required class="form-control" id="tahun" name="tahun"
                         placeholder="Tahun">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nama Resmi</b>
-                        <input type="text" class="form-control" id="nama" name="nama"
+                        <input type="text" required class="form-control" id="nama" name="nama"
                         placeholder="Nama Lab">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nomor S.K. Pendirian</b>
-                        <input type="text" class="form-control" id="nosk" name="nosk"
+                        <input type="text" required class="form-control" id="nosk" name="nosk"
                         placeholder="NO SK Pendirian">
                     </p>
                 </div>
@@ -37,37 +37,37 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Alamat</b>
-                        <input type="text" class="form-control" id="alamat" name="alamat"
+                        <input type="text" required class="form-control" id="alamat" name="alamat"
                         placeholder="Alamat">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nomor Telepone</b>
-                        <input type="number" class="form-control" id="nopon" name="nopon"
+                        <input type="number" required class="form-control" id="nopon" name="nopon"
                         placeholder="Nomor Telepon">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nomor Fax</b>
-                        <input type="number" class="form-control" id="nofax" name="nofax"
+                        <input type="number" required class="form-control" id="nofax" name="nofax"
                         placeholder="Nomor Fax">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Email</b>
-                        <input type="email" class="form-control" id="email" name="email"
+                        <input type="email" required class="form-control" id="email" name="email"
                         placeholder="Email">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Url</b>
-                        <input type="url" class="form-control" id="url" name="url"
+                        <input type="url" required class="form-control" id="url" name="url"
                         placeholder="Url">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nomor S.K. Resentra</b>
-                        <input type="text" class="form-control" id="nores" name="nores"
+                        <input type="text" required class="form-control" id="nores" name="nores"
                         placeholder="Nomor S.K. Resentra">
                     </p>
                 </div>
@@ -81,13 +81,13 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nama Ketua</b>
-                        <input type="text" class="form-control" id="namaket" name="namaket"
+                        <input type="text" required class="form-control" id="namaket" name="namaket"
                         placeholder="Nama Ketua">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>NIDN</b>
-                        <input type="number" class="form-control" id="nidn" name="nidn"
+                        <input type="number" required class="form-control" id="nidn" name="nidn"
                         placeholder="NIDN">
                     </p>
                 </div>
@@ -99,23 +99,23 @@
                     <p ><b class="text-lg">Ruang Pimpinan</b></p>
                     <div class="row">
                         <div class="ml-3">
-                            <input class="ml-6" type="radio" id="pimpinan" name="pimpinan" value="Sangat Tidak Memuaskan">
+                            <input class="ml-6" required type="radio" id="pimpinan" name="pimpinan" value="Sangat Tidak Memuaskan">
                             <p>Sangat Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="pimpinan" name="pimpinan" value="Tidak Memuaskan">
+                            <input class="ml-5" required type="radio" id="pimpinan" name="pimpinan" value="Tidak Memuaskan">
                             <p>Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-2" type="radio" id="pimpinan" name="pimpinan" value="Baik">
+                            <input class="ml-2" required type="radio" id="pimpinan" name="pimpinan" value="Baik">
                             <p>Baik</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-4" type="radio" id="pimpinan" name="pimpinan" value="Memuaskan">
+                            <input class="ml-4" required type="radio" id="pimpinan" name="pimpinan" value="Memuaskan">
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="pimpinan" name="pimpinan" value="Sangat Memuaskan">
+                            <input class="ml-5" required type="radio" id="pimpinan" name="pimpinan" value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -124,23 +124,23 @@
                     <p><b class="text-lg">Ruang Administrasi</b>
                     <div class="row">
                         <div class="ml-3">
-                            <input class="ml-6" type="radio" id="adm" name="adm" value="Sangat Tidak Memuaskan">
+                            <input class="ml-6" required type="radio" id="adm" name="adm" value="Sangat Tidak Memuaskan">
                             <p>Sangat Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="adm" name="adm" value="Tidak Memuaskan">
+                            <input class="ml-5" required type="radio" id="adm" name="adm" value="Tidak Memuaskan">
                             <p>Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-2" type="radio" id="adm" name="adm" value="Baik">
+                            <input class="ml-2" required type="radio" id="adm" name="adm" value="Baik">
                             <p>Baik</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-4" type="radio" id="adm" name="adm" value="Memuaskan">
+                            <input class="ml-4" required type="radio" id="adm" name="adm" value="Memuaskan">
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="adm" name="adm" value="Sangat Memuaskan">
+                            <input class="ml-5" required type="radio" id="adm" name="adm" value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -149,23 +149,23 @@
                     <p><b class="text-lg">Ruang Penyimpanan Arsip</b>
                     <div class="row">
                         <div class="ml-3">
-                            <input class="ml-6" type="radio" id="arsp" name="arsp" value="Sangat Tidak Memuaskan">
+                            <input class="ml-6" required type="radio" id="arsp" name="arsp" value="Sangat Tidak Memuaskan">
                             <p>Sangat Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="arsp" name="arsp" value="Tidak Memuaskan">
+                            <input class="ml-5" required type="radio" id="arsp" name="arsp" value="Tidak Memuaskan">
                             <p>Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-2" type="radio" id="arsp" name="arsp" value="Baik">
+                            <input class="ml-2" required type="radio" id="arsp" name="arsp" value="Baik">
                             <p>Baik</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-4" type="radio" id="arsp" name="arsp" value="Memuaskan">
+                            <input class="ml-4" required type="radio" id="arsp" name="arsp" value="Memuaskan">
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="arsp" name="arsp" value="Sangat Memuaskan">
+                            <input class="ml-5" required type="radio" id="arsp" name="arsp" value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -174,23 +174,23 @@
                     <p><b class="text-lg">Ruang Pertemuan</b>
                     <div class="row">
                         <div class="ml-3">
-                            <input class="ml-6" type="radio" id="pertemuan" name="pertemuan" value="Sangat Tidak Memuaskan">
+                            <input class="ml-6" required type="radio" id="pertemuan" name="pertemuan" value="Sangat Tidak Memuaskan">
                             <p>Sangat Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="pertemuan" name="pertemuan" value="Tidak Memuaskan">
+                            <input class="ml-5" required type="radio" id="pertemuan" name="pertemuan" value="Tidak Memuaskan">
                             <p>Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-2" type="radio" id="pertemuan" name="pertemuan" value="Baik">
+                            <input class="ml-2" required type="radio" id="pertemuan" name="pertemuan" value="Baik">
                             <p>Baik</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-4" type="radio" id="pertemuan" name="pertemuan" value="Memuaskan">
+                            <input class="ml-4" required type="radio" id="pertemuan" name="pertemuan" value="Memuaskan">
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="pertemuan" name="pertemuan" value="Sangat Memuaskan">
+                            <input class="ml-5" required type="radio" id="pertemuan" name="pertemuan" value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -199,23 +199,23 @@
                     <p><b class="text-lg">Ruang Seminar</b>
                     <div class="row">
                         <div class="ml-3">
-                            <input class="ml-6" type="radio" id="sem" name="sem" value="Sangat Tidak Memuaskan">
+                            <input class="ml-6" required type="radio" id="sem" name="sem" value="Sangat Tidak Memuaskan">
                             <p>Sangat Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="sem" name="sem" value="Tidak Memuaskan">
+                            <input class="ml-5" required type="radio" id="sem" name="sem" value="Tidak Memuaskan">
                             <p>Tidak Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-2" type="radio" id="sem" name="sem" value="Baik">
+                            <input class="ml-2" required type="radio" id="sem" name="sem" value="Baik">
                             <p>Baik</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-4" type="radio" id="sem" name="sem" value="Memuaskan">
+                            <input class="ml-4" required type="radio" id="sem" name="sem" value="Memuaskan">
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="sem" name="sem" value="Sangat Memuaskan">
+                            <input class="ml-5" required type="radio" id="sem" name="sem" value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>

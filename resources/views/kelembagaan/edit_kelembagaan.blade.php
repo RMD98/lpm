@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nomor Telepone</b>
-                        <input type="number" class="form-control" id="nopon" name="nopon" valur ="<?php echo $data->no_telp ?>"
+                        <input type="number" class="form-control" id="nopon" name="nopon" value ="<?php echo $data->no_telp ?>"
                         placeholder="Nomor Telepon">
                     </p>
                 </div>
@@ -115,7 +115,7 @@
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="pimpinan" name="pimpinan" {{$data->ruang_pimpinan == 'Sangat Memuaskan ' ? 'checked' : ''}} value="Sangat Memuaskan">
+                            <input class="ml-5" type="radio" id="pimpinan" name="pimpinan" {{$data->ruang_pimpinan == 'Sangat Memuaskan' ? 'checked' : ''}} value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="adm" name="adm" {{$data->ruang_administrasi == 'Sangat Memuaskan ' ? 'checked' : ''}} value="Sangat Memuaskan">
+                            <input class="ml-5" type="radio" id="adm" name="adm" {{$data->ruang_administrasi == 'Sangat Memuaskan' ? 'checked' : ''}} value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -165,7 +165,7 @@
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="arsp" name="arsp" {{$data->ruang_penyimpanan_arsip == "Sangat Memuaskan " ? 'checked' : ''}} value="Sangat Memuaskan">
+                            <input class="ml-5" type="radio" id="arsp" name="arsp" {{$data->ruang_penyimpanan_arsip == "Sangat Memuaskan" ? 'checked' : ''}} value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="pertemuan" name="pertemuan" {{$data->ruang_pertemuan == "Sangat Memuaskan " ? 'checked' : ''}} value="Sangat Memuaskan">
+                            <input class="ml-5" type="radio" id="pertemuan" name="pertemuan" {{$data->ruang_pertemuan == "Sangat Memuaskan" ? 'checked' : ''}} value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>
@@ -215,7 +215,7 @@
                             <p>Memuaskan</p>
                         </div>
                         <div class="ml-3">
-                            <input class="ml-5" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Sangat Memuaskan " ? 'checked' : '' }} value="Sangat Memuaskan">
+                            <input class="ml-5" type="radio" id="sem" name="sem" {{$data->ruang_seminar == "Sangat Memuaskan" ? 'checked' : '' }} value="Sangat Memuaskan">
                             <p>Sangat Memuaskan</p>
                         </div>
                     </div>

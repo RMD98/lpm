@@ -11,13 +11,13 @@
             <div class="form-group row" >
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nama labolatorium</b>
-                        <input type="text" class="form-control" id="NamaLab" name="NamaLab" value="<?php echo $data[0]->NamaLab?>"
+                        <input require type="text" class="form-control" id="NamaLab" name="NamaLab" value="<?php echo $data[0]->NamaLab?>"
                         placeholder="Nama Lab">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Lingkup</b>
-                        <Select class="form-control" id="lingkup" name="Lingkup" value="<?php echo $data[0]->Lingkup?>">
+                        <Select require class="form-control" id="lingkup" name="Lingkup" value="<?php echo $data[0]->Lingkup?>">
                             <?php foreach ($prodi as $prodi) :?>
                                 <option value="<?php echo $prodi->nama?>" {{ $data[0]->Lingkup == $prodi->nama ? 'selected' : '' }}><?php echo $prodi->nama?>  </option>
                             <?php endforeach ?>

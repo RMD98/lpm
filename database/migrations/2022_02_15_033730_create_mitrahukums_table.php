@@ -18,8 +18,8 @@ class CreateMitrahukumsTable extends Migration
             $table->string('nama');
             $table->string('no_badan_hukum');
             $table->string('bidang_usaha');
-            $table->string('bukti');
-            $table->timestamps();
+            $table->string('bukti')->nullable();
+            $table->timestamps()->nullable();
         });
         Schema::table('luarans', function (Blueprint $table) {
             $table->foreignId('mitra_berbadan_hukum')->nullable()->constrained('mitrahukums')->nullOnDelete();

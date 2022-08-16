@@ -25,10 +25,11 @@ class CreateAnggotasTable extends Migration
             $table->string('nohp');
             $table->string('prodi');
             $table->year('thn_lulus');
-            $table->timestamps();
+            $table->timestamps()->nullable();
         });
         Schema::table('anggotas', function (Blueprint $table) {
-            $table->foreignId('id_pkm')->constrained('pkms');
+            $table->foreignId('id_pkm')->constrained('pkms')->cascadeOnUpdate()
+            ->cascadeOnDelete();;
         
         });
     }

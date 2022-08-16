@@ -2,11 +2,11 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tambah Fasilitas Pendukung</h1>
+    <h1 class="h3 mb-2 text-gray-800">Tambah Standar PKM</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/addstandar" method="post">
+        <form action="/addstandar" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">

@@ -28,7 +28,7 @@ class CreatePkmsTable extends Migration
             $table->integer('danapendamping');
             $table->string('lab');
             $table->string('kelengkapan');
-            $table->timestamps();
+            $table->timestamps()->nullable();
         });
     }
 

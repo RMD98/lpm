@@ -19,7 +19,7 @@ class CreateMitrasTable extends Migration
             $table->string('jenis');
             $table->string('alamat');
             $table->integer('jarak');
-            $table->timestamps();
+            $table->timestamps()->nullable();
         });
     }
 

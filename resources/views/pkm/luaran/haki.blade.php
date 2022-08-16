@@ -6,11 +6,18 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/editpkm/luaran/haki/{{$id}}" method="post">
+        <form action="/editpkm/luaran/haki/{{$id}}" method="post" enctype="multipart/form-data">
+            @if(count($data) == 0 )
+                {{ $jenis = ''}}
+                {{ $status = ''}}
+            @else
+                {{ $status = $data->status }}
+                {{ $jenis = $data->jenis }}
+            @endif
             @csrf
             <div class="form-group row" id="isian">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2 mt-2 card shadows">
-                    <input type="text"  class="form-control" id="ids" name="ids" value="{{count($data) == 0 ? '' : $data[0]->id_haki}}">
+                    <input type="text" hidden class="form-control" id="ids" name="ids" value="{{count($data) == 0 ? '' : $data[0]->id_haki}}">
                     <p><b>Judul</b>
                         <input type="text" class="form-control" id="judul" name="judul" value="{{count($data) == 0 ? '' : $data[0]->judul}}"
                         placeholder="Judul">
@@ -24,11 +31,6 @@
                         placeholder="NIDN Penulis">
                     </p>
                     <p><b>Jenis Luaran Iptek Lain</b>
-                        @if(count($data) == 0 )
-                           {{ $jenis = ''}}
-                        @else
-                           {{ $jenis = $data[0]->jenis }}
-                        @endif
                         <select name="jenis" id="jenis">
                             <option value="Desain Industri" {{$jenis == 'Desain Industri' ? 'selected' :''}}>
                                 Desain Industri
@@ -51,7 +53,7 @@
                     </p>
                     <p><b>Bukti</b>
                         @if(count($data) != 0)
-                            @if($data[0]->bukti !=NULL)
+                            @if($data->bukti !=NULL)
                                 <a href="/fas_down/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                     <i class="fas fa-download fa-sm text-white-50"></i>
                                 Download</a>
@@ -68,7 +70,7 @@
                         @endif
                     </p>
                     <p>
-                       <input type="checkbox" id="status" name="status" value="Terdaftar" {{$data[0]->status =='Terdaftar' ? 'checked' : ''}}>
+                       <input type="checkbox" id="status" name="status" value="Terdaftar" {{$status =='Terdaftar' ? 'checked' : ''}}>
                        <label for="status">Terdaftar</label>
                     </p>
                 </div>

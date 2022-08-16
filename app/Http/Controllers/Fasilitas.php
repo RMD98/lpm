@@ -49,7 +49,7 @@ class Fasilitas extends Controller
             $data = new fasil;
             $data->NamaLab = $request->NamaLab;
             $data->Lingkup = $request->Lingkup;
-            $data->SK = $request->file('filesk')->store('public/fasilitas');
+            $data->SK = $request->file('filesk')->store('fasilitas');
             $data->save();
             return redirect()->action([Fasilitas::class,'index']);
     }
@@ -77,7 +77,7 @@ class Fasilitas extends Controller
     public function edit($id)
     {
             $data = fasil::where('id','=',$id)->get();
-            $prodi = DB::table('prodi')->get();
+            $prodi = DB::table('prodis')->get();
             return view('fasilitas/edit_fasilitas',['data'=>$data,'prodi'=>$prodi]);
     }
 
@@ -90,7 +90,11 @@ class Fasilitas extends Controller
      */
     public function update(Request $request, $id)
     {
-        $SK = $request->file('filesk')->store('public/fasilitas');
+        $old = fasil::where('id',$id)->first();
+        if($old->SK){
+            \Storage::move($old->SK,'old/'.$old->SK);
+        }
+        $SK = $request->file('filesk')->store('fasilitas');
             $data = array (
                 'NamaLab' => $request->NamaLab,
                 'Lingkup' => $request->Lingkup,
@@ -109,7 +113,9 @@ class Fasilitas extends Controller
      */
     public function destroy($id)
     {
-        //
+        //delete data and file
+        $data = fasil::where('id',$id)->first();
+        \Storage::delete($data->SK); 
         fasil::where('id','=',$id)->delete();
         return redirect()->action([Fasilitas::class,'index']);
     }

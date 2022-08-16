@@ -19,8 +19,8 @@ class CreateHakisTable extends Migration
             $table->string('jenis');
             $table->string('no_daftar');
             $table->string('status');
-            $table->string('bukti');
-            $table->timestamps();
+            $table->string('bukti')->nullable();
+            $table->timestamps()->nullable();
         });
     }
 

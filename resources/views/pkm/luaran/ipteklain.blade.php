@@ -6,7 +6,7 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/editpkm/luaran/iptek/{{$id}}" method="post">
+        <form action="/editpkm/luaran/iptek/{{$id}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group row" id="isian">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2 mt-2 card shadows">
@@ -72,7 +72,7 @@
                                 placeholder="Deskripsi">
                             @endif
                         @else
-                            <input type="file" class="form-control" id="bukti" name="bukti" 
+                            <input type="file" class="form-control" id="bukti" name="bukti">
                         @endif
                     </p>
                 </div>

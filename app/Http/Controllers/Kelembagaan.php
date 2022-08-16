@@ -87,17 +87,14 @@ class Kelembagaan extends Controller
     public function file($file,$id)
     {
         //
-        $data = Kelembagaan::where('id','=',$id)->get();
+        $data = Kelembagaans::where('id','=',$id)->get();
         if($file == 'sk'){
             $path = \Storage::path($data[0]->sk_pendirian);
         } elseif($file =='res'){
             $path = \Storage::path($data[0]->resentra);
         }
-        $response = \Response::make($path[0]->SK,200);
-        $content_types = 'application/pdf';
-        header('Content-type : application/pdf');
         
-        return response()->file($file);
+        return response()->file($path);
     }
 
     /**
@@ -126,14 +123,12 @@ class Kelembagaan extends Controller
             'nama'=> $request->nama,
             'tahun'=> $request->tahun,
             'no_sk'=> $request->nosk,
-            'sk_pendirian'=> $path['sk'],
             'alamat'=> $request->alamat,
             'no_telp'=> $request->nopon,
             'no_fax'=> $request->nofax,
             'email'=> $request->email,
             'url'=> $request->url,
             'no_sk_resentra'=> $request->nores,
-            'resentra'=> $path['res'],
             'nama_ketua'=> $request->namaket,
             'nidn'=> $request->nidn,
             'ruang_pimpinan'=> $request->pimpinan,
@@ -142,8 +137,23 @@ class Kelembagaan extends Controller
             'ruang_pertemuan'=> $request->pertemuan,
             'ruang_seminar'=> $request->sem,
         );
+        if($request->file('filesk')){
+            $sk = $request->file('filesk')->store('Kelembagaan/SK');
+            $data = array_merge_recursive($data,['sk_pendirian'=>$sk]);
+        } 
+        if($request->file('fileres')){
+            $res =  $request->file('fileres')->store('Kelembagaan/SK Resentra');
+            $data = array_merge_recursive($data,['resentra'=>$res]);
+        } 
+            $file = Kelembagaans::where('id',$id)->first();
+            if($file->sk_pendirian){
+                \Storage::move($file->sk_pendirian,'old/'.$file->sk_pendirian);
+            }
+            if($file->resentra){
+                \Storage::move($file->resentra,'old/'.$file->resentra);
+            }
             Kelembagaans::where('id',$id)->update($data);
-            // return $data;
+            
             return redirect()->action([Kelembagaan::class,'index']);
     }
 
@@ -156,7 +166,19 @@ class Kelembagaan extends Controller
     public function destroy($id)
     {
         //
+        $data = Kelembagaans::where('id',$id)->first();
+        \Storage::delete([$data->sk_pendirian,$data->resentra]);
         Kelembagaans::where('id','=',$id)->delete();
         return redirect()->action([Kelembagaan::class,'index']);
+    }
+    public function download($file,$id){
+        $path = Kelembagaans::where('id','=',$id)->first();
+        $name =$path->nama;
+        if($file == 'res'){
+            return \Storage::download($path->resentra,$name.'_resntra.pdf');
+        }elseif($file == 'sk'){
+            return \Storage::download($path->sk_pendirian,$name.'_sk_pendirian.pdf');
+        }
+        // $name +='.pdf';
     }
 }

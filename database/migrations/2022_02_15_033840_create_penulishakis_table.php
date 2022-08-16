@@ -17,7 +17,7 @@ class CreatePenulishakisTable extends Migration
             $table->id();
             $table->integer('id_haki');
             $table->string('nidn');
-            $table->timestamps();
+            $table->timestamps()->nullable();
         });
 
         Schema::table('penulishakis', function (Blueprint $table) {

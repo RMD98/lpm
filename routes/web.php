@@ -41,6 +41,8 @@ Route::post('/addstandar',[Standar::class,'store']);
 Route::get('/edit_standar/{id}',[Standar::class,'edit']);
 Route::post('/edt_standar/{id}',[Standar::class,'update']);
 Route::get('/del_standar/{id}',[Standar::class,'destroy']);
+Route::get('/standdown/{id}',[Standar::class,'download']);
+Route::get('/standfile/{id}',[Standar::class,'file']);
 
 //Manajemen Pengabdian
 Route::get('/manajemen',[Manajemen::class,'index']);
@@ -48,14 +50,22 @@ Route::get('/add_manajemen',[Manajemen::class,'create']);
 Route::post('/addmanajemen',[Manajemen::class,'store']);
 Route::get('/edit_manajemen/{id}',[Manajemen::class,'edit']);
 Route::post('/edtmanajemen/{id}',[Manajemen::class,'update']);
+Route::get('/del_manajemen/{tahun}',[Manajemen::class,'destroy']);
+Route::get('/man_show/{id}',[Manajemen::class,'file']);
+Route::get('/man_down/{id}',[Manajemen::class,'download']);
+
 
 //Kelembagaan Pengabdian
 Route::get('/kelembagaan',[Kelembagaan::class,'index']);
+Route::get('/kelembagaan/{id}',[Kelembagaan::class,'show']);
 Route::get('/add_kelembagaan',[Kelembagaan::class,'create']);
 Route::post('/addkelembagaan',[Kelembagaan::class,'store']);
 Route::get('/edit_kelembagaan/{id}',[Kelembagaan::class,'edit']);
 Route::post('/edt_kelembagaan/{id}',[Kelembagaan::class,'update']);
 Route::get('/del_kelembagaan/{id}',[Kelembagaan::class,'destroy']);
+Route::get('/kelembagaan/{file}/{id}',[Kelembagaan::class,'file']);
+Route::get('/kelembagaan/download/{file}/{id}',[Kelembagaan::class,'download']);
+
 
 //Revenue Generating
 Route::get('/unit_bisnis',[Unitbisnis::class,'index']);
@@ -69,9 +79,9 @@ Route::get('/del_ub/{id}',[Unitbisnis::class,'destroy']);
 //Dosen
 Route::get('/dosen',[Dosen::class,'index']);
 Route::get('/add_dosen',[Dosen::class,'create']);
-Route::get('/adddosen',[Dosen::class,'store']);
+Route::post('/adddosen',[Dosen::class,'store']);
 Route::get('/edit_dosen/{id}',[Dosen::class,'edit']);
-Route::get('/edtdosen/{id}',[Dosen::class,'update']);
+Route::post('/edtdosen/{id}',[Dosen::class,'update']);
 Route::get('/del_dosen/{id}',[Dosen::class,'destroy']);
 
 //Fasilitas
@@ -83,6 +93,7 @@ Route::post('/edt_fasil/{id}',[Fasilitas::class,'update']);
 Route::get('/del_fasilitas/{id}',[Fasilitas::class,'destroy']);
 Route::get('/fas_down/{id}',[Fasilitas::class,'download']);
 Route::get('/fas_file/{id}',[Fasilitas::class,'file']);
+
 
 //Anggota
 Route::get('/del_pkm/{ids}/{id}',[Anggota::class,'destroy']);
@@ -97,7 +108,6 @@ Route::post('/editpkm/ketua/{id}',[Anggota::class,'upsirtketua']);
 
 //Luaran
 Route::get('/del_pkm/{luaran}/{ids}/{id}',[Luaran::class,'destroy']);
-Route::get('/del_pkm/jurnal/{ids}/{id}',[Luaran::class,'destroy']);
 Route::get('/pkm/luaran/ipteklain/{id}',[Luaran::class,'iptek']);
 Route::get('/pkm/luaran/haki/{id}',[Luaran::class,'haki']);
 Route::get('/pkm/luaran/prodser/{id}',[Luaran::class,'prodser']);
@@ -118,6 +128,8 @@ Route::post('/editpkm/luaran/forum/{id}',[Luaran::class,'upsirtforum']);
 Route::post('/editpkm/luaran/media/{id}',[Luaran::class,'upsirtmedia']);
 Route::post('/editpkm/luaran/wbm/{id}',[Luaran::class,'upsirtwbm']);
 Route::post('/editpkm/luaran/jurnal/{id}',[Luaran::class,'upsirtjurnal']);
+Route::get('{luaran}_down/{id}',[Luaran::class,'download']);
+Route::get('{luaran}_file/{id}',[Luaran::class,'file']);
 
 //Mitra
 Route::get('/pkm/mitra/{id}',[Mitra::class,'mitrapkm']);

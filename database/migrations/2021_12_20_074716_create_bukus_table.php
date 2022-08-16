@@ -21,8 +21,8 @@ class CreateBukusTable extends Migration
             $table->string('penerbit');
             $table->string('isbn');
             $table->integer('jum_halaman');
-            $table->string('bukti');
-            $table->timestamps();
+            $table->string('bukti')->nullable();
+            $table->timestamps()->nullable();
         });
     }
 

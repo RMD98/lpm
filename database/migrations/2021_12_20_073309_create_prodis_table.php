@@ -17,7 +17,7 @@ class CreateProdisTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('fakultas');
-            $table->timestamps();
+            $table->timestamps()->nullable();
         });
         
         $data = array(['Teknik Industri','Fakultas Teknologi Industri (FTI)'],

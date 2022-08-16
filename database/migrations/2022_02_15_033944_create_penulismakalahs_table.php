@@ -17,7 +17,7 @@ class CreatePenulismakalahsTable extends Migration
             $table->id();
             $table->integer('id_makalah');
             $table->string('nidn');
-            $table->timestamps();
+            $table->timestamps()->nullable();
         });
 
         Schema::table('penulismakalahs', function (Blueprint $table) {
@@ -25,7 +25,6 @@ class CreatePenulismakalahsTable extends Migration
                    ->references('nidn')
                    ->on('dosens')
                    ->cascadeOnUpdate();
-        
         });
     }
 

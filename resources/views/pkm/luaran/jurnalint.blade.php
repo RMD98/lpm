@@ -6,7 +6,7 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form action="/editpkm/luaran/jurnal/{{$id}}" method="post">
+        <form action="/editpkm/luaran/jurnal/{{$id}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group row" id="isian">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2 mt-2 card shadows">

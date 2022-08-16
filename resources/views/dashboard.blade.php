@@ -468,7 +468,13 @@
                                 <tr>
                                     <td>{{$key}}</td>
                                     <td>{{$value}}</td>
-                                    <td>{{$value * 100 / $luaran['ttl']}}%</td>
+                                    <td>
+                                        @if($luaran['ttl']!=0)
+                                            {{$value * 100 / $luaran['ttl']}}%
+                                        @else
+                                            0%
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

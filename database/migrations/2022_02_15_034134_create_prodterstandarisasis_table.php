@@ -19,8 +19,8 @@ class CreateProdterstandarisasisTable extends Migration
             $table->string('nidn');
             $table->string('instansi');
             $table->string('no_keputusan');
-            $table->string('bukti');
-            $table->timestamps();
+            $table->string('bukti')->nullable();
+            $table->timestamps()->nullable();
         });
 
         Schema::table('prodterstandarisasis', function (Blueprint $table) {

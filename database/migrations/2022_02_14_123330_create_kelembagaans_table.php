@@ -23,8 +23,8 @@ class CreateKelembagaansTable extends Migration
             $table->string('email');
             $table->string('url');
             $table->string('no_sk_resentra');
-            $table->string('sk_pendirian');
-            $table->string('resentra');
+            $table->string('sk_pendirian')->nullable();
+            $table->string('resentra')->nullable();
             $table->string('nama_ketua');
             $table->string('nidn');
             $table->string('ruang_pimpinan');
@@ -33,7 +33,7 @@ class CreateKelembagaansTable extends Migration
             $table->string('ruang_pertemuan');
             $table->string('ruang_seminar');
             $table->year('tahun');
-            $table->timestamps();
+            $table->timestamps()->nullable();
         });
 
         Schema::table('kelembagaans', function (Blueprint $table) {

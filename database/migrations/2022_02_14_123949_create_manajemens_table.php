@@ -19,6 +19,7 @@ class CreateManajemensTable extends Migration
             $table->enum('konsistensi',['Konsisten','Tidak Konsisten','Tidak Ada']);
             $table->string('file')->nullable();
             $table->year('tahun');
+            $table->integer('key');
             $table->timestamps();
         });
     }

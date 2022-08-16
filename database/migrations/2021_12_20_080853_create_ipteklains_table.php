@@ -19,8 +19,8 @@ class CreateIpteklainsTable extends Migration
             $table->string('nidn');
             $table->string('jenis');
             $table->string('deskripsi');
-            $table->string('bukti');
-            $table->timestamps();
+            $table->string('bukti')->nullable();
+            $table->timestamps()->nullable();
         });
     }
 

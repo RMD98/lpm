@@ -25,7 +25,7 @@ class CreateMediamassasTable extends Migration
             $table->date('tgl_terbit');
             $table->string('skala');
             $table->string('nidn');
-            $table->string('bukti');
+            $table->string('bukti')->nullable();
             $table->timestamps();
         });
 

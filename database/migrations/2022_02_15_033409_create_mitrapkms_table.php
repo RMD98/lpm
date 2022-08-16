@@ -17,11 +17,13 @@ class CreateMitrapkmsTable extends Migration
             $table->id();
             $table->string('jenis');
             $table->string('manfaat');
-            $table->timestamps();
+            $table->timestamps()->nullable();
         });
         Schema::table('mitrapkms', function (Blueprint $table) {
-            $table->foreignId('id_pkm')->constrained('pkms');
-            $table->foreignId('id_mitra')->constrained('mitras');
+            $table->foreignId('id_pkm')->constrained('pkms')->cascadeOnUpdate()
+            ->cascadeOnDelete();
+            $table->foreignId('id_mitra')->constrained('mitras')->cascadeOnUpdate()
+            ->cascadeOnDelete();
         
         });
     }

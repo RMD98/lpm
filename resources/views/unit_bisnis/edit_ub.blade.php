@@ -11,25 +11,25 @@
             <div class="form-group row" id="isian">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nama Unit Bisnis</b>
-                        <input type="text" class="form-control" id="Namaub" name="Namaub" value="<?php echo $data->nama ?>"
+                        <input type="text" required class="form-control" id="Namaub" name="Namaub" value="<?php echo $data->nama ?>"
                         placeholder="Nama Unit Bisnis">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Deskripsi</b>
-                        <input type="text" class="form-control" id="Deskripsi" name="Deskripsi" value="<?php echo $data->deskripsi ?>"
+                        <input type="text" required class="form-control" id="Deskripsi" name="Deskripsi" value="<?php echo $data->deskripsi ?>"
                         placeholder="Deskripsi">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>NO. S.K. Pendirian Unit Bisnis</b>
-                        <input type="text" class="form-control" id="Nosk" name="Nosk" value="<?php echo $data->nosk ?>"
+                        <input type="text" required class="form-control" id="Nosk" name="Nosk" value="<?php echo $data->nosk ?>"
                         placeholder="NO. S.K.">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>S.K. Pendirian Unit Bisnis</b>
-                        <input type="file" class="form-control" accept=".pdf" id="Sk" name="Sk"
+                        <input type="file" class=" btn form-control" accept=".pdf" id="Sk" name="Sk"
                         placeholder="S.K.">
                         <td>
                                 <a href="/ub_file/<?php echo $data->id?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -55,7 +55,7 @@
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2" id=mitra>
                     @foreach($mitra as $key=>$value)
                         <p><b>Mitra</b>
-                            <input type="text" hidden name="id[{{$key}}]" value="{{$value->id}}">
+                            <input type="text" hidden name="ids[{{$key}}]" value="{{$value->id}}">
                             <input type="text" class="form-control" name="namamitra[{{$key}}]" value="{{$value->nama}}">
                             <input type="file" class="form-control" accept=".pdf" name="mou[{{$key}}]">
                             <label for="lap"><?php echo $value->mou ?></label>

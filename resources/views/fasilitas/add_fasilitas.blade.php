@@ -11,13 +11,13 @@
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nama labolatorium</b>
-                        <input type="text" class="form-control" id="NamaLab" name="NamaLab"
+                        <input type="text" require class="form-control" id="NamaLab" name="NamaLab"
                         placeholder="Nama Lab">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Lingkup</b>
-                        <Select class="form-control" id="lingkup" name="Lingkup">
+                        <Select require class="form-control" id="lingkup" name="Lingkup">
                             <?php foreach ($data as $data) :?>
                                 <option value="<?php echo $data->nama?>"><?php echo $data->nama?> </option>
                             <?php endforeach ?>
@@ -26,29 +26,12 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Surat Keterangan</b>
-                    <label for="Ada">
-                        <input type="checkbox" id="Ada"> Ada
-                        <input type="file" id="filesk" accept=".pdf" disabled=true name="filesk">
-                    </label>
-                </p>
+                        <input type="file" id="filesk" accept=".pdf" name="filesk">
+                    </p>
                 </div>
             </div>
             <button class="ml-2" type="submit">Submit</button>
         </form>
     </div>
 </div>
-<script language="javascript" type="text/javascript">
-            document.getElementById("Ada").onchange = function() {file()};
-            // var x = document.querySelector('input[name="Ada"]:checked');
-            function file(){
-                var x = document.getElementById("Ada");
-                var y = document.getElementById("filesk");
-                if(x.checked){
-                    y.disabled = false
-                }
-                else{
-                    y.disabled = true
-                }
-            }
-    </script>
 @stop

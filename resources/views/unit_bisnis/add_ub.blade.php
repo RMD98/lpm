@@ -11,19 +11,19 @@
             <div class="form-group row" id="isian">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nama Unit Bisnis</b>
-                        <input type="text" class="form-control" id="Namaub" name="Namaub"
+                        <input type="text" require class="form-control" id="Namaub" name="Namaub"
                         placeholder="Nama Unit Bisnis">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Deskripsi</b>
-                        <input type="text" class="form-control" id="Deskripsi" name="Deskripsi"
+                        <input type="text" require class="form-control" id="Deskripsi" name="Deskripsi"
                         placeholder="Deskripsi">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>NO. S.K. Pendirian Unit Bisnis</b>
-                        <input type="text" class="form-control" id="Nosk" name="Nosk"
+                        <input type="text" require class="form-control" id="Nosk" name="Nosk"
                         placeholder="NO. S.K.">
                     </p>
                 </div>

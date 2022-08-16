@@ -97,7 +97,7 @@ class Dosen extends Controller
             'prodi'=> $request->prodi,
             'jab_fungsional'=> $request->jab,
         );
-        Dosens::where('nind',$id)->update($data);
+        Dosens::where('nidn',$id)->update($data);
         return redirect()->action([Dosen::class,'index']);
     }
 

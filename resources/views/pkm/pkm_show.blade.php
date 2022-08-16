@@ -151,7 +151,7 @@
                         </div>
                     <p>Alumni :
                         &nbsp
-                        <a href="/pkm/luaran['jurnal_internasional'][$key]/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                        <a href="/pkm/alm/<?php echo $data->id ?>">EDIT &nbsp<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
                     </p>
                         <div class="table-responsive">
                             <table class="table table-border">
@@ -276,10 +276,10 @@
                                     <td>{{$luaran['ipteklain'][$key]->deskripsi}}</td>
                                     <td>
                                         @if($luaran['ipteklain'][$key]->bukti !=NULL)
-                                            <a href="/fas_down/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                            <a href="/iptek_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                                 <i class="fas fa-download fa-sm text-white-50"></i>
                                             Download</a>
-                                            <a href="/fas_file/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                            <a href="/iptek_file/{{$value->id}}"  target="_blank"class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                                 <i class="fas fa-eye fa-sm text-white-50"></i>
                                             Show</a>
                                         @else
@@ -340,7 +340,18 @@
                                     <td>{{$luaran['haki'][$key]->jenis}}</td>
                                     <td>{{$luaran['haki'][$key]->no_daftar}}</td>
                                     <td>{{$luaran['haki'][$key]->status}}</td>
-                                    <td>{{$luaran['haki'][$key]->bukti}}</td>
+                                     <td>
+                                        @if($luaran[''][$key]->bukti !=NULL)
+                                            <a href="/haki_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download</a>
+                                            <a href="/haki_file/{{$value->id}}" c target="_blank"lass="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show</a>
+                                        @else
+                                           Tidak Ada File
+                                        @endif
+                                    </td>
                                     <td><a data-toggle="modal" data-target="#modalhaki<?php echo $luaran['haki'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
                                     <div class="modal fade" id="modalhaki<?php echo $luaran['haki'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -393,7 +404,18 @@
                                     </td>
                                     <td>{{$luaran['prod_sertif'][$key]->instansi}}</td>
                                     <td>{{$luaran['prod_sertif'][$key]->no_keputusan}}</td>
-                                    <td>{{$luaran['prod_sertif'][$key]->bukti}}</td>
+                                     <td>
+                                        @if($luaran['prod_sertif'][$key]->bukti !=NULL)
+                                            <a href="/sertif_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download</a>
+                                            <a href="/sertif_file/{{$value->id}}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show</a>
+                                        @else
+                                           Tidak Ada File
+                                        @endif
+                                    </td>
                                     <td><a data-toggle="modal" data-target="#modalprodser<?php echo $luaran['prod_sertif'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
                                     <div class="modal fade" id="modalprodser<?php echo $luaran['prod_sertif'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -446,7 +468,18 @@
                                     </td>
                                     <td>{{$luaran['prod_standar'][$key]->instansi}}</td>
                                     <td>{{$luaran['prod_standar'][$key]->no_keputusan}}</td>
-                                    <td>{{$luaran['prod_standar'][$key]->bukti}}</td>
+                                     <td>
+                                        @if($luaran['prod_standar'][$key]->bukti !=NULL)
+                                            <a href="/standar_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download</a>
+                                            <a href="/standar_file/{{$value->id}} target="_blank"" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show</a>
+                                        @else
+                                           Tidak Ada File
+                                        @endif
+                                    </td>
                                     <td><a data-toggle="modal" data-target="#modalprodstan<?php echo $luaran['prod_standar'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
                                     <div class="modal fade" id="modalprodstan<?php echo $luaran['prod_standar'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -503,7 +536,18 @@
                                     <td>{{$luaran['buku'][$key]->penerbit}}</td>
                                     <td>{{$luaran['buku'][$key]->isbn}}</td>
                                     <td>{{$luaran['buku'][$key]->jum_halaman}}</td>
-                                    <td>{{$luaran['buku'][$key]->bukti}}</td>
+                                     <td>
+                                        @if($luaran['buku'][$key]->bukti !=NULL)
+                                            <a href="/buku_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download</a>
+                                            <a href="/buku_file/{{$value->id}}" c target="_blank"lass="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show</a>
+                                        @else
+                                           Tidak Ada File
+                                        @endif
+                                    </td>
                                     <td><a data-toggle="modal" data-target="#modalbuku<?php echo $luaran['buku'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
                                     <div class="modal fade" id="modalbuku<?php echo $luaran['buku'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -547,7 +591,18 @@
                                     <td>{{$luaran['mbh'][$key]->nama}}</td>
                                     <td>{{$luaran['mbh'][$key]->no_badan_hukum}}</td>
                                     <td>{{$luaran['mbh'][$key]->bidang_usaha}}</td>
-                                    <td>{{$luaran['mbh'][$key]->bukti}}</td>
+                                     <td>
+                                        @if($luaran['mbh'][$key]->bukti !=NULL)
+                                            <a href="/mbh_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download</a>
+                                            <a href="/mbh_file/{{$value->id}}" cl target="_blank"ass="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show</a>
+                                        @else
+                                           Tidak Ada File
+                                        @endif
+                                    </td>
                                     <td><a data-toggle="modal" data-target="#modalmbh<?php echo $luaran['mbh'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
                                     <div class="modal fade" id="modalmbh<?php echo $luaran['mbh'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -608,7 +663,18 @@
                                     <td>{{$luaran['forum_ilmiah'][$key]->penyelenggara}}</td>
                                     <td>{{$luaran['forum_ilmiah'][$key]->dari}} - {{$luaran['forum_ilmiah'][$key]->sampai}}</td>
                                     <td>{{$luaran['forum_ilmiah'][$key]->tempat}}</td>
-                                    <td>{{$luaran['forum_ilmiah'][$key]->bukti}}</td>
+                                     <td>
+                                        @if($luaran['forum_ilmiah'][$key]->bukti !=NULL)
+                                            <a href="/forum_down/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download</a>
+                                            <a href="/forum_file/" class="d-none  target="_blank"d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show</a>
+                                        @else
+                                           Tidak Ada File
+                                        @endif
+                                    </td>
                                     <td><a data-toggle="modal" data-target="#modalforum<?php echo $luaran['forum_ilmiah'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
                                     <div class="modal fade" id="modalforum<?php echo $luaran['forum_ilmiah'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -672,7 +738,18 @@
                                     <td>{{$luaran['media_massa'][$key]->hal}}</td>
                                     <td>{{$luaran['media_massa'][$key]->tgl_terbit}}</td>
                                     <td>{{$luaran['media_massa'][$key]->skala}}</td>
-                                    <td>{{$luaran['media_massa'][$key]->bukti}}</td>
+                                     <td>
+                                        @if($luaran['media_massa'][$key]->bukti !=NULL)
+                                            <a href="/media_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download</a>
+                                            <a href="/media_file/" class="d-none  target="_blank"d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show</a>
+                                        @else
+                                           Tidak Ada File
+                                        @endif
+                                    </td>
                                     <td><a data-toggle="modal" data-target="#modalalm<?php echo $luaran['media_massa'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
                                     <div class="modal fade" id="modalalm<?php echo $luaran['media_massa'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -714,7 +791,18 @@
                                 <tr>
                                     <td>{{$luaran['wbm'][$key]->nama}}</td>
                                     <td>{{$luaran['wbm'][$key]->jenis}}</td>
-                                    <td>{{$luaran['wbm'][$key]->bukti}}</td>
+                                     <td>
+                                        @if($luaran['wbm'][$key]->bukti !=NULL)
+                                            <a href="/wbm_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download</a>
+                                            <a href="/wbm_file/{{$value->id}}" cl target="_blank"ass="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show</a>
+                                        @else
+                                           Tidak Ada File
+                                        @endif
+                                    </td>
                                     <td><a data-toggle="modal" data-target="#modalwbm<?php echo $luaran['wbm'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
                                     <div class="modal fade" id="modalwbm<?php echo $luaran['wbm'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -765,9 +853,9 @@
                                         <td>{{$luaran['jurnal_internasional'][$key]->judul}}</td>
                                         <td>
                                             
-                                            @foreach($luaran['penulisjurna;'] as $key=>$value)
+                                            @foreach($luaran['penulisjurnal'] as $key=>$value)
                                                 <p>
-                                                    {{$luaran['penulisjurna;'][$key]->nidn}} - {{$luaran['penulisjurna;'][$key]->nama}}
+                                                    {{$luaran['penulisjurnal'][$key]->nidn}} - {{$luaran['penulisjurnal'][$key]->nama}}
                                                 </p>
                                             @endforeach
                                         </td>
@@ -779,7 +867,18 @@
                                         <td>{{$luaran['jurnal_internasional'][$key]->volume}}</td>
                                         <td>{{$luaran['jurnal_internasional'][$key]->nomor}}</td>
                                         <td>{{$luaran['jurnal_internasional'][$key]->halaman}}</td>
-                                        <td>{{$luaran['jurnal_internasional'][$key]->bukti}}</td>
+                                         <td>
+                                        @if($luaran['jurnal_internasional'][$key]->bukti !=NULL)
+                                            <a href="/jurnal_down/{{$value->id}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            Download</a>
+                                            <a href="/jurnal_file/{{$value->id}}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                            Show</a>
+                                        @else
+                                           Tidak Ada File
+                                        @endif
+                                    </td>
                                         <td><a data-toggle="modal" data-target="#modaljurnal<?php echo $luaran['jurnal_internasional'][$key]->id ?>" class="btn btn-danger">DELETE <i class="fas fa-trash"></i></a></td>
                                         <div class="modal fade" id="modaljurnal<?php echo $luaran['jurnal_internasional'][$key]->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">

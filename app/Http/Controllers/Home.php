@@ -34,6 +34,9 @@ class Home extends Controller
         $mhsa = Anggota::where('status','MAHASISWA')->groupBy('id_pkm')->get();
         $mhs['ttl'] = count($mhsa);
         $smbrs = Pkm::groupBy('sumberdana')->get();
+        $smbr['ttl']=[];
+        $skala['ttl']=[];
+        $roadmap['ttl']=[];
         foreach($smbrs as $key=>$value){
             $smbr['ttl'][$value->sumberdana] = Pkm::where('sumberdana',$value->sumberdana)->count();
         }

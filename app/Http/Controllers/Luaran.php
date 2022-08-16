@@ -41,8 +41,8 @@ class Luaran extends Controller
        
             $file = $request->file('bukti');
             // foreach($request->ids as $key=>$value){
-                if($file != NULL){
-                    $path = $file->store('public/luaran/ipteklain');
+                if($file){
+                    $path = $file->store('Luaran/Ipteklain');
                 } else{
                     $path = Null;
                 }
@@ -76,7 +76,7 @@ class Luaran extends Controller
             $file = $request->file('bukti');
             // foreach($request->ids as $key=>$value){
                 if($file != NULL){
-                    $path = $file->store('public/luaran/ipteklain');
+                    $path = $file->store('Luaran/Produk Tersertifikasi');
                 } else{
                     $path = Null;
                 }
@@ -87,8 +87,8 @@ class Luaran extends Controller
                     'no_keputusan' => $request->nokep,
                     'bukti' => $path,
                 );
-                $prodser = Prodterstandarisasi::updateOrCreate(['id'=>$request->ids],$up);
-                Luarans::where('id_pkm',$id)->update(['prod_terstandarisasi'=>$prodser->id]);
+                $prodser = Prodtersertifikasi::updateOrCreate(['id'=>$request->ids],$up);
+                Luarans::where('id_pkm',$id)->update(['prod_tersertifikasi'=>$prodser->id]);
             // };
         return redirect()->action([Pkm::class,'show'],['id'=>$id]);
     }
@@ -107,7 +107,7 @@ class Luaran extends Controller
             $file = $request->file('bukti');
             // foreach($request->ids as $key=>$value){
                 if($file != NULL){
-                    $path = $file->store('public/luaran/ipteklain');
+                    $path = $file->store('Luaran/Produk Terstandarisasi');
                 } else{
                     $path = Null;
                 }
@@ -141,8 +141,8 @@ class Luaran extends Controller
        
             $file = $request->file('bukti');
             // foreach($request->ids as $key=>$value){
-                if($file != NULL){
-                    $path = $file->store('public/luaran/ipteklain');
+                if($file){
+                    $path = $file->store('Luaran/Haki');
                 } else{
                     $path = Null;
                 }
@@ -182,7 +182,7 @@ class Luaran extends Controller
     
         $file = $request->file('bukti');
             if($file != NULL){
-                $path = $file->store('public/luaran/ipteklain');
+                $path = $file->store('Luaran/Buku');
             } else{
                 $path = Null;
             }
@@ -214,7 +214,7 @@ class Luaran extends Controller
     
         $file = $request->file('bukti');
             if($file != NULL){
-                $path = $file->store('public/luaran/ipteklain');
+                $path = $file->store('Luaran/Mitra Berbadan Hukum');
             } else{
                 $path = Null;
             }
@@ -239,14 +239,14 @@ class Luaran extends Controller
                 ->get();
             };
         // echo count($data);
-        echo $data;
-        // return view('pkm/luaran/forum',['data'=>$data,'id'=>$id]);
+        // echo $data;
+        return view('pkm/luaran/forum',['data'=>$data,'id'=>$id]);
     }
     public function upsirtforum($id,Request $request){
     
         $file = $request->file('bukti');
             if($file != NULL){
-                $path = $file->store('public/luaran/ipteklain');
+                $path = $file->store('Luaran/Pemakalah Forum Ilmiah' );
             } else{
                 $path = Null;
             }
@@ -286,7 +286,7 @@ class Luaran extends Controller
     
         $file = $request->file('bukti');
             if($file != NULL){
-                $path = $file->store('public/luaran/ipteklain');
+                $path = $file->store('Luaran/Media Massa');
             } else{
                 $path = Null;
             }
@@ -331,7 +331,7 @@ class Luaran extends Controller
     
         $file = $request->file('bukti');
             if($file != NULL){
-                $path = $file->store('public/luaran/wirausaha_baru_mandiri');
+                $path = $file->store('Luaran/Wirausaha Baru Mandiri');
             } else{
                 $path = Null;
             }
@@ -359,14 +359,14 @@ class Luaran extends Controller
     
         $file = $request->file('bukti');
             if($file != NULL){
-                $path = $file->store('public/luaran/jurnal_internasional');
+                $path = $file->store('Luaran/Jurnal Internasinal');
             } else{
                 $path = Null;
             }
             $up = array(
                 'judul' => $request->judul,
                 'url' => $request->url,
-                'nama_jurnal' => $request->nama_jurnal,
+                'nama' => $request->nama_jurnal,
                 'jenis' => $request->jenis,
                 'p_issn' => $request->p_issn,
                 'e_issn' => $request->e_issn,
@@ -422,7 +422,41 @@ class Luaran extends Controller
     {
         //
     }
-
+    public function file($luaran,$id){
+        
+        switch($luaran) :
+            case('iptek') : $data = Ipteklain::where('id','=',$id)->first();break;
+            case('haki') : $data = Haki::where('id','=',$id)->first();break;
+            case('buku') : $data = Buku::where('id','=',$id)->first();break;
+            case('mitrahukum') : $data = Mitrahukum::where('id','=',$id)->first();break;
+            case('sertif') : $data = Prodtersertifikasi::where('id','=',$id)->first();break;
+            case('standar') : $data = Prodterstandarisasi::where('id','=',$id)->first();break;
+            case('forum') : $data = Forum::where('id','=',$id)->first();break;
+            case('media') : $data = Mediamassa::where('id','=',$id)->first();break;
+            case('wbm') : $data = wbm::where('id','=',$id)->first();break;
+            case('jurnal') : $data = Jurnalint::where('id','=',$id)->first();break;
+        endswitch;
+        
+        return response()->file(\Storage::path($data->bukti));
+    }
+    public function download($luaran,$id){
+        
+        switch($luaran) :
+            case('iptek') : $data = Ipteklain::where('id','=',$id)->first();break;
+            case('haki') : $data = Haki::where('id','=',$id)->first();break;
+            case('buku') : $data = Buku::where('id','=',$id)->first();break;
+            case('mitrahukum') : $data = Mitrahukum::where('id','=',$id)->first();break;
+            case('sertif') : $data = Prodtersertifikasi::where('id','=',$id)->first();break;
+            case('standar') : $data = Prodterstandarisasi::where('id','=',$id)->first();break;
+            case('forum') : $data = Forum::where('id','=',$id)->first();break;
+            case('media') : $data = Mediamassa::where('id','=',$id)->first();break;
+            case('wbm') : $data = wbm::where('id','=',$id)->first();break;
+            case('jurnal') : $data = Jurnalint::where('id','=',$id)->first();break;
+        endswitch;
+        
+        return \Storage::download($data->bukti);
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -436,8 +470,8 @@ class Luaran extends Controller
             case('haki') : Haki::where('id','=',$ids)->delete();
             case('buku') : Buku::where('id','=',$ids)->delete();
             case('mitrahukum') : Mitrahukum::where('id','=',$ids)->delete();
-            case('prodser') : Prodsertifikasi::where('id','=',$ids)->delete();
-            case('prodstan') : Prodstandarisasi::where('id','=',$ids)->delete();
+            case('prodser') : Prodtersertifikasi::where('id','=',$ids)->delete();
+            case('prodstan') : Prodterstandarisasi::where('id','=',$ids)->delete();
             case('forum') : Forum::where('id','=',$ids)->delete();
             case('media') : Mediamassa::where('id','=',$ids)->delete();
             case('wbm') : wbm::where('id','=',$ids)->delete();

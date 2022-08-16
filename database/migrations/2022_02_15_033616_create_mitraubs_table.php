@@ -16,8 +16,8 @@ class CreateMitraubsTable extends Migration
         Schema::create('mitraubs', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('mou');
-            $table->timestamps();
+            $table->string('mou')->nullable();
+            $table->timestamps()->nullable();
         });
     }
 

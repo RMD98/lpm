@@ -44,17 +44,17 @@ class Unitbisnis extends Controller
     public function store(Request $request)
     {
             if($request->file('Sk') != NULL){
-                $Sk = $request->file('Sk')->store('public/Unit Bisnis/SK');
+                $Sk = $request->file('Sk')->store('Unit Bisnis/SK');
             } else {
                 $Sk = NULL;
             }
             if($request->file('Lap') != NULL){
-                $Lap = $request->file('Lap')->store('public/Unit Bisnis/Laporan');
+                $Lap = $request->file('Lap')->store('Unit Bisnis/Laporan');
             } else {
                 $Lap = NULL;
             }
             if($request->file('inv') != NULL){
-                $inv = $request->file('inv')->store('public/Unit Bisnis/Invoice');
+                $inv = $request->file('inv')->store('Unit Bisnis/Invoice');
             } else {
                 $inv = NULL;
             }
@@ -68,18 +68,22 @@ class Unitbisnis extends Controller
             );
             $id = DB::table('unitbisnis')->insertGetId($data);
             $mou = $request->file('mou');
+            //memisahkan data yang memiliki file
+            $mit = array_diff_key($request->namamitra,$mou);
             foreach($mou as $key=>$value){
-                if($mou != NULL){
-                    $file[$key] = $value->store('public/Unit Bisnis/MOU');
-                } else {
-                    $file = NULL;
-                }
-            };
-            foreach($request->namamitra as $key=>$value){
                 $mitra = array(
                     'id_ub' => $id,
                     'nama'=>$request->namamitra[$key],
-                    'mou' => $file[$key],
+                    'mou' => $value->store('Unit Bisnis/MOU'),
+                );
+                Mitraub::insert($mitra);
+               
+            };
+    
+            foreach($mit as $key=>$value){
+                $mitra = array(
+                    'id_ub' => $id,
+                    'nama'=>$request->namamitra[$key],
                 );
                 Mitraub::insert($mitra);
             }
@@ -131,57 +135,94 @@ class Unitbisnis extends Controller
      */
     public function update(Request $request, $id)
     {
+        $old = DB::table('unitbisnis')->where('id',$id)->first();
         $data = array(
             'nama'=> $request->Namaub,
             'deskripsi'=> $request->Deskripsi,
             'nosk'=> $request->Nosk,
         );
-        if($request->file('Sk') != NULL){
-            $Sk = $request->file('Sk')->store('public/Unit Bisnis/SK');
+        if($request->file('Sk')){
+            //Memindahkan File lama ke folder Old
+            \Storage::move($old->Sk,'old/'.$old->Sk);
+
+            //Menyimpan file baru dan memasukan pathnya ke db
+            $Sk = $request->file('Sk')->store('Unit Bisnis/SK');
             $data = array_merge_recursive($data,['SKPUB'=> $Sk]);
             
-        } else {
-            $Sk = NULL;
         }
-        if($request->file('Lap') != NULL){
-            $Lap = $request->file('Lap')->store('public/Unit Bisnis/Laporan');
-            $data = array_merge_recursive($data,['LKUB'=> $Lap]);
-        } else {
-            $Lap = NULL;
-        }
-        if($request->file('inv') != NULL){
-            $inv = $request->file('inv')->store('public/Unit Bisnis/Invoice');
-            $data = array_merge_recursive($data,['invoice'=> $inv]);
-        } else {
-            $inv = NULL;
-        }
-        
-        DB::table('unitbisnis')->where('id',$id)->update($data);
-        $mou = $request->file('mou');
-        foreach($request->id as $key=>$value){
-            $mitra = array(
-                'nama'=>$request->namamitra[$key],
-            );
-            if($mou){
-                if(current($mou)){
-                    $mitra = array_merge_recursive($mitra,['mou'=> current($mou)->store('public/Unit Bisnis/MOU')]);
-                    next($mou);
-                }
-            }
-            Mitraub::where('id',$value)->update($mitra);
-        }
-        if($request->mitrabaru){
+        if($request->file('Lap')){
+            //Memindahkan File lama ke folder Old
+            \Storage::move($old->LKUB,'old/'.$old->LKUB);
 
-            foreach($request->mitrabaru as $key=>$value){
-                if($request->file('moubaru')[$key] != NULL){
-                $file = $request->file('moubaru')[$key]->store('public/Unit Bisnis/MOU');
-                } else {
-                    $file = NULL;
+            //Menyimpan file baru dan memasukan pathnya ke db
+            $Lap = $request->file('Lap')->store('Unit Bisnis/Laporan');
+            $data = array_merge_recursive($data,['LKUB'=> $Lap]);
+        }
+        if($request->file('inv')){
+            //Memindahkan File lama ke folder Old
+            \Storage::move($old->Invoice,'old/'.$old->Invoice);
+
+            //Menyimpan file baru dan memasukan pathnya ke db
+            $inv = $request->file('inv')->store('Unit Bisnis/Invoice');
+            $data = array_merge_recursive($data,['invoice'=> $inv]);
+        }
+        //update data unit bisnis
+        DB::table('unitbisnis')->where('id',$id)->update($data);
+
+        //mengupdate data mitra unit bisnis
+        print_r($request->ids);
+        if($request->ids){
+            $mou = $request->file('mou');
+            if($mou){
+                //memisahkan data yang memiliki file baru
+                $mit = array_diff_key($request->ids,$mou);
+                
+                //mengupdate data yang memiliki file
+                foreach($mou as $key=>$value){
+                    $old = Mitraub::where('id',$request->ids[$key])->first();
+                    if($old->mou){
+                        //memindahkan file lama kedalam folder old
+                        \Storage::move($old->mou,'old/'.$old->mou);
+                    };
+                    $mitra = array(
+                        'nama'=>$request->namamitra[$key],
+                        'mou'=>$value->store('Unit Bisnis/MOU'),
+                    );
+                    Mitraub::where('id',$request->ids[$key])->update($mitra);
                 }
+            } else{
+                $mit=$request->ids;
+            }
+
+            //mengupdate data tanpa file
+            foreach($mit as $key=>$value){
+                $mitra = array(
+                    'nama'=>$request->namamitra[$key],
+                );
+                Mitraub::where('id',$request->ids[$key])->update($mitra);
+            }
+        }
+        //menyimpan data mitra unit bisnis baru
+        if($request->mitrabaru){
+            $moubaru = $request->file('moubaru');
+            if($moubaru){
+                //memisahkan data yang memiliki file
+                $mitb = array_diff_key($request->mitrabaru,$moubaru);
+                foreach($moubaru as $key=>$value){
+                    $baru = array(
+                        'id_ub' => $id,
+                        'nama'=>$request->mitrabaru[$key],
+                        'mou' =>$value->store('Unit Bisnis/MOU'),
+                    );
+                    Mitraub::insert($baru);
+                }
+            } else {
+                $mitb = $request->mitrabaru;
+            }
+            foreach($mitb as $key=>$value){
                 $baru = array(
                     'id_ub' => $id,
                     'nama'=>$request->mitrabaru[$key],
-                    'mou' =>$file
                 );
                 Mitraub::insert($baru);
             }
@@ -198,6 +239,12 @@ class Unitbisnis extends Controller
     public function destroy($id)
     {
         //
+        $data = DB::table('unitbisnis')->where('id',$id)->first();
+        \Storage::delete([$data->SKPUB,$data->LKUB,$data->Invoice]);
+        $ub = DB::table('mitraubs')->where('id_ub',$id)->get();
+        foreach($ub as $key=>$value){
+            \Storage::delete($value->mou);
+        }
         DB::table('unitbisnis')->where('id','=',$id)->delete();
         return redirect()->action([Unitbisnis::class,'index']);
     }

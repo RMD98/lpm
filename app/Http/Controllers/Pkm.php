@@ -78,7 +78,7 @@ class Pkm extends Controller
             );
             $id = Pkms::insertGetId($data);
             Luaran::insert(['id_pkm'=>$id]);
-            return redirect()->action([Pkm::class,'index']);
+            return redirect()->action([Pkm::class,'show'],['id'=>$id]);
     }
 
     /**
@@ -159,7 +159,7 @@ class Pkm extends Controller
                 $luaran['jurnal_internasional'] = Jurnalint::where('jurnalints.id','=',$luaran[0]->jurnal_internasional)->get();
                 if(count($luaran['jurnal_internasional'])!=0){
                     $luaran['penulisjurnal'] = Penulisjurnal::where('id_jurnal',$luaran['jurnal_internasional'][0]->id)
-                        ->join('dosens','dosens.nidn','=','pj.nidn')
+                        ->join('dosens','dosens.nidn','=','penulisjurnals.nidn')
                         ->get();
                 }
                 $luaran['ipteklain'] = Ipteklain::where('id','=',$luaran[0]->iptek_lain)

@@ -15,12 +15,48 @@
                     <p>Nomor S.K. Pendirian: <?php echo $data->nosk?></p>
                     <p> S.K. Pendirian:
                         @if ($data->SKPUB !=NULL )
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-download fa-sm text-white-50"></i>
-                            Download</a>
-                            @else
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                Download
+                            </a>
+                            
+                            <a href="/standfile/<?php echo $data->id ?>" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                Show
+                            </a>
+                        @else
                             Tidak Ada FIle SK
-                            @endif
+                        @endif
+                    </p>
+                    <p> Laporan Keuangan:
+                        @if ($data->LKUB !=NULL )
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                Download
+                            </a>
+                            
+                            <a href="/standfile/<?php echo $data->id ?>" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                Show
+                            </a>
+                        @else
+                            Tidak Ada FIle SK
+                        @endif
+                    </p>
+                    <p> Invoice:
+                        @if ($data->Invoice !=NULL )
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                Download
+                            </a>
+                            
+                            <a href="/standfile/<?php echo $data->id ?>" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fas fa-eye fa-sm text-white-50"></i>
+                                Show
+                            </a>
+                        @else
+                            Tidak Ada FIle SK
+                        @endif
                     </p>
                     <p>Deskripsi: <?php echo $data->deskripsi?></p>
                 </div>
@@ -28,10 +64,15 @@
                     @foreach($mitra as $mitra) 
                         <p>Nama Mitra :<?php echo $mitra->nama?></p>
                         <p>MOU : 
-                            @if ($data->SKPUB !=NULL )
+                            @if ($mitra->mou !=NULL )
                                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                <i class="fas fa-download fa-sm text-white-50"></i>
-                                Download</a>
+                                    <i class="fas fa-download fa-sm text-white-50"></i>
+                                    Download
+                                </a>
+                                <a href="/standfile/<?php echo $data->id ?>" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <i class="fas fa-eye fa-sm text-white-50"></i>
+                                    Show
+                                </a>
                             @else
                                 Tidak Ada FIle SK
                             @endif</p>

@@ -21,9 +21,8 @@
                             <th>Deskripsi</th>
                             <th>No. S.K. Pendirian</th>
                             <th>S.K. Pendirian</th>
-                            <?php foreach ($ub as $mit) : ?>
-                                <th>Mitra</th>
-                            <?php endforeach ?>
+                            <th>Mitra</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +46,7 @@
                             @foreach ($ub as $key=>$value)
                                 @if($data->id == $value->id_ub)
                                     - <?php echo $value->nama?>
+                                    <br>
                                 @endif
                             @endforeach
                             </td>
