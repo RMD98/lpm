@@ -15,7 +15,7 @@ class CreateLuaransTable extends Migration
     {
         Schema::create('luarans', function (Blueprint $table) {
             $table->id();
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
         Schema::table('luarans', function (Blueprint $table) {
             $table->foreignId('forum_ilmiah')->nullable()->constrained('forums')->nullOnDelete();

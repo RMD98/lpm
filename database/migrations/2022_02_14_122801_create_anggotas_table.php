@@ -25,7 +25,7 @@ class CreateAnggotasTable extends Migration
             $table->string('nohp');
             $table->string('prodi');
             $table->year('thn_lulus');
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
         Schema::table('anggotas', function (Blueprint $table) {
             $table->foreignId('id_pkm')->constrained('pkms')->cascadeOnUpdate()

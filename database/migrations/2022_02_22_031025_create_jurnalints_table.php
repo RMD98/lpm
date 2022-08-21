@@ -24,8 +24,8 @@ class CreateJurnalintsTable extends Migration
             $table->string('volume');
             $table->string('nomor');
             $table->string('halaman');
-            $table->integer('bukti')->nullable();
-            $table->timestamps()->nullable();;
+            $table->string('bukti')->nullable();
+            $table->timestamps();
         });
         Schema::table('luarans', function (Blueprint $table) {
             $table->foreignId('jurnal_internasional')->nullable()->constrained('jurnalints')->nullOnDelete();

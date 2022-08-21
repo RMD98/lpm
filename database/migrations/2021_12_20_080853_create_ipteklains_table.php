@@ -20,7 +20,7 @@ class CreateIpteklainsTable extends Migration
             $table->string('jenis');
             $table->string('deskripsi');
             $table->string('bukti')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
     }
 

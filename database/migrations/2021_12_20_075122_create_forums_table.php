@@ -24,7 +24,7 @@ class CreateForumsTable extends Migration
             $table->date('sampai');
             $table->string('tempat');
             $table->string('bukti')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
     }
 

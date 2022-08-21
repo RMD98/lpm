@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Home;
+use App\Http\Controllers\User;
 use App\Http\Controllers\Fasilitas;
 use App\Http\Controllers\Pkm;
 use App\Http\Controllers\Standar;
@@ -136,8 +137,12 @@ Route::get('/pkm/mitra/{id}',[Mitra::class,'mitrapkm']);
 Route::post('/editpkm/mitra/{id}',[Mitra::class,'upsirtmitrapkm']);
 Route::get('/del_pkm/mitra/{ids}/{id}',[Mitra::class,'destroy']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//User
+Route::get('/users',[User::class,'index']);
+Route::get('/add_user',[User::class,'create']);
+Route::post('/adduser',[User::class,'store']);
+Route::get('/edit_user/{id}',[User::class,'edit']);
+Route::post('/edtuser/{id}',[User::class,'update']);
+Route::get('/del_user/{id}',[User::class,'destroy']);
 
 require __DIR__.'/auth.php';

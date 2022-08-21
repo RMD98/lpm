@@ -17,7 +17,7 @@ class CreatePenulismakalahsTable extends Migration
             $table->id();
             $table->integer('id_makalah');
             $table->string('nidn');
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
 
         Schema::table('penulismakalahs', function (Blueprint $table) {

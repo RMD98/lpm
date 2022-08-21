@@ -20,7 +20,7 @@ class CreateProdtersertifikasisTable extends Migration
             $table->string('instansi');
             $table->string('no_keputusan');
             $table->string('bukti')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
 
         Schema::table('prodtersertifikasis', function (Blueprint $table) {

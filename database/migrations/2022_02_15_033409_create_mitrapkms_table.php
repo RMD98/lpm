@@ -17,7 +17,7 @@ class CreateMitrapkmsTable extends Migration
             $table->id();
             $table->string('jenis');
             $table->string('manfaat');
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
         Schema::table('mitrapkms', function (Blueprint $table) {
             $table->foreignId('id_pkm')->constrained('pkms')->cascadeOnUpdate()

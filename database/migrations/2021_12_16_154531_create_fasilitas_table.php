@@ -18,7 +18,7 @@ class CreateFasilitasTable extends Migration
             $table->string('NamaLab');
             $table->string('Lingkup');
             $table->string('SK')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
     }
 

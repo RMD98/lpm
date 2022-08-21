@@ -17,7 +17,7 @@ class CreateMitraubsTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('mou')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
     }
 

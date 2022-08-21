@@ -17,7 +17,7 @@ class CreatePenulisjurnalsTable extends Migration
             $table->id();
             $table->integer('id_jurnal');
             $table->string('nidn');
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
 
         Schema::table('penulisjurnals', function (Blueprint $table) {

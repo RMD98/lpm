@@ -16,7 +16,7 @@ class CreateSumberipteksTable extends Migration
         Schema::create('sumberipteks', function (Blueprint $table) {
             $table->id();
             $table->string('sumber');
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
         $data = array('Tidak ada','Paten','Paten sederhana',
                 'Perlindungan varietas tanaman','Hak Cipta',

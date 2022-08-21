@@ -10,6 +10,9 @@ use Illuminate\Auth\Access\Response;
 
 class Fasilitas extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     // public function __construct(){
     //     $this->middleware(['auth']);
     // }

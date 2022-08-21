@@ -20,7 +20,7 @@ class CreateStandarsTable extends Migration
             $table->year('Tahun');
             $table->string('Keterangan');
             $table->string('Dokumen')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
     }
 

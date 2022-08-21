@@ -33,7 +33,7 @@ class CreateKelembagaansTable extends Migration
             $table->string('ruang_pertemuan');
             $table->string('ruang_seminar');
             $table->year('tahun');
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
 
         Schema::table('kelembagaans', function (Blueprint $table) {

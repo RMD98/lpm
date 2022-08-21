@@ -21,7 +21,7 @@ class CreateDosensTable extends Migration
             $table->string('pendidikan');
             $table->string('jab_fungsional');
             $table->string('golongan');
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
         Schema::table('ipteklains', function (Blueprint $table) {
             $table->foreign('nidn')->references('nidn')->on('dosens');

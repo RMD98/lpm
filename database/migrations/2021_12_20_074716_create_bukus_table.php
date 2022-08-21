@@ -22,7 +22,7 @@ class CreateBukusTable extends Migration
             $table->string('isbn');
             $table->integer('jum_halaman');
             $table->string('bukti')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
     }
 

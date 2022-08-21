@@ -8,6 +8,9 @@ use App\Models\Standar as Standars;
 
 class Standar extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *

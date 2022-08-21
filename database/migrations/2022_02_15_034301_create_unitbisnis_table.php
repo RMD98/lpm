@@ -21,7 +21,7 @@ class CreateUnitbisnisTable extends Migration
             $table->string('SKPUB')->nullable();
             $table->string('LKUB')->nullable();
             $table->string('Invoice')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
 
         });
         Schema::table('mitraubs', function (Blueprint $table) {
