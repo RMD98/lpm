@@ -15,7 +15,6 @@ class CreatePenulishakisTable extends Migration
     {
         Schema::create('penulishakis', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_haki');
             $table->string('nidn');
             $table->timestamps();
         });
@@ -25,6 +24,11 @@ class CreatePenulishakisTable extends Migration
                   ->references('nidn')
                   ->on('dosens')
                   ->cascadeOnUpdate();
+            $table->foreignId('id_haki')
+                  ->references('id')
+                  ->on('hakis')
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
         
         });
     }

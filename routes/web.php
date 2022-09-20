@@ -25,6 +25,7 @@ use App\Http\Controllers\Dosen;
 */
 //dashboard
 Route::get('/',[Home::class,'index']);
+Route::get('/tahun',[Home::class,'tahun']);
 
 //PKM
 Route::get('/pkm',[Pkm::class,'index']);

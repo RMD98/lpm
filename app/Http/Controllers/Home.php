@@ -21,12 +21,98 @@ use App\Models\Wirausahabarumandiri as wbm;
 class Home extends Controller
 {
     public function index(){
+        $tahun = Pkm::groupBy('tahun_mulai')->get();
         $count = $this->ttl();   
         $luaran = $this->luaran();
         // echo $count[0]['ttl'];
         // print_r ($count);
         // $chart = new Chart;
-        return view('dashboard',compact('count','luaran'));
+        return view('dashboard',compact('count','luaran','tahun'));
+    }
+
+    public function tahun(Request $request){
+        $data =[];
+        $thn = Pkm::where('tahun_mulai',$request->tahun_awal)->get();
+        $faks = Prodi::groupBy('fakultas')->get();
+        foreach($thn as $key => $value){
+            $dsn = Anggota::where('jabatan','KETUA')
+                            ->where('id_pkm',$value->id)
+                            ->join('dosens','nidn','nidn_nrp')
+                            ->get();
+        }
+        // dd($dsn);
+        // foreach ($faks as $key=>$value){
+        //     $fakultas = $value->fakultas;
+        //     $fak[$fakultas] = 0;
+        //     $mhs[$fakultas] = 0;
+            
+        //     $smbr[$fakultas]=[];
+        //     $smbr['fak']=[];
+            
+        //     $skala[$fakultas]=[];
+        //     $skala['fak']=[];
+        //     $roadmap[$fakultas]=[];
+        //     $roadmap['fak']=[];
+            
+        //     $prodis = Prodi::where('fakultas',$fakultas)->get();
+
+        //     foreach($prodis as $key=>$value){
+        //         $prodi = $value->nama;
+        //         $smbr[$prodi]=[];
+        //         $smbr['prod']=[];
+
+        //         $skala[$prodi]=[];
+        //         $skala['prod']=[];
+                
+        //         $roadmap[$prodi]=[];
+        //         $roadmap['prod']=[];
+                
+        //         $mhs[$prodi] = 0;
+                
+        //         $ang = Anggota::where('jabatan','KETUA')
+        //         ->join('dosens','nidn_nrp','nidn')
+        //         ->where('dosens.prodi','=',$prodi)->get();
+                
+        //         $prod[$prodi] = count($ang); 
+        //         $fak[$fakultas] += count($ang);
+                
+        //         foreach($ang as $key=>$dos){
+        //             $mhss[$prodi] = Anggota::where('status','MAHASISWA')
+        //             ->where('id_pkm',$dos->id_pkm)
+        //             ->count();
+        //             if($mhss[$prodi]!=0){
+        //                 $mhs[$prodi] += 1;
+        //                 $mhs[$fakultas] += 1;
+        //             }
+        //             $pkm = Pkm::where('id',$dos->id_pkm)->first();                    
+        //             array_push($smbr['prod'],$pkm->sumberdana);
+        //             array_push($smbr['fak'],$pkm->sumberdana);
+                    
+        //             array_push($skala['prod'],$pkm->skala);
+        //             array_push($skala['fak'],$pkm->skala);
+
+        //             array_push($roadmap['prod'],$pkm->roadmap);
+        //             array_push($roadmap['fak'],$pkm->roadmap);
+        //         };
+
+        //         $smbr[$prodi] = array_count_values($smbr['prod']); 
+        //         $skala[$prodi] = array_count_values($skala['prod']); 
+        //         $roadmap[$prodi] = array_count_values($roadmap['prod']); 
+
+        //     };
+        //     $smbr[$fakultas] = array_count_values($smbr['fak']); 
+        //     $skala[$fakultas] = array_count_values($skala['fak']); 
+        //     $roadmap[$fakultas] = array_count_values($roadmap['fak']); 
+                
+        // }
+        // foreach($data as $key->$value){
+        //     $pkm = Pkm::where('id',$value->id)->first();
+        //     $prodi = Anggota::where('id_pkm',$pkm->id)->where('jabatan','KETUA')
+        //             -join('dosens','nidn','nidn_nrp')
+        //             ->get();
+        // }
+
+        return response()->json($dsn);
     }
     public function ttl(){
         

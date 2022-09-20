@@ -5,6 +5,12 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <select name="tahun" id="tahuns" onchange="pkm(this.value)">
+        @foreach($tahun as $key=>$value)
+            <option value="{{$value->tahun_mulai}}">{{$value->tahun_mulai}}</option>
+        @endforeach
+    </select>
+    <h1 id='tahun'>Tahun</h1>
 </div>
 
 <!-- Content Row -->
@@ -558,7 +564,7 @@
         }
         return s.join(dec);
         }
-    var ctx = document.getElementById("myAreaChart");
+        var ctx = document.getElementById("myAreaChart");
         var myPieChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -686,5 +692,14 @@
         myPieChart.update();
     }
     pieChart()
+</script>
+
+<script>
+    function pkm(tahun){
+        const tahuns = document.getElementById('tahun');
+        $.get('/tahun', {tahun_awal:tahun}, function (data, textStatus, jqXHR) {
+            tahuns.innerHTML=data[0].nidn;
+        });
+    }
 </script>
 @endpush

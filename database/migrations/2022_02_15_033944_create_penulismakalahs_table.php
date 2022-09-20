@@ -15,7 +15,6 @@ class CreatePenulismakalahsTable extends Migration
     {
         Schema::create('penulismakalahs', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_makalah');
             $table->string('nidn');
             $table->timestamps();
         });
@@ -25,6 +24,11 @@ class CreatePenulismakalahsTable extends Migration
                    ->references('nidn')
                    ->on('dosens')
                    ->cascadeOnUpdate();
+            $table->foreignId('id_makalah')
+                  ->references('id')
+                  ->on('forums')
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
         });
     }
 

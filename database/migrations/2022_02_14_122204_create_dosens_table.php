@@ -17,7 +17,7 @@ class CreateDosensTable extends Migration
             $table->string('nidn');
             $table->primary('nidn');
             $table->string('nama');
-            $table->string('prodi');
+            $table->foreignId('prodi')->contrained('prodis')->nullOnDelete();
             $table->string('pendidikan');
             $table->string('jab_fungsional');
             $table->string('golongan');

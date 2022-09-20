@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProdisTable extends Migration
+class CreateTargetPkms extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateProdisTable extends Migration
      */
     public function up()
     {
-        Schema::create('prodis', function (Blueprint $table) {
+        Schema::create('target_pkms', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->year('tahun');
+            $table->foreignId('prodi')->constrained('prodis')->cascadeOnDelete();
             $table->timestamps();
         });
-         
-    }   
+    }
 
     /**
      * Reverse the migrations.
@@ -28,6 +28,6 @@ class CreateProdisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prodis');
+        Schema::dropIfExists('target_pkms');
     }
 }

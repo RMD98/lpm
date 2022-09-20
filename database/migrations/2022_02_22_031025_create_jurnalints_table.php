@@ -30,6 +30,18 @@ class CreateJurnalintsTable extends Migration
         Schema::table('luarans', function (Blueprint $table) {
             $table->foreignId('jurnal_internasional')->nullable()->constrained('jurnalints')->nullOnDelete();
         });
+        
+        Schema::table('penulisjurnals', function (Blueprint $table) {
+            $table->foreign('nidn')
+                  ->references('nidn')
+                  ->on('dosens')
+                  ->cascadeOnUpdate();
+            $table->foreignId('id_jurnal')
+                  ->references('id')
+                  ->on('jurnalints')
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
+        });
     }
 
     /**

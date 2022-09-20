@@ -15,16 +15,8 @@ class CreatePenulisjurnalsTable extends Migration
     {
         Schema::create('penulisjurnals', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_jurnal');
             $table->string('nidn');
             $table->timestamps();
-        });
-
-        Schema::table('penulisjurnals', function (Blueprint $table) {
-            $table->foreign('nidn')
-                  ->references('nidn')
-                  ->on('dosens')
-                  ->cascadeOnUpdate();
         });
     }
 
