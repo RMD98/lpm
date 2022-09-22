@@ -15,6 +15,7 @@ use App\Http\Controllers\Mitra;
 use App\Http\Controllers\Dosen;
 use App\Http\Controllers\Fakultas;
 use App\Http\Controllers\Prodi;
+use App\Http\Controllers\Target;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,14 @@ Route::get('/edit_pkm/{id}',[Pkm::class,'edit']);
 Route::post('/editpkm/{id}',[Pkm::class,'update']);
 Route::get('/del_pkm/{id}',[Pkm::class,'destroy']);
 Route::get('/pkm/{id}',[Pkm::class,'show']);
+
+//Target PKM
+Route::get('/target',[Target::class,'index']);
+Route::get('/add_target',[Target::class,'create']);
+Route::post('/addtarget',[Target::class,'store']);
+Route::get('/edit_target/{id}',[Target::class,'edit']);
+Route::post('/edttarget/{id}',[Target::class,'update']);
+Route::get('/del_target/{id}',[Target::class,'destroy']);
 
 //Standar PKM
 Route::get('/standar',[Standar::class,'index']);

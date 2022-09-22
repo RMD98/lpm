@@ -17,6 +17,7 @@ class CreateTargetPkms extends Migration
             $table->id();
             $table->year('tahun');
             $table->foreignId('prodi')->constrained('prodis')->cascadeOnDelete();
+            $table->integer('target');
             $table->timestamps();
         });
     }
