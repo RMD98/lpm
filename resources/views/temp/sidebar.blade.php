@@ -56,6 +56,7 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="/pkm">PKM</a>
+                            <a class="collapse-item" href="/target">Target PKM</a>
                             <a class="collapse-item" href="/standar">Standar</a>
                         </div>
                     </div>
@@ -87,17 +88,33 @@
                         <span>Revenue Generating</span></a>
                 </li>
                 <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/dosen">
-                        <i class="fas fa-fw fa-users"></i>
-                        <span>Staff Dosen</span></a>
-                </li>
                 @if(Auth::user()->role == 'super admin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sumb">
+                            <i class="fas fa-fw fa-users"></i>
+                            <span>Sumber Iptek</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dosen">
+                            <i class="fas fa-fw fa-users"></i>
+                            <span>Staff Dosen</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/prodi">
+                            <i class="fas fa-fw fa-users"></i>
+                            <span>Prodi</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/fakultas">
+                            <i class="fas fa-fw fa-users"></i>
+                            <span>Fakultas</span></a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/users">
                             <i class="fas fa-fw fa-users"></i>
                             <span>User</span></a>
                     </li>
+                    
                 @endif
                 <hr class="sidebar-divider d-none d-md-block">
             @endguest

@@ -13,6 +13,8 @@ use App\Http\Controllers\Luaran;
 use App\Http\Controllers\Anggota;
 use App\Http\Controllers\Mitra;
 use App\Http\Controllers\Dosen;
+use App\Http\Controllers\Fakultas;
+use App\Http\Controllers\Prodi;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,6 +87,22 @@ Route::post('/adddosen',[Dosen::class,'store']);
 Route::get('/edit_dosen/{id}',[Dosen::class,'edit']);
 Route::post('/edtdosen/{id}',[Dosen::class,'update']);
 Route::get('/del_dosen/{id}',[Dosen::class,'destroy']);
+
+//Prodi
+Route::get('/prodi',[Prodi::class,'index']);
+Route::get('/add_prodi',[Prodi::class,'create']);
+Route::post('/addprodi',[Prodi::class,'store']);
+Route::get('/edit_prodi/{id}',[Prodi::class,'edit']);
+Route::post('/edtprodi/{id}',[Prodi::class,'update']);
+Route::get('/del_prodi/{id}',[Prodi::class,'destroy']);
+
+//Fakultas
+Route::get('/fakultas',[Fakultas::class,'index']);
+Route::get('/add_fakultas',[Fakultas::class,'create']);
+Route::post('/addfakultas',[Fakultas::class,'store']);
+Route::get('/edit_fakultas/{id}',[Fakultas::class,'edit']);
+Route::post('/edtfakultas/{id}',[Fakultas::class,'update']);
+Route::get('/del_fakultas/{id}',[Fakultas::class,'destroy']);
 
 //Fasilitas
 Route::get('/fasilitas',[Fasilitas::class,'index']);

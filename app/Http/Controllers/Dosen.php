@@ -10,6 +10,7 @@ class Dosen extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('checkRole:super admin');
     }
     /**
      * Display a listing of the resource.
