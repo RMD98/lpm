@@ -20,22 +20,22 @@ class DatabaseSeeder extends Seeder
         foreach($fakultas as $key =>$value){
             DB::table('fakultas')->insert(['nama'=>$value[0]]);
         }
-        $prodi = array(['Teknik Industri','1'],
-                    ['Teknik Mesin','1'],
-                    ['Teknik Elektro','1'],
-                    ['Teknik Kimia','1'],
-                    ['Teknik Informatika','1'],
-                    ['Teknik Sipil','2'],
-                    ['Teknik Geodesi','2'],
-                    ['Teknik Lingkungan','2'],
-                    ['Teknik Planologi','2'],
-                    ['Teknik Arsitektur','3'],
-                    ['Desain Interior','3'],
-                    ['Desain Produk','3'],
-                    ['DKV','3']
+        $prodi = array(['11','Teknik Industri','1'],
+                    ['12','Teknik Mesin','1'],
+                    ['13','Teknik Elektro','1'],
+                    ['14','Teknik Kimia','1'],
+                    ['15','Teknik Informatika','1'],
+                    ['16','Teknik Sipil','2'],
+                    ['17','Teknik Geodesi','2'],
+                    ['18','Teknik Lingkungan','2'],
+                    ['19','Teknik Planologi','2'],
+                    ['20','Teknik Arsitektur','3'],
+                    ['21','Desain Interior','3'],
+                    ['22','Desain Produk','3'],
+                    ['23','DKV','3']
                 );
         foreach ($prodi as $key=>$value){
-            DB::table('prodis')->insert(['nama'=>$value[0],'fakultas'=>$value[1]]);
+            DB::table('prodis')->insert(['kode'=>$value[0],'nama'=>$value[1],'fakultas'=>$value[2]]);
         }
         DB::table('users')->insert(['name'=>'admin','email'=>'admin@admin.com','role'=>'super admin','password'=>Hash::make('admin')]);
     }

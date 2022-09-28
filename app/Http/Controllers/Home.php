@@ -17,6 +17,7 @@ use App\Models\Forum;
 use App\Models\Mediamassa;
 use App\Models\Jurnalint;
 use App\Models\Wirausahabarumandiri as wbm;
+use DB;
 
 class Home extends Controller
 {
@@ -29,17 +30,176 @@ class Home extends Controller
         // $chart = new Chart;
         return view('dashboard',compact('count','luaran','tahun'));
     }
-
-    public function tahun(Request $request){
-        $data =[];
-        $thn = Pkm::where('tahun_mulai',$request->tahun_awal)->get();
-        $faks = Prodi::groupBy('fakultas')->get();
-        foreach($thn as $key => $value){
-            $dsn = Anggota::where('jabatan','KETUA')
-                            ->where('id_pkm',$value->id)
+    public function prodi($thn){
+        $prod = Prodi::get();
+        foreach($prod as $key=>$prods){
+            $target = DB::table('target_pkms')->where('tahun',$thn)->where('prodi',$prods->id)->value('target');
+            $data[$prods->nama]['target']= $target;
+            $data[$prods->nama]['mhs'] = 0;
+            $data[$prods->nama]['dana'] = [];
+            $data[$prods->nama]['skala'] = [];
+            $data[$prods->nama]['roadmap'] = [];
+            $ang = Anggota::where('jabatan','KETUA')
                             ->join('dosens','nidn','nidn_nrp')
+                            ->where('dosens.prodi',$prods->id)
+                            ->join('pkms','pkms.id','id_pkm')
+                            ->where('tahun_mulai',$thn)
                             ->get();
+            $data[$prods->nama]['ttl'] = count($ang);
+            foreach($ang as $keys=>$values){
+                if(Anggota::where('id_pkm',$values->id_pkm)->where('status','MAHASISWA')->exists()){
+                                    $data[$prods->nama]['mhs'] +=1;
+                                };
+                if(array_key_exists($values->sumberdana,$data[$prods->nama]['dana'])){
+                    $data[$prods->nama]['dana'][$values->sumberdana] += 1;
+                }else {
+                    $data[$prods->nama]['dana'][$values->sumberdana] = 1;
+                }
+                if(array_key_exists($values->skala,$data[$prods->nama]['skala'])){
+                    $data[$prods->nama]['skala'][$values->skala] += 1;
+                }else {
+                    $data[$prods->nama]['skala'][$values->skala] = 1;
+                }
+                if(array_key_exists($values->roadmap,$data[$prods->nama]['roadmap'])){
+                    $data[$prods->nama]['roadmap'][$values->roadmap] += 1;
+                }else {
+                    $data[$prods->nama]['roadmap'][$values->roadmap] = 1;
+                }
+            }
         }
+        return $data; 
+    }
+    public function tahun(Request $request){
+        $thn = Pkm::where('tahun_mulai',$request->tahun_awal)->get();
+        $target = DB::table('target_pkms')->where('tahun',$request->tahun_awal)->get();
+        if($request->group == 'ttl'){
+            $data['dana']=[];
+            $data['mhs'] = 0;
+            $data['skala'] =[];
+            $data['roadmap'] = [];
+            $data['ttl'] = count($thn);
+            $data['target'] = 0;
+            foreach($target as $key=>$value){
+                $data['target'] += $value->target;
+            }
+            foreach($thn as $key=>$value){
+                if(Anggota::where('id_pkm',$value->id)->where('status','MAHASISWA')->exists()){
+                        // if(array_key_exists('mhs',$data)){
+                            $data['mhs'] +=1;
+                        // }
+                        // else{
+                        //     $data['mhs'] = 1;
+                        // }
+                    }
+                if(array_key_exists($value->sumberdana,$data['dana'])){
+                    $data['dana'][$value->sumberdana] += 1;
+                }else {
+                    $data['dana'][$value->sumberdana] = 1;
+                }
+                if(array_key_exists($value->skala,$data['skala'])){
+                    $data['skala'][$value->skala] += 1;
+                }else {
+                    $data['skala'][$value->skala] = 1;
+                }
+                if(array_key_exists($value->roadmap,$data['roadmap'])){
+                    $data['roadmap'][$value->roadmap] += 1;
+                }else {
+                    $data['roadmap'][$value->roadmap] = 1;
+                }
+            }
+        }
+        elseif($request->group == 'prod'){
+            $data = $this->prodi($request->tahun_awal);
+           
+        }
+        elseif($request->group == 'fak'){
+            $prod = $this->prodi($request->tahun_awal);
+            $fak = DB::table('fakultas')->get();
+            foreach($fak as $key=>$value){
+                $data[$value->nama]['ttl']=0;
+                $data[$value->nama]['mhs']=0;
+                $data[$value->nama]['target']=0;
+                $data[$value->nama]['dana'] = [];
+                $data[$value->nama]['skala'] = [];
+                $data[$value->nama]['roadmap'] = [];
+                $prodi = Prodi::where('fakultas',$value->id)->get();
+                foreach($prodi as $keys=>$prods){
+                    $data[$value->nama]['ttl'] += $prod[$prods->nama]['ttl'];
+                    $data[$value->nama]['mhs'] += $prod[$prods->nama]['mhs'];
+                    $data[$value->nama]['target'] += $prod[$prods->nama]['target'];
+                    foreach($prod[$prods->nama]['dana'] as $smbr=>$values){
+                        if(array_key_exists($smbr,$data[$value->nama]['dana'])){
+                            $data[$value->nama]['dana'][$smbr] += 1;
+                        }else {
+                            $data[$value->nama]['dana'][$smbr] = 1;
+                        }
+                    }
+                    foreach($prod[$prods->nama]['skala'] as $skl=>$values){
+                        if(array_key_exists($skl,$data[$value->nama]['skala'])){
+                            $data[$value->nama]['skala'][$skl] += 1;
+                        }else {
+                            $data[$value->nama]['skala'][$skl] = 1;
+                        }
+                    }
+
+                    foreach($prod[$prods->nama]['roadmap'] as $rd=>$values){
+                        if(array_key_exists($rd,$data[$value->nama]['roadmap'])){
+                            $data[$value->nama]['roadmap'][$rd] += 1;
+                        }else {
+                            $data[$value->nama]['roadmap'][$rd] = 1;
+                        }
+                    }
+                }
+            }
+        } 
+        elseif($request->group == 'luar'){
+            $luaran = ['Buku','Haki','Media Massa','Produk Tersertifikasi','Produk Terstandarisasi',
+                    'Wirausaha Baru Mandiri','Pemakalah Forum Ilmiah','Jurnal Internasional',
+                    'Mitra Berbada Hukum','Luaran Iptek Lainnya'];
+            $data = array_fill_keys($luaran,0);
+            foreach($thn as $key=>$value){
+                $temp = DB::table('luarans')->where('id_pkm',$value->id)->first();
+                // $luaran['Buku'] += 
+                if($temp->buku){
+                    $data['Buku'] += 1;
+                };
+                if($temp->haki){
+                    $data['Haki'] += 1;
+                };
+                if($temp->media_massa){
+                    $data['Media Massa'] += 1;
+                };
+                if($temp->prod_tersertifikasi){
+                    $data['Produk Tersertifikasi'] += 1;
+                };
+                if($temp->prod_terstandarisasi){
+                    $data['Produk Terstandarisasi'] += 1;
+                };
+                if($temp->forum_ilmiah){
+                    $data['Pemakalah Forum Ilmiah'] += 1;
+                };
+                if($temp->jurnal_internasional){
+                    $data['Jurnal Internasional'] += 1;
+                };
+                if($temp->wirausaha_baru_mandiri){
+                    $data['Wirausaha Baru Mandiri'] += 1;
+                };
+                if($temp->mitra_berbadan_hukum){
+                    $data['Mitra Berbadan Hukum'] += 1;
+                };
+                if($temp->iptek_lain){
+                    $data['Luaran Iptek Lainnya'] += 1;
+                };
+            }
+        }
+        // $data =[];
+        // $faks = Prodi::groupBy('fakultas')->get();
+        // foreach($thn as $key => $value){
+        //     $dsn = Anggota::where('jabatan','KETUA')
+        //                     ->where('id_pkm',$value->id)
+        //                     ->join('dosens','nidn','nidn_nrp')
+        //                     ->get();
+        // }
         // dd($dsn);
         // foreach ($faks as $key=>$value){
         //     $fakultas = $value->fakultas;
@@ -112,7 +272,7 @@ class Home extends Controller
         //             ->get();
         // }
 
-        return response()->json($dsn);
+        return response()->json($data);
     }
     public function ttl(){
         

@@ -31,25 +31,18 @@
                     <p><b>S.K. Pendirian Unit Bisnis</b>
                         <input type="file" class=" btn form-control" accept=".pdf" id="Sk" name="Sk"
                         placeholder="S.K.">
-                        <td>
-                                <a href="/ub_file/<?php echo $data->id?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                    <i class="fas fa-download fa-sm text-white-50"></i>
-                                    Show</a>
-                                </td>
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Laporan Keuangan Unit Bisnis</b>
-                        <input type="file" class="form-control" accept=".pdf" id="Lap" name="Lap"
+                        <input type="file" class="btn form-control" accept=".pdf" id="Lap" name="Lap"
                         placeholder="Laporan Keuangan">
-                        <label for="lap"><?php echo $data->LKUB ?></label>
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Invoive</b>
-                        <input type="file" class="form-control" accept=".pdf" id="inv" name="inv"
+                        <input type="file" class="btn form-control" accept=".pdf" id="inv" name="inv"
                         placeholder="Laporan Keuangan">
-                        <label for="inv"><?php echo $data->Invoice ?></label>
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2" id=mitra>
@@ -57,8 +50,7 @@
                         <p><b>Mitra</b>
                             <input type="text" hidden name="ids[{{$key}}]" value="{{$value->id}}">
                             <input type="text" class="form-control" name="namamitra[{{$key}}]" value="{{$value->nama}}">
-                            <input type="file" class="form-control" accept=".pdf" name="mou[{{$key}}]">
-                            <label for="lap"><?php echo $value->mou ?></label>
+                            <input type="file" class="btn form-control" accept=".pdf" name="mou[{{$key}}]">
                         </p>
                     @endforeach
                 </div>

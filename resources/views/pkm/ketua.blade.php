@@ -23,7 +23,7 @@
                     <p><b>Program Studi</b>
                         <select class="form-control" name="prodi[{{$key}}]" id="prodi[{{$key}}]">
                             @foreach($prodi as $prodis)
-                                <option value="{{$prodis->nama}}" {{$data[$key]->prodi == $prodis->nama ? 'selected' : ' ' }}>{{$prodis->nama}}</option>
+                                <option value="{{$prodis->id}}" {{$data[$key]->prodi == $prodis->id ? 'selected' : ' ' }}>{{$prodis->nama}}</option>
                             @endforeach
                         </select>
                     </p>
@@ -68,7 +68,7 @@
                     <p><b>Program Studi</b>
                         <select class="form-control" name="prodibru[`+i+`]" id="prodibru[`+i+`]">
                             @foreach($prodi as $prodi)
-                                <option value="{{$prodi->nama}}">{{$prodi->nama}}</option>
+                                <option value="{{$prodi->id}}">{{$prodi->nama}}</option>
                             @endforeach
                         </select>
                     </p>

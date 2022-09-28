@@ -5,7 +5,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <select name="tahun" id="tahuns" onchange="pkm(this.value)">
+    <select name="tahun" id="tahuns" onchange="pkm()">
         @foreach($tahun as $key=>$value)
             <option value="{{$value->tahun_mulai}}">{{$value->tahun_mulai}}</option>
         @endforeach
@@ -21,7 +21,7 @@
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                    <a href="#" class="stretched-link" onclick="Ttl({{json_encode($count)}})"></a>
+                    <a href="#" class="stretched-link" onclick="Tbl('ttl')"></a>
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             <h5>
@@ -45,7 +45,7 @@
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                    <a href="#" class="stretched-link" onclick="Fak({{json_encode($count['fak'])}})"></a>   
+                    <a href="#" class="stretched-link" onclick="Tbl('fak')"></a>   
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             <h5>
@@ -69,7 +69,7 @@
         <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                    <a href="#" class="stretched-link" onclick="Prod({{json_encode($count['prod'])}})"></a>   
+                    <a href="#" class="stretched-link" onclick="Tbl('prod')"></a>   
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                             <h5>
@@ -102,7 +102,7 @@
         <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                    <a href="#" class="stretched-link" onclick="Luar({{json_encode($luaran)}})"></a>   
+                    <a href="#" class="stretched-link" onclick="Tbl('luar')"></a>   
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                             <h5>
@@ -134,327 +134,9 @@
     </div>
 </div>
 
-<div class="row" id="ttl" >
-    <!-- Pie Chart -->
-    <div class="col-xl-8 col-xl-7">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <!-- <h5 class="m-0 font-weight-bold text-primary">PKM Total  = {{$count['ttl']['ttl']}}</h5> -->
-            </div>
-            <!-- Card Body -->
-                <div class="card-body">
-                    <!-- <div class="chart-pie">
-                        <canvas id="myPieChart"></canvas>
-                        <canvas id="myAreaChart"></canvas>
-                    </div> -->
-                    <h5>Kegiatan PKM</h5>
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>jumlah</th>
-                                <th>persen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>total</td>
-                                <td>{{$count['ttl']['ttl']}}</td>
-                                <td>
-                                    @if($count['ttl']['ttl']!=0)
-                                        100%
-                                    @else
-                                        0%
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    PKM Yang Melibatakan Mahasiswa
-                                </td>
-                                <td>
-                                    {{$count['mhs']['ttl']}}
-                                </td>
-                                <td>@if($count['ttl']['ttl'] != 0)
-                                        {{$count['mhs']['ttl'] * 100 / $count['ttl']['ttl']}}%
-                                    @else
-                                        0%
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sumber Danaa</td>
-                            </tr>
-                            @foreach($count['smbr']['ttl'] as $item=>$value)
-                            <tr>
-                                <td>
-                                    <ul>
-                                        <li>
-                                            {{$item}}
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>{{$value}}</td>
-                                <td>{{$value * 100 / $count['ttl']['ttl']}}%</td>
-                            </tr>
-                            @endforeach
-                            <tr>
-                                <td>Skala Kegiatan</td>
-                            </tr>
-                            @foreach($count['skala']['ttl'] as $keys=>$value)
-                                <tr>
-                                   <td>
-                                       <ul>
-                                           <li>
-                                               {{$keys}}
-                                           </li>
-                                       </ul>
-                                   </td> 
-                                   <td>{{$value}}</td>
-                                   <td>{{$value * 100 / $count['ttl']['ttl']}}%</td>
-                                </tr>
-                            @endforeach
-                            <tr>
-                                <td>Kesesuaian Dengan Roadmap</td>
-                            </tr>
-                            @foreach($count['roadmap']['ttl'] as $keys=>$value)
-                                <tr>
-                                    <td>
-                                        <ul>
-                                            <li>
-                                                {{$keys}}
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        {{$value}}
-                                    </td>
-                                    <td>{{$value * 100 / $count['ttl']['ttl']}}%</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-</div>
-<div class="row" id="fak" hidden>
-    <!-- Pie Chart -->
-    @foreach($count['fak'] as $key=>$values)
-    <div class="col-xl-8 col-xl-7">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <!-- <h5 class="m-0 font-weight-bold text-primary">PKM Total  = {{$count['ttl']['ttl']}}</h5> -->
-            </div>
-            <!-- Card Body -->
-                <div class="card-body">
-                    <!-- <div class="chart-pie">
-                        <canvas id="myPieChart"></canvas>
-                        <canvas id="myAreaChart"></canvas>
-                    </div> -->
-                    <h5>{{$key}}</h5>
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>jumlah</th>
-                                <th>persen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>total</td>
-                                <td>{{$values}}</td>
-                                <td>
-                                    @if($count['ttl']['ttl']!=0)
-                                        {{$values * 100 / $count['ttl']['ttl']}}%
-                                    @else
-                                        0%
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    PKM Yang Melibatakan Mahasiswa
-                                </td>
-                                <td>
-                                    {{$count['mhs'][$key]}}
-                                </td>
-                                <td>@if($values != 0)
-                                        {{$count['mhs'][$key] * 100 / $values}}%
-                                    @else
-                                        0%
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sumber Danaa</td>
-                            </tr>
-                            @foreach($count['smbr'][$key] as $item=>$value)
-                            <tr>
-                                <td>
-                                    <ul>
-                                        <li>
-                                            {{$item}}
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>{{$value}}</td>
-                                <td>{{$value * 100 / $values}}%</td>
-                            </tr>
-                            @endforeach
-                            <tr>
-                                <td>Skala Kegiatan</td>
-                            </tr>
-                            @foreach($count['skala'][$key] as $keys=>$value)
-                                <tr>
-                                   <td>
-                                       <ul>
-                                           <li>
-                                               {{$keys}}
-                                           </li>
-                                       </ul>
-                                   </td> 
-                                   <td>{{$value}}</td>
-                                   <td>{{$value * 100 / $values}}%</td>
-                                </tr>
-                            @endforeach
-                            <tr>
-                                <td>Kesesuaian Dengan Roadmap</td>
-                            </tr>
-                            @foreach($count['roadmap'][$key] as $keys=>$value)
-                                <tr>
-                                    <td>
-                                        <ul>
-                                            <li>
-                                                {{$keys}}
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        {{$value}}
-                                    </td>
-                                    <td>{{$value * 100 / $values}}%</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    @endforeach
-</div>
-<div class="row" id="prod" hidden>
-    <!-- Pie Chart -->
-    @foreach($count['prod'] as $key=>$values)
-    <div class="col-xl-8 col-xl-7">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <!-- <h5 class="m-0 font-weight-bold text-primary">PKM Total  = {{$count['ttl']['ttl']}}</h5> -->
-            </div>
-            <!-- Card Body -->
-                <div class="card-body">
-                    <!-- <div class="chart-pie">
-                        <canvas id="myPieChart"></canvas>
-                        <canvas id="myAreaChart"></canvas>
-                    </div> -->
-                    <h5>{{$key}}</h5>
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>jumlah</th>
-                                <th>persen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>total</td>
-                                <td>{{$values}}</td>
-                                <td>
-                                    @if($count['ttl']['ttl']!=0)
-                                        {{$values * 100 / $count['ttl']['ttl']}}%
-                                    @else
-                                        0%
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    PKM Yang Melibatakan Mahasiswa
-                                </td>
-                                <td>
-                                    {{$count['mhs'][$key]}}
-                                </td>
-                                <td>@if($values != 0)
-                                        {{$count['mhs'][$key] * 100 / $values}}%
-                                    @else
-                                        0%
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sumber Danaa</td>
-                            </tr>
-                            @foreach($count['smbr'][$key] as $item=>$value)
-                            <tr>
-                                <td>
-                                    <ul>
-                                        <li>
-                                            {{$item}}
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>{{$value}}</td>
-                                <td>{{$value * 100 / $values}}%</td>
-                            </tr>
-                            @endforeach
-                            <tr>
-                                <td>Skala Kegiatan</td>
-                            </tr>
-                            @foreach($count['skala'][$key] as $keys=>$value)
-                                <tr>
-                                   <td>
-                                       <ul>
-                                           <li>
-                                               {{$keys}}
-                                           </li>
-                                       </ul>
-                                   </td> 
-                                   <td>{{$value}}</td>
-                                   <td>{{$value * 100 / $values}}%</td>
-                                </tr>
-                            @endforeach
-                            <tr>
-                                <td>Kesesuaian Dengan Roadmap</td>
-                            </tr>
-                            @foreach($count['roadmap'][$key] as $keys=>$value)
-                                <tr>
-                                    <td>
-                                        <ul>
-                                            <li>
-                                                {{$keys}}
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        {{$value}}
-                                    </td>
-                                    <td>{{$value * 100 / $values}}%</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    @endforeach
+<div class="row" id="data">
+    
+    
 </div>
 <div class="row" id="luaran" hidden>
     <!-- Pie Chart -->
@@ -508,17 +190,9 @@
 @stop
 @push('script')
 <script>
-    var fak = document.getElementById("fak")
-    var prod = document.getElementById("prod")
-    var ttl = document.getElementById("ttl")
+    
     var luaran = document.getElementById("luaran")
-    function Ttl(array){
-        pieChart(array);
-        ttl.hidden = false
-        prod.hidden = true
-        fak.hidden = true
-        luaran.hidden = true
-    }
+
     function Luar(array){
         pieChart(array);
         luaran.hidden = false
@@ -526,17 +200,10 @@
         ttl.hidden = true
         fak.hidden = true
     }
-    function Fak(array){
+    function Faks(array){
         pieChart(array);
         fak.hidden = false
         prod.hidden = true
-        ttl.hidden = true
-        luaran.hidden = true
-    }
-    function Prod(array){
-        pieChart(array);
-        prod.hidden = false
-        fak.hidden = true
         ttl.hidden = true
         luaran.hidden = true
     }
@@ -695,11 +362,278 @@
 </script>
 
 <script>
-    function pkm(tahun){
-        const tahuns = document.getElementById('tahun');
-        $.get('/tahun', {tahun_awal:tahun}, function (data, textStatus, jqXHR) {
-            tahuns.innerHTML=data[0].nidn;
+    function Tbl(tab){
+        tbl = tab
+        pkm()
+    }
+    var thn = document.getElementById('tahuns').value;
+    var tbl = 'fak';   
+    var sumber = "";
+    var skala ="";
+    var roadmap ="";
+    var ttl = 0;
+    var mhs = 0;
+    var trg = "";
+    var gap = 0;
+    function pkm(){
+        function dana (arr){
+            sumber = "";
+            
+            $.each(arr.dana,function(key,value){
+                var ttl = 0;
+                if(arr.ttl == 0){
+                    ttl = 0;
+                } else if(arr.ttl !=0){
+                    ttl = value * 100 / arr.ttl;
+                }
+                sumber +=  `<tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            ${key}
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>${value}</td>
+                                <td>${ttl}%</td>
+                            </tr>`
+            })
+        }
+        function rdm (arr){
+            roadmap = "";
+            $.each(arr.roadmap,function(key,value){
+                var ttl = 0;
+                if(arr.ttl == 0){
+                    ttl = 0;
+                } else if(arr.ttl !=0){
+                    ttl = value * 100 / arr.ttl;
+                }
+                roadmap +=  `<tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            ${key}
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>${value}</td>
+                                <td>${ttl}%</td>
+                            </tr>`
+            })
+        }
+        function skl (arr){
+            skala = "";
+            
+                $.each(arr.skala,function(key,value){
+                    var ttl = 0;
+                    if(arr.ttl == 0){
+                        ttl = 0;
+                    } else if(arr.ttl !=0){
+                        ttl = value * 100 / arr.ttl;
+                    }
+                    skala +=  `<tr>
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                ${key}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>${value}</td>
+                                    <td>${ttl}%</td>
+                                </tr>`
+                })
+        }
+        function total (arr){
+            ttl = ""
+            if(arr.ttl != 0){
+                ttl = ` <td>${arr.ttl}</td>
+                        <td> 100% </td>`
+            } else {
+                ttl = ` <td>${arr.ttl}</td>
+                        <td> 0% </td>`
+            }
+            
+        }
+        function mahasiswa(arr){
+            mhs = ""
+            if(arr.mhs != 0){
+                mhs = ` <td>${arr.mhs}</td>
+                        <td>${arr.mhs*100/arr.ttl}</td>`
+            } else {
+                mhs = ` <td>${arr.mhs}</td>
+                        <td>0%</td>`
+            }
+        }
+        function Target(arr){
+            trg = ""
+            gap = Math.abs(arr.target - arr.ttl)
+            if(arr.target){
+                trg += `<td>${arr.target}</td>`
+            } else{
+                trg += `<td>0</td>`
+            }
+            trg += `<td>${gap}</td>`
+        }
+        thn = document.getElementById('tahuns').value
+        $.get('/tahun', {tahun_awal:thn, group:tbl}, function (data, textStatus, jqXHR) {      
+            pieChart(data)
+            document.getElementById('data').innerHTML =""
+            if(tbl=='ttl'){
+                dana(data) 
+                skl(data)
+                rdm(data)
+                total(data)
+                mahasiswa(data)
+                Target(data)
+                document.getElementById('data').innerHTML=
+                `<div class="col-xl-8 col-xl-7">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        </div>
+                        <!-- Card Body -->
+                            <div class="card-body">
+                                <h5>Total</h5>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>jumlah</th>
+                                            <th>persen</th>
+                                            <th>target</th>
+                                            <th>selisih</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>total</td>
+                                            ${ttl}
+                                            ${trg}
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                PKM Yang Melibatakan Mahasiswa
+                                            </td>
+                                            ${mhs}
+                                        </tr>
+                                        <tr>
+                                            <td>Sumber Danaa</td>
+                                        </tr>
+                                                ${sumber}
+                                        <tr>
+                                            <td>Skala Kegiatan</td>
+                                        </tr>
+                                                ${skala}
+                                        <tr>
+                                            <td>Kesesuaian Dengan Roadmap</td>
+                                        </tr>
+                                                ${roadmap}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>`
+            }
+            else if(tbl=='luar'){
+                var luaran = "";
+                $.each(data, function(key,value){
+                        luaran += ` <tr>
+                                        <td>${key}</td>
+                                        <td>${value}</td>
+                                    </tr>`
+                })
+                document.getElementById('data').innerHTML+=
+                        `<div class="col-xl-8 col-xl-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                </div>
+                                <!-- Card Body -->
+                                    <div class="card-body">
+                                        <h5>Luaran</h5>
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>jumlah</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            ${luaran}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                        </div>`
+            }
+            else{
+                var arr=[];
+                $.each(data, function(key,value){
+                    arr[key]=value.ttl
+                    pieChart(arr)
+                    dana(value) 
+                    skl(value)
+                    rdm(value)
+                    total(value)
+                    mahasiswa(value)
+                    Target(value)
+                    document.getElementById('data').innerHTML+=
+                    `<div class="col-xl-8 col-xl-7">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div
+                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            </div>
+                            <!-- Card Body -->
+                                <div class="card-body">
+                                    <h5>${key}</h5>
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>jumlah</th>
+                                                <th>persen</th>
+                                                <th>target</th>
+                                                <th>selisih</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>total</td>
+                                                ${ttl}
+                                                ${trg}
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    PKM Yang Melibatakan Mahasiswa
+                                                </td>
+                                                ${mhs}
+                                            </tr>
+                                            <tr>
+                                                <td>Sumber Danaa</td>
+                                            </tr>
+                                                    ${sumber}
+                                            <tr>
+                                                <td>Skala Kegiatan</td>
+                                            </tr>
+                                                    ${skala}
+                                            <tr>
+                                                <td>Kesesuaian Dengan Roadmap</td>
+                                            </tr>
+                                                    ${roadmap}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>`
+                })
+            }
+           
         });
     }
+    pkm()
 </script>
 @endpush

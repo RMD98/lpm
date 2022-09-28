@@ -20,7 +20,9 @@ class Dosen extends Controller
     public function index()
     {
         //
-        $data = Dosens::get();
+        $data = Dosens::join('prodis','prodi','prodis.id')
+                        ->select('dosens.*','prodis.nama as nama_prodi')
+                        ->get();
         return view('dosen/dosen',['data'=>$data]);
         
     }

@@ -18,13 +18,10 @@ class CreateMitrapkmsTable extends Migration
             $table->string('jenis');
             $table->string('manfaat');
             $table->timestamps();
-        });
-        Schema::table('mitrapkms', function (Blueprint $table) {
-            $table->foreignId('id_pkm')->constrained('pkms')->cascadeOnUpdate()
-            ->cascadeOnDelete();
+            $table->foreignId('id_pkm')->nullable()->constrained('pkms')->cascadeOnUpdate()
+            ->nullOnDelete();
             $table->foreignId('id_mitra')->constrained('mitras')->cascadeOnUpdate()
             ->cascadeOnDelete();
-        
         });
     }
 

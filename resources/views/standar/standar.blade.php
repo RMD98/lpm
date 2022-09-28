@@ -22,6 +22,7 @@
                             <th>Tahun</th>
                             <th>Keterangan</th>
                             <th>Dokumen</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

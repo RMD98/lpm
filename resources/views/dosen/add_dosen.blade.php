@@ -25,7 +25,7 @@
                     <p><b>Program Studi</b>
                         <select name="prodi" id="prodi">
                             @foreach($data as $key=>$value)
-                                <option value="{{$data[$key]->nama}}">{{$data[$key]->nama}}</option>
+                                <option value="{{$value->id}}">{{$data[$key]->nama}}</option>
                             @endforeach
                         </select>
                     </p>

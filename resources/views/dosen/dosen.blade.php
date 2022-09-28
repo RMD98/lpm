@@ -30,7 +30,7 @@
                         <tr>
                             <td>{{ $value->nidn }}</td>
                             <td>{{ $value->nama }}</td>
-                            <td>{{ $value->prodi }}</td>
+                            <td>{{ $value->nama_prodi }}</td>
                             <td>{{ $value->pendidikan }}</td>
                             <td>{{ $value->jab_fungsional }}</td>
                             <td>{{ $value->golongan }}</td>

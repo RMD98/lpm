@@ -21,6 +21,7 @@ class Anggota extends Controller
     public function ketua($id){
         $data = Anggotas::where('id_pkm','=',$id)
                 ->where('jabatan','=','KETUA')
+                ->join('dosens','nidn','nidn_nrp')
                 ->get();
         $prodi = DB::table('prodis')->get();
 
