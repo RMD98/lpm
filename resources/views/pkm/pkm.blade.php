@@ -30,6 +30,7 @@
                             <th>Dana Pendamping</th>
                             <th>Labolatorium</th>
                             <th>Kelengkapan</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

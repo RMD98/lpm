@@ -38,5 +38,12 @@ class DatabaseSeeder extends Seeder
             DB::table('prodis')->insert(['kode'=>$value[0],'nama'=>$value[1],'fakultas'=>$value[2]]);
         }
         DB::table('users')->insert(['name'=>'admin','email'=>'admin@admin.com','role'=>'super admin','password'=>Hash::make('admin')]);
+        $data = array('Tidak ada','Paten','Paten sederhana','Perlindungan varietas tanaman','Hak Cipta','Merek Dagang','Rahasia dagang',
+                'Desain Produk Industri','Indikasi Geografis','Perlindungan Desain Tata Letak Sirkuit Terpadu','Teknologi Tepat Guna',
+                'Model','Purwarupa (Prototype)','Karya Desain/Seni/ Kriya/Bangunan dan Arsitektur','Rekayasa Sosial');
+
+        foreach($data as $key=>$value){
+            DB::table('sumberipteks')->insert(['sumber'=>$data[$key]]);
+        }
     }
 }

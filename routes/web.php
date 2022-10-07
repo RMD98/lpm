@@ -16,6 +16,7 @@ use App\Http\Controllers\Dosen;
 use App\Http\Controllers\Fakultas;
 use App\Http\Controllers\Prodi;
 use App\Http\Controllers\Target;
+use App\Http\Controllers\Sumber;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,6 +89,14 @@ Route::get('/edit_ub/{id}',[Unitbisnis::class,'edit']);
 Route::post('/edtub/{id}',[Unitbisnis::class,'update']);
 Route::get('/unit_bisnis/{id}',[Unitbisnis::class,'show']);
 Route::get('/del_ub/{id}',[Unitbisnis::class,'destroy']);
+
+//Dosen
+Route::get('/sumb',[Sumber::class,'index']);
+Route::get('/add_sumber',[Sumber::class,'create']);
+Route::post('/addsumber',[Sumber::class,'store']);
+Route::get('/edit_sumber/{id}',[Sumber::class,'edit']);
+Route::post('/edtsumber/{id}',[Sumber::class,'update']);
+Route::get('/del_sumber/{id}',[Sumber::class,'destroy']);
 
 //Dosen
 Route::get('/dosen',[Dosen::class,'index']);

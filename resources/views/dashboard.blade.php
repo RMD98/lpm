@@ -5,12 +5,13 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <select name="tahun" id="tahuns" onchange="pkm()">
-        @foreach($tahun as $key=>$value)
+    <h5 id='tahun'>
+        <select name="tahun" id="tahuns" class="form-control" onchange="pkm()">
+            @foreach($tahun as $key=>$value)
             <option value="{{$value->tahun_mulai}}">{{$value->tahun_mulai}}</option>
-        @endforeach
-    </select>
-    <h1 id='tahun'>Tahun</h1>
+            @endforeach
+        </select>
+    </h5>
 </div>
 
 <!-- Content Row -->
@@ -138,51 +139,6 @@
     
     
 </div>
-<div class="row" id="luaran" hidden>
-    <!-- Pie Chart -->
-    <div class="col-xl-8 col-xl-7">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <!-- <h5 class="m-0 font-weight-bold text-primary">PKM Total  = {{$count['ttl']['ttl']}}</h5> -->
-            </div>
-            <!-- Card Body -->
-                <div class="card-body">
-                    <!-- <div class="chart-pie">
-                        <canvas id="myPieChart"></canvas>
-                        <canvas id="myAreaChart"></canvas>
-                    </div> -->
-                    <h5>Luaran</h5>
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>jumlah</th>
-                                <th>persen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($luaran as $key=>$value)
-                                <tr>
-                                    <td>{{$key}}</td>
-                                    <td>{{$value}}</td>
-                                    <td>
-                                        @if($luaran['ttl']!=0)
-                                            {{$value * 100 / $luaran['ttl']}}%
-                                        @else
-                                            0%
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    
-</div>
 
 <!-- Content Row -->
 
@@ -190,23 +146,6 @@
 @stop
 @push('script')
 <script>
-    
-    var luaran = document.getElementById("luaran")
-
-    function Luar(array){
-        pieChart(array);
-        luaran.hidden = false
-        prod.hidden = true
-        ttl.hidden = true
-        fak.hidden = true
-    }
-    function Faks(array){
-        pieChart(array);
-        fak.hidden = false
-        prod.hidden = true
-        ttl.hidden = true
-        luaran.hidden = true
-    }
     function number_format(number, decimals, dec_point, thousands_sep) {
         // *     example: number_format(1234.56, 2, ',', ' ');
         // *     return: '1 234,56'
@@ -230,25 +169,28 @@
             s[1] += new Array(prec - s[1].length + 1).join('0');
         }
         return s.join(dec);
-        }
+    }
         var ctx = document.getElementById("myAreaChart");
         var myPieChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                     labels: [],
                     datasets: [{
                         label: "",
                         lineTension: 0.3,
+                        barThickness :6,
                         backgroundColor: "rgba(78, 115, 223, 0.05)",
-                        borderColor: "rgba(78, 115, 223, 1)",
+                        borderColor: "rgba(255, 0, 0, 1)",
                         pointRadius: 3,
-                        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointBackgroundColor: "rgba(200, 115, 223, 1)",
                         pointBorderColor: "rgba(78, 115, 223, 1)",
                         pointHoverRadius: 3,
                         pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
                         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
+                        base :0,
+                        beginAtZero:true,
                         data: [],
                     }],
                 },
@@ -264,64 +206,52 @@
                             },
                             scales: {
                             xAxes: [{
-                                time: {
-                                unit: 'date'
-                                },
                                 gridLines: {
-                                display: false,
-                                drawBorder: false
+                                    display: false,
+                                    drawBorder: false
                                 },
-                                ticks: {
-                                maxTicksLimit: 7
-                                }
                             }],
                             yAxes: [{
                                 ticks: {
-                                maxTicksLimit: 5,
-                                padding: 10,
-                                // Include a dollar sign in the ticks
-                                callback: function(value, index, values) {
-                                    return number_format(value);
-                                }
+                                    stepSize:1,
+                                    beginAtZero: true
                                 },
                                 gridLines: {
-                                color: "rgb(234, 236, 244)",
-                                zeroLineColor: "rgb(234, 236, 244)",
-                                drawBorder: false,
-                                borderDash: [2],
-                                zeroLineBorderDash: [2]
-                                }
+                                    color: "rgb(0, 0, 0)",
+                                    zeroLineColor: "rgb(234, 236, 244)",
+                                    drawBorder: true,
+                                    borderDash: [2],
+                                    zeroLineBorderDash: [2]
+                                },
+                                
                             }],
                             },
                             legend: {
-                            display: false
+                                display: false
                             },
                             tooltips: {
-                            backgroundColor: "rgb(255,255,255)",
-                            bodyFontColor: "#858796",
-                            titleMarginBottom: 10,
-                            titleFontColor: '#6e707e',
-                            titleFontSize: 14,
-                            borderColor: '#dddfeb',
-                            borderWidth: 1,
-                            xPadding: 15,
-                            yPadding: 15,
-                            displayColors: false,
-                            intersect: false,
-                            mode: 'index',
-                            caretPadding: 10,
-                            callbacks: {
-                                label: function(tooltipItem, chart) {
-                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                return datasetLabel  + number_format(tooltipItem.yLabel);
+                                backgroundColor: "rgb(255,255,255)",
+                                bodyFontColor: "#858796",
+                                titleMarginBottom: 10,
+                                titleFontColor: '#6e707e',
+                                titleFontSize: 14,
+                                borderColor: '#dddfeb',
+                                borderWidth: 1,
+                                xPadding: 15,
+                                yPadding: 15,
+                                displayColors: false,
+                                intersect: false,
+                                mode: 'index',
+                                caretPadding: 10,
+                                callbacks: {
+                                    label: function(tooltipItem, chart) {
+                                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                        return datasetLabel  + number_format(tooltipItem.yLabel);
+                                    }
                                 }
-                            }
                             }
                         }
         });
-    function aray(array){
-        pieChart(array);
-    }
     function pieChart(array){
         var data = array;
         var keys = Object.keys(data);
@@ -329,21 +259,14 @@
         var color = [];
         var percent = [];
         var dat = []
-        myPieChart.data.labels.forEach((labels)=>{
-            myPieChart.data.labels.forEach((labels)=>{
-                myPieChart.data.labels.pop();
-            });
-            myPieChart.data.labels.forEach((labels)=>{
-                myPieChart.data.labels.pop();
-            });
+        var i = 0;
+        while( i< myPieChart.data.datasets[0].data.length ){
             myPieChart.data.labels.pop();
-        });
-
+            i += 1
+        }
+        
         for(var i = 0 ; i<= keys.length - 1 ;i ++){
             values[i] = data[keys[i]];
-            // color[i] = '#'+Math.floor(Math.random()*16777215).toString(16);
-            // percent[i] = (values[i]*100)/{{$count['ttl']['ttl']}}
-            // dat[i] = values[i] + ' : ' + percent[i]
             myPieChart.data.labels.push(keys[i]);
         }
         Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -354,11 +277,10 @@
         myPieChart.data.datasets.pop();
         myPieChart.data.datasets.push({
             data : values,
-        //     backgroundColor: color,
+            backgroundColor: '#'+randomColor,
         })
         myPieChart.update();
     }
-    pieChart()
 </script>
 
 <script>
@@ -367,7 +289,7 @@
         pkm()
     }
     var thn = document.getElementById('tahuns').value;
-    var tbl = 'fak';   
+    var tbl = 'ttl';   
     var sumber = "";
     var skala ="";
     var roadmap ="";
@@ -376,7 +298,7 @@
     var trg = "";
     var gap = 0;
     function pkm(){
-        function dana (arr){
+        function rdm (arr){
             sumber = "";
             
             $.each(arr.dana,function(key,value){
@@ -398,8 +320,6 @@
                                 <td>${ttl}%</td>
                             </tr>`
             })
-        }
-        function rdm (arr){
             roadmap = "";
             $.each(arr.roadmap,function(key,value){
                 var ttl = 0;
@@ -420,29 +340,26 @@
                                 <td>${ttl}%</td>
                             </tr>`
             })
-        }
-        function skl (arr){
-            skala = "";
-            
-                $.each(arr.skala,function(key,value){
-                    var ttl = 0;
-                    if(arr.ttl == 0){
-                        ttl = 0;
-                    } else if(arr.ttl !=0){
-                        ttl = value * 100 / arr.ttl;
-                    }
-                    skala +=  `<tr>
-                                    <td>
-                                        <ul>
-                                            <li>
-                                                ${key}
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>${value}</td>
-                                    <td>${ttl}%</td>
-                                </tr>`
-                })
+            skala = "";          
+            $.each(arr.skala,function(key,value){
+                var ttl = 0;
+                if(arr.ttl == 0){
+                    ttl = 0;
+                } else if(arr.ttl !=0){
+                    ttl = value * 100 / arr.ttl;
+                }
+                skala +=  `<tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            ${key}
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>${value}</td>
+                                <td>${ttl}%</td>
+                            </tr>`
+            })
         }
         function total (arr){
             ttl = ""
@@ -475,13 +392,31 @@
             }
             trg += `<td>${gap}</td>`
         }
+        function Sum(arr){
+            var sum = 0
+                $.each(arr,function(key,value){
+                    sum += value
+                })
+                return sum;
+        }
         thn = document.getElementById('tahuns').value
         $.get('/tahun', {tahun_awal:thn, group:tbl}, function (data, textStatus, jqXHR) {      
-            pieChart(data)
             document.getElementById('data').innerHTML =""
             if(tbl=='ttl'){
-                dana(data) 
-                skl(data)
+                var arr = []
+                $.each(data.dana,function(key,value){
+                    arr[`Sumber  Dana (${key})`] = Sum(data.dana)
+                })
+                $.each(data.roadmap,function(key,value){
+                    arr[`Kesesuaian Roadmap (${key})`] = Sum(data.roadmap)
+                })
+                $.each(data.skala,function(key,value){
+                    arr[`Skala Kegiatan (${key})`] = Sum(data.skala
+                    )
+                })
+                arr['Total'] = data.ttl;
+                arr['PKM Yang Melibatkan Mahasiswa'] = data.mhs
+                pieChart(arr)
                 rdm(data)
                 total(data)
                 mahasiswa(data)
@@ -538,6 +473,7 @@
             }
             else if(tbl=='luar'){
                 var luaran = "";
+                pieChart(data)
                 $.each(data, function(key,value){
                         luaran += ` <tr>
                                         <td>${key}</td>
@@ -574,8 +510,6 @@
                 $.each(data, function(key,value){
                     arr[key]=value.ttl
                     pieChart(arr)
-                    dana(value) 
-                    skl(value)
                     rdm(value)
                     total(value)
                     mahasiswa(value)
