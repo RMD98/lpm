@@ -384,20 +384,17 @@
         }
         function Target(arr){
             trg = ""
-            gap = Math.abs(arr.target - arr.ttl)
+            gap = -1*(arr.target - arr.ttl)
             if(arr.target){
                 trg += `<td>${arr.target}</td>`
             } else{
                 trg += `<td>0</td>`
             }
-            trg += `<td>${gap}</td>`
-        }
-        function Sum(arr){
-            var sum = 0
-                $.each(arr,function(key,value){
-                    sum += value
-                })
-                return sum;
+            if(gap > 0){
+                trg += `<td> +${gap}</td>`
+            }else{
+                trg += `<td> ${gap}</td>`
+            }
         }
         thn = document.getElementById('tahuns').value
         $.get('/tahun', {tahun_awal:thn, group:tbl}, function (data, textStatus, jqXHR) {      
@@ -405,14 +402,13 @@
             if(tbl=='ttl'){
                 var arr = []
                 $.each(data.dana,function(key,value){
-                    arr[`Sumber  Dana (${key})`] = Sum(data.dana)
+                    arr[`Sumber  Dana (${key})`] = value
                 })
                 $.each(data.roadmap,function(key,value){
-                    arr[`Kesesuaian Roadmap (${key})`] = Sum(data.roadmap)
+                    arr[`Kesesuaian Roadmap (${key})`] = value
                 })
                 $.each(data.skala,function(key,value){
-                    arr[`Skala Kegiatan (${key})`] = Sum(data.skala
-                    )
+                    arr[`Skala Kegiatan (${key})`] = value
                 })
                 arr['Total'] = data.ttl;
                 arr['PKM Yang Melibatkan Mahasiswa'] = data.mhs
