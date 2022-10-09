@@ -19,13 +19,26 @@ class Anggota extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ketua($id){
-        $data = Anggotas::where('id_pkm','=',$id)
-                ->where('jabatan','=','KETUA')
-                ->join('dosens','nidn','nidn_nrp')
-                ->get();
         $prodi = DB::table('prodis')->get();
 
-        return view('pkm/ketua',['data'=>$data,'id'=>$id,'prodi'=>$prodi]);
+        return view('pkm/ketua',['id'=>$id,'prodi'=>$prodi]);
+    }
+    public function dosens(Request $request){
+        $nidn = $request->q;
+        if($nidn){
+            $data = Dosen::where('nidn',$nidn)->get();
+        } else{
+            $data = Dosen::get();
+        }
+
+        return response()->json($data);
+    }
+    public function ketuas(Request $request){
+        $data = Anggotas::where('id_pkm','=',$request->pkm)
+                ->where('jabatan','=','KETUA')
+                ->join('dosens','nidn','nidn_nrp')
+                ->first();
+        return response()->json($data);
     }
     public function mhs($id)
     {
@@ -56,26 +69,30 @@ class Anggota extends Controller
         return view('pkm/staff',['data'=>$data,'id'=>$id,'prodi'=>$prodi]);
     }
     public function upsirtketua($id,Request $request){
-        if($request->nidnbru){
-            foreach ($request->nidnbru as $key => $value) {
-                $ins = array(
-                    'id_pkm' => $id,
-                    'status'=>'DOSEN',
-                    'jabatan' => 'KETUA',
-                    'nama' => $request->namabru[$key],
-                    'nidn_nrp' => $request->nidnbru[$key]
-                );
-                Anggotas::insert($ins);
-                $insd = array(
-                    'nama' => $request->namabru[$key],
-                    'nidn' => $request->nidnbru[$key],
-                    'golongan'=>$request->golbru[$key],
-                    'jab_fungsional'=>$request->jabbru[$key],
-                    'pendidikan'=>$request->pendbru[$key],
-                    'prodi'=>$request->prodibru[$key],
-                );
-                Dosen::upsert($insd,'nidn',['golongan','jab_fungsional','pendidikan','prodi']);
-            }
+        $ins = array(
+            'id_pkm' => $id,
+            'status'=>'DOSEN',
+            'jabatan' => 'KETUA',
+            'nama' => $request->nama,
+            'nidn_nrp' => $request->nidn
+        );
+        if(Anggotas::where('id_pkm',$id)->where('jabatan','KETUA')->exists()){
+            Anggotas::where('id_pkm',$id)->where('jabatan','KETUA')->update($ins);
+        } else{
+            Anggotas::insert($ins);
+        }
+        $dsn = array(
+            'nidn' =>$request->nidn,
+            'nama' =>$request->nama,
+            'golongan'=>$request->gol,
+            'jab_fungsional'=>$request->jab,
+            'pendidikan'=>$request->pend,
+            'prodi'=>$request->prodi,
+        );
+        if(Dosen::where('nidn',$request->nidn)->exists()){
+            Dosen::where('nidn',$request->nidn)->update($dsn);
+        } else {
+            Dosen::insert($dsn);
         }
         return redirect()->action([Pkm::class,'show'],['id'=>$id]);
     }

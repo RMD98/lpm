@@ -139,6 +139,8 @@ Route::get('/pkm/mhs/{id}',[Anggota::class,'mhs']);
 Route::get('/pkm/alm/{id}',[Anggota::class,'alm']);
 Route::get('/pkm/staff/{id}',[Anggota::class,'staff']);
 Route::get('/pkm/ketua/{id}',[Anggota::class,'ketua']);
+Route::get('/ketuas',[Anggota::class,'ketuas']);
+Route::get('/dosens',[Anggota::class,'dosens']);
 Route::post('/editpkm/mhs/{id}',[Anggota::class,'upsirtmhs']);
 Route::post('/editpkm/alm/{id}',[Anggota::class,'upsirtalm']);
 Route::post('/editpkm/staff/{id}',[Anggota::class,'upsirtstaff']);

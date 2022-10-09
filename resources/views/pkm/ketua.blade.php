@@ -9,83 +9,96 @@
         <form action="/editpkm/ketua/{{$id}}" method="post">
             @csrf
             <div class="form-group row" id="isian">
-                @foreach($data as $key=>$value)
                 <div class="col-sm-6 mb-3 mb-sm-0 mt-2 ml-4 card shadows">
-                    <input type="text" class="form-control" id="ids[{{$key}}]" name="ids[{{$key}}]" value="{{$data[$key]->id}}">
+                    <input type="text" hidden class="form-control" id="id" name="id" value="{{$id}}">
                     <p><b>Nama</b>
-                        <input type="text" class="form-control" id="nama[{{$key}}]" name="nama[{{$key}}]" value="{{$data[$key]->nama}}"
+                        <input type="text" class="form-control" id="nama" name="nama" value=""
                         placeholder="Nama">
                     </p>
                     <p><b>NIDN</b>
-                        <input type="text" class="form-control" id="nidn[{{$key}}]" name="nidn[{{$key}}]" value="{{$data[$key]->nidn_nrp}}"
-                        placeholder="NIDN">
+                        <select onchange="Update()" class="form-control" required name="nidn" id="nidn">
+                            <option value=""></option>
+                        </select>
+                        <!-- <input type="text" class="form-control" id="nidn" name="nidn" value=""
+                        placeholder="NIDN"> -->
                     </p>
                     <p><b>Program Studi</b>
-                        <select class="form-control" name="prodi[{{$key}}]" id="prodi[{{$key}}]">
+                        <select class="form-control" name="prodi" id="prodi">
                             @foreach($prodi as $prodis)
-                                <option value="{{$prodis->id}}" {{$data[$key]->prodi == $prodis->id ? 'selected' : ' ' }}>{{$prodis->nama}}</option>
+                                <option value="{{$prodis->id}}">{{$prodis->nama}}</option>
                             @endforeach
                         </select>
                     </p>
                     <p><b>Jenjang Pendidikan</b>
-                        <input type="text" class="form-control" id="pend[{{$key}}]" name="pend[{{$key}}]" value="{{$data[$key]->pendidikan}}"
+                        <input type="text" class="form-control" id="pend" name="pend" value=""
                         placeholder="Jenjang Pendidikan">
                     </p>
                     <p><b>Jabatan Fungsional</b>
-                        <input type="text" class="form-control" id="jab[{{$key}}]" name="jab[{{$key}}]" value="{{$data[$key]->jab_fungsional}}"
+                        <input type="text" class="form-control" id="jab" name="jab" value=""
                         placeholder="Jabatan Fungsional">
                     </p>
                     <p><b>Golongan</b>
-                        <input type="text" class="form-control" id="gol[{{$key}}]" name="gol[{{$key}}]" value="{{$data[$key]->golongan}}"
+                        <input type="text" class="form-control" id="gol" name="gol" value=""
                         placeholder="Golongan">
                     </p>
                 </div>
-                @endforeach
             </div>
-            @if(count($data)==0)
-                <button class="ml-2" type="button" id="tmbh">Tambah</button>
-            @endif
             <button class="ml-2" type="submit">Submit</button>
         </form>
     </div>
 </div>
-<script language="javascript" type="text/javascript">
-            var i = 0;
-           document.getElementById("tmbh").onclick = function() {Tambah()};
-            // var x = document.querySelector('input[name="Ada"]:checked');
-            function Tambah(){
-                ++i;
-                document.getElementById("isian").insertAdjacentHTML('beforeend',`
-                <div class="col-sm-6 mb-3 mb-sm-0 mt-2 ml-4 card shadows">
-                    <p><b>Nama</b>
-                        <input type="text" class="form-control" id="namabru[`+i+`]" name="namabru[`+i+`]"
-                        placeholder="Nama">
-                    </p>
-                    <p><b>NIDN</b>
-                        <input type="text" class="form-control" id="nidnbru[`+i+`]" name="nidnbru[`+i+`]"
-                        placeholder="NIDN">
-                    </p>
-                    <p><b>Program Studi</b>
-                        <select class="form-control" name="prodibru[`+i+`]" id="prodibru[`+i+`]">
-                            @foreach($prodi as $prodi)
-                                <option value="{{$prodi->id}}">{{$prodi->nama}}</option>
-                            @endforeach
-                        </select>
-                    </p>
-                    <p><b>Jenjang Pendidikan</b>
-                        <input type="text" class="form-control" id="pendbru[`+i+`]" name="pendbru[`+i+`]"
-                        placeholder="Jenjang Pendidikan">
-                    </p>
-                    <p><b>Jabatan Fungsional</b>
-                        <input type="text" class="form-control" id="jabbru[`+i+`]" name="jabbru[`+i+`]"
-                        placeholder="Jabatan Fungsional">
-                    </p>
-                    <p><b>Golongan</b>
-                        <input type="text" class="form-control" id="golbru[`+i+`]" name="golbru[`+i+`]"
-                        placeholder="Golongan">
-                    </p>
-                </div>`)
-                document.getElementById("tmbh").remove();
-            }
-    </script>
+
 @stop
+@push('script')
+<script>
+        var id = document.getElementById("id").value
+        $.get('/ketuas', {pkm:id}, function (data, textStatus, jqXHR) { 
+            var prod = Object.keys(data)
+            console.log(prod.length)
+            if(prod.length != 0){
+                var newOption = new Option(data.nidn, data.nidn, true, true);
+                $('#nidn').append(newOption).trigger('change');
+                console.log(newOption);
+            }
+        })
+        $('#nidn').select2({
+                    placeholder: 'NIDN',
+                    ajax: {
+                        url: '/dosens',
+                        dataType: 'json',
+                        delay: 250,
+                        processResults: function (data) {
+                            return {
+                            results:  $.map(data, function (item) {
+                                    return {
+                                        text: item.nidn,
+                                        id: item.nidn
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                    tags: true,
+                    createTag: function(params){
+                        return{
+                            id : params.term,
+                            text : params.term,
+                            newOption : true
+                        }
+                    },
+                });
+        function Update(){
+            var dt = $('#nidn').select2('val');
+            $.get('/dosens', {q:dt}, function (data, textStatus, jqXHR){
+                document.getElementById('nama').value = data[0].nama;
+                document.getElementById('nidn').value = data[0].nidn;
+                document.getElementById('pend').value = data[0].pendidikan;
+                document.getElementById('jab').value = data[0].jab_fungsional;
+                document.getElementById('gol').value = data[0].golongan;
+                $(`select[name='prodi'] option[value='${data[0].prodi}']`).prop('selected',true);
+                console.log(data)
+            })
+        }
+</script>
+@endpush
