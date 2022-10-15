@@ -97,6 +97,8 @@ class Pkm extends Controller
                 ->join('dosens','ag.nidn_nrp','=','dosens.nidn')
                 ->where('id_pkm','=',$id)
                 ->where('ag.status','=','DOSEN')
+                ->join('prodis','dosens.prodi','prodis.id')
+                ->select('prodis.nama as prodis','dosens.*','ag.*')
                 ->get();
         $ketua=[];
         $staff=[];

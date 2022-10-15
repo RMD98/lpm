@@ -56,7 +56,7 @@
                                     <tr>
                                         <td>{{$ketua->nama}}</td>
                                         <td>{{$ketua->nidn}}</td>
-                                        <td>{{$ketua->prodi}}</td>
+                                        <td>{{$ketua->prodis}}</td>
                                         <td>{{$ketua->pendidikan}}</td>
                                         <td>{{$ketua->jab_fungsional}}</td>
                                         <td>{{$ketua->golongan}}</td>
@@ -84,7 +84,7 @@
                                     <tr>
                                         <td>{{$staff->nama}}</td>
                                         <td>{{$staff->nidn}}</td>
-                                        <td>{{$staff->prodi}}</td>
+                                        <td>{{$staff->prodis}}</td>
                                         <td>{{$staff->pendidikan}}</td>
                                         <td>{{$staff->jab_fungsional}}</td>
                                         <td>{{$staff->golongan}}</td>

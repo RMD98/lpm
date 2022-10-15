@@ -16,7 +16,7 @@
                         placeholder="Nama">
                     </p>
                     <p><b>NIDN</b>
-                        <select onchange="Update()" class="form-control" required name="nidn" id="nidn">
+                        <select onchange="Update()" class="nidn form-control" required name="nidn" id="nidn">
                             <option value=""></option>
                         </select>
                         <!-- <input type="text" class="form-control" id="nidn" name="nidn" value=""
@@ -57,47 +57,20 @@
             console.log(prod.length)
             if(prod.length != 0){
                 var newOption = new Option(data.nidn, data.nidn, true, true);
-                $('#nidn').append(newOption).trigger('change');
+                $('.nidn').append(newOption).trigger('change');
                 console.log(newOption);
             }
         })
-        $('#nidn').select2({
-                    placeholder: 'NIDN',
-                    ajax: {
-                        url: '/dosens',
-                        dataType: 'json',
-                        delay: 250,
-                        processResults: function (data) {
-                            return {
-                            results:  $.map(data, function (item) {
-                                    return {
-                                        text: item.nidn,
-                                        id: item.nidn
-                                    }
-                                })
-                            };
-                        },
-                        cache: true
-                    },
-                    tags: true,
-                    createTag: function(params){
-                        return{
-                            id : params.term,
-                            text : params.term,
-                            newOption : true
-                        }
-                    },
-                });
         function Update(){
-            var dt = $('#nidn').select2('val');
+            var dt = $('#nidn').val();
+            console.log(dt)
             $.get('/dosens', {q:dt}, function (data, textStatus, jqXHR){
-                document.getElementById('nama').value = data[0].nama;
-                document.getElementById('nidn').value = data[0].nidn;
-                document.getElementById('pend').value = data[0].pendidikan;
-                document.getElementById('jab').value = data[0].jab_fungsional;
-                document.getElementById('gol').value = data[0].golongan;
-                $(`select[name='prodi'] option[value='${data[0].prodi}']`).prop('selected',true);
-                console.log(data)
+                document.getElementById('nama').value = data.nama;
+                document.getElementById('nidn').value = data.nidn;
+                document.getElementById('pend').value = data.pendidikan;
+                document.getElementById('jab').value = data.jab_fungsional;
+                document.getElementById('gol').value = data.golongan;
+                $(`select[name='prodi'] option[value='${data.prodi}']`).prop('selected',true);
             })
         }
 </script>

@@ -26,7 +26,7 @@ class Anggota extends Controller
     public function dosens(Request $request){
         $nidn = $request->q;
         if($nidn){
-            $data = Dosen::where('nidn',$nidn)->get();
+            $data = Dosen::where('nidn',$nidn)->first();
         } else{
             $data = Dosen::get();
         }
@@ -67,6 +67,14 @@ class Anggota extends Controller
                 ->get();
         $prodi = Prodi::get();
         return view('pkm/staff',['data'=>$data,'id'=>$id,'prodi'=>$prodi]);
+    }
+    public function staffs(Request $request){
+        $data = Anggotas::where('id_pkm',$request->pkm)
+                ->where('status','DOSEN')
+                ->where('jabatan','ANGGOTA')
+                ->get();
+
+        return response()->json($data);
     }
     public function upsirtketua($id,Request $request){
         $ins = array(
@@ -116,17 +124,21 @@ class Anggota extends Controller
                     'pendidikan'=>$request->pendbru[$key],
                     'prodi'=>$request->prodibru[$key],
                 );
-                Dosen::upsert($insd,'nidn',['golongan','jab_fungsional','pendidikan','prodi']);
+                if(Dosen::where('nidn',$request->nidnbru[$key])->exists()){
+                    Dosen::where('nidn',$request->nidnbru[$key])->update($insd);
+                }else{
+                    Dosen::insert($insd);
+                }
+
             }
         }
         if($request->nidn){
-
             foreach($request->ids as $key=>$value){
                 $up = array(
                     'nama' => $request->nama[$key],
                     'nidn_nrp' => $request->nidn[$key]
                 );
-                Anggotas::where('id','=',$request->id[$key])->update($up);
+                Anggotas::where('id','=',$request->ids[$key])->update($up);
                 $upd = array(
                     'nama' => $request->nama[$key],
                     'golongan'=>$request->gol[$key],

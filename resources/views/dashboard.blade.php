@@ -146,30 +146,6 @@
 @stop
 @push('script')
 <script>
-    function number_format(number, decimals, dec_point, thousands_sep) {
-        // *     example: number_format(1234.56, 2, ',', ' ');
-        // *     return: '1 234,56'
-        number = (number + '').replace(',', '').replace(' ', '');
-        var n = !isFinite(+number) ? 0 : +number,
-            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-            s = '',
-            toFixedFix = function(n, prec) {
-            var k = Math.pow(10, prec);
-            return '' + Math.round(n * k) / k;
-            };
-        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-        if (s[0].length > 3) {
-            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-        }
-        if ((s[1] || '').length < prec) {
-            s[1] = s[1] || '';
-            s[1] += new Array(prec - s[1].length + 1).join('0');
-        }
-        return s.join(dec);
-    }
         var ctx = document.getElementById("myAreaChart");
         var myPieChart = new Chart(ctx, {
             type: 'bar',
@@ -197,34 +173,44 @@
                 options: {
                             maintainAspectRatio: false,
                             layout: {
-                            padding: {
-                                left: 10,
-                                right: 25,
-                                top: 25,
-                                bottom: 0
-                            }
+                                padding: {
+                                    left: 10,
+                                    right: 25,
+                                    top: 25,
+                                    bottom: 0
+                                }
                             },
                             scales: {
-                            xAxes: [{
-                                gridLines: {
-                                    display: false,
-                                    drawBorder: false
-                                },
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    stepSize:1,
-                                    beginAtZero: true
-                                },
-                                gridLines: {
-                                    color: "rgb(0, 0, 0)",
-                                    zeroLineColor: "rgb(234, 236, 244)",
-                                    drawBorder: true,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                },
-                                
-                            }],
+                                xAxes: [{
+                                    gridLines: {
+                                        display: false,
+                                        drawBorder: false
+                                    },
+                                    ticks :{
+                                        callback: function(label) {
+                                            if (/\s/.test(label)) {
+                                                return label.split(" ");
+                                            }else{
+                                                return label;
+                                            }              
+                                        },
+                                        fontSize : 14,
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        stepSize:1,
+                                        beginAtZero: true
+                                    },
+                                    gridLines: {
+                                        color: "rgb(0, 0, 0)",
+                                        zeroLineColor: "rgb(0, 0, 0)",
+                                        drawBorder: true,
+                                        borderDash: [10],
+                                        zeroLineBorderDash: [0]
+                                    },
+                                    
+                                }],
                             },
                             legend: {
                                 display: false
@@ -243,12 +229,6 @@
                                 intersect: false,
                                 mode: 'index',
                                 caretPadding: 10,
-                                callbacks: {
-                                    label: function(tooltipItem, chart) {
-                                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                        return datasetLabel  + number_format(tooltipItem.yLabel);
-                                    }
-                                }
                             }
                         }
         });
@@ -285,6 +265,7 @@
 
 <script>
     function Tbl(tab){
+        // Ubah Tabel
         tbl = tab
         pkm()
     }
@@ -299,6 +280,7 @@
     var gap = 0;
     function pkm(){
         function rdm (arr){
+            //kolom kesesuaian roadmap
             sumber = "";
             
             $.each(arr.dana,function(key,value){
@@ -362,6 +344,7 @@
             })
         }
         function total (arr){
+            // kolom total
             ttl = ""
             if(arr.ttl != 0){
                 ttl = ` <td>${arr.ttl}</td>
@@ -373,6 +356,7 @@
             
         }
         function mahasiswa(arr){
+            //kolom mahasiswa
             mhs = ""
             if(arr.mhs != 0){
                 mhs = ` <td>${arr.mhs}</td>
@@ -383,6 +367,7 @@
             }
         }
         function Target(arr){
+            // kolom target
             trg = ""
             gap = -1*(arr.target - arr.ttl)
             if(arr.target){
@@ -402,7 +387,7 @@
             if(tbl=='ttl'){
                 var arr = []
                 $.each(data.dana,function(key,value){
-                    arr[`Sumber  Dana (${key})`] = value
+                    arr[`Sumber Dana (${key})`] = value
                 })
                 $.each(data.roadmap,function(key,value){
                     arr[`Kesesuaian Roadmap (${key})`] = value
