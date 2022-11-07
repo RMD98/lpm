@@ -22,7 +22,7 @@ use DB;
 class Home extends Controller
 {
     public function index(){
-        $tahun = DB::table('pkms')->groupBy('tahun_mulai')->select('tanggal_mulai')->get();
+        $tahun = DB::table('pkms')->groupBy('tahun_mulai')->select('tahun_mulai')->get();
         $count = $this->ttl();   
         $luaran = $this->luaran();
         // echo $count[0]['ttl'];
