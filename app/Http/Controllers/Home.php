@@ -284,7 +284,7 @@ class Home extends Controller
         $luaran['prodser'] = Prodtersertifikasi::count();
         $luaran['prodstan'] = Prodterstandarisasi::count();
         $luaran['media'] = Mediamassa::count();
-        $luaran['jurnal'] = Jurnalint::count();
+        $luaran['jurnal'] = DB::table('jurnalints')->count();
         $luaran['wbm'] = wbm::count();
         $luaran['haki'] = Haki::count();
         $luaran['buku'] = Buku::count();
