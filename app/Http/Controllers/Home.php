@@ -192,7 +192,7 @@ class Home extends Controller
     public function ttl(){
         
         $ttl['ttl'] = Pkm::count();
-        $mhsa = Anggota::where('status','MAHASISWA')->groupBy('id_pkm')->select('*')->get();
+        $mhsa = Anggota::where('status','MAHASISWA')->groupBy('id_pkm')->select('anggotas.*')->get();
         $mhs['ttl'] = count($mhsa);
         $smbrs = Pkm::groupBy('sumberdana')->get();
         $smbr['ttl']=[];
