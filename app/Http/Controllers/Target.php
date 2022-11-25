@@ -13,7 +13,7 @@ class Target extends Controller
      */
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('checkRole:super admin');
+        // $this->middleware('checkRole:super admin');
     }
     public function index()
     {
