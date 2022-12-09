@@ -183,9 +183,10 @@ class Pkm extends Controller
      */
     public function edit($id)
     {
-            $data = Pkms::where('id','=',$id)->get();
+            $data = Pkms::where('id','=',$id)->first();
+            $iptek = Sumberiptek::get();
             // $prodi = DB::table('prodi')->get();
-            return view('pkm/edit_pkm',['data'=>$data[0]]);
+            return view('pkm/edit_pkm',compact('data','iptek'));
     }
 
     

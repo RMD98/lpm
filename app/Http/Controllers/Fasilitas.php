@@ -93,19 +93,23 @@ class Fasilitas extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $old = fasil::where('id',$id)->first();
-        if($old->SK){
-            \Storage::move($old->SK,'old/'.$old->SK);
+        $data = array (
+            'NamaLab' => $request->NamaLab,
+            'Lingkup' => $request->Lingkup,
+        );
+        if($request->SK){
+            
+            if($old->SK){
+                \Storage::move($old->SK,'old/'.$old->SK);
+            }
+            $SK = $request->file('filesk')->store('fasilitas');
+            $data = array_merge_recursive($data,['SK'=>$sk]);
         }
-        $SK = $request->file('filesk')->store('fasilitas');
-            $data = array (
-                'NamaLab' => $request->NamaLab,
-                'Lingkup' => $request->Lingkup,
-                'SK' => $SK,
-            );
-            fasil::where('id',$id)->update($data);
-            // return $data;
-            return redirect()->action([Fasilitas::class,'index']);
+        fasil::where('id',$id)->update($data);
+        
+        return redirect()->action([Fasilitas::class,'index']);
     }
 
     /**

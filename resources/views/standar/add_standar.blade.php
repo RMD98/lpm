@@ -11,24 +11,24 @@
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nama</b>
-                        <input type="text" class="form-control" id="nama" name="nama"
+                        <input type="text" class="form-control" id="nama" name="nama" required
                         placeholder="Nama">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Nomor</b>
-                        <input type="number" class="form-control" id="nomor" name="nomor"
+                        <input type="number" class="form-control" id="nomor" name="nomor" required
                         placeholder="Nomor">
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Tahun</b>
-                        <input type="number" class="form-control" id="tahun" name="tahun" placeholder="Tahun">
+                        <input type="number" class="form-control" id="tahun" name="tahun" placeholder="Tahun" required> 
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Keterangan</b>
-                        <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan">
+                        <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan" required>
                     </p>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">

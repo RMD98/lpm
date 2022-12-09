@@ -11,7 +11,7 @@
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Tahun</b>
-                    <input type="number" unique class="form-control" id="tahun" name="tahun"
+                    <input type="number" unique class="form-control" id="tahun" name="tahun" required
                     placeholder="Tahun">
                     </p>
                     @if($errors->any())

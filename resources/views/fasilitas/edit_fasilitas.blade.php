@@ -27,8 +27,7 @@
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Surat Keterangan</b>
                     <label for="Ada">
-                        <input type="checkbox" id="Ada"> Ada
-                        <input type="file" id="filesk" accept=".pdf" disabled=true name="filesk">
+                        <input type="file" id="filesk" accept=".pdf" name="filesk">
                     </label>
                 </p>
                 </div>
@@ -37,18 +36,4 @@
         </form>
     </div>
 </div>
-<script language="javascript" type="text/javascript">
-            document.getElementById("Ada").onchange = function() {file()};
-            // var x = document.querySelector('input[name="Ada"]:checked');
-            function file(){
-                var x = document.getElementById("Ada");
-                var y = document.getElementById("filesk");
-                if(x.checked){
-                    y.disabled = false
-                }
-                else{
-                    y.disabled = true
-                }
-            }
-    </script>
 @stop

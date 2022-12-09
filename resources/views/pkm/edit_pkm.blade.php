@@ -76,7 +76,9 @@
                 <div class="col-sm-6 mb-3 mb-sm-0 ml-2">
                     <p><b>Sumber Daya IPTEK Yang Digunakan</b>
                         <select name="sumberiptek" id="sumberiptek">
-                            <option value=""></option>
+                            @foreach($iptek as $iptek)
+                                <option value="<?php echo $iptek->sumber?>"><?php echo $iptek->sumber?></option>
+                            @endforeach
                         </select>
                     </p>
                 </div>
